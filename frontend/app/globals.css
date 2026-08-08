@@ -57,75 +57,8 @@
   --radius: 0rem;
 }
 
-/* 1. Midnight Navy + Electric Blue */
-.theme-midnight-navy {
-  --background: #080D18;
-  --card: #101827;
-  --foreground: #F2F5F7;
-  --muted-foreground: #9BA8B8;
-  --primary: #5B8CFF;
-  --accent: #5B8CFF;
-  --accent-highlight: #8FB3FF;
-  --border: rgba(242, 245, 247, 0.1);
-  --input: rgba(242, 245, 247, 0.12);
-  --ring: #5B8CFF;
-}
 
-/* 2. Obsidian + Deep Forest + Sage */
-.theme-forest-sage {
-  --background: #080C0A;
-  --card: #101713;
-  --foreground: #F1F3ED;
-  --muted-foreground: #A6AEA4;
-  --primary: #7E9B83;
-  --accent: #7E9B83;
-  --accent-highlight: #B6C8AE;
-  --border: rgba(241, 243, 237, 0.1);
-  --input: rgba(241, 243, 237, 0.12);
-  --ring: #7E9B83;
-}
 
-/* 3. Charcoal + Burgundy + Rose */
-.theme-burgundy-rose {
-  --background: #0D0A0C;
-  --card: #181114;
-  --foreground: #F5F0F1;
-  --muted-foreground: #AAA0A4;
-  --primary: #9E4658;
-  --accent: #9E4658;
-  --accent-highlight: #D47B8D;
-  --border: rgba(255, 240, 241, 0.1);
-  --input: rgba(255, 240, 241, 0.12);
-  --ring: #9E4658;
-}
-
-/* 4. Midnight Plum + Lavender */
-.theme-midnight-plum {
-  --background: #0C0912;
-  --card: #16111E;
-  --foreground: #F4F0F8;
-  --muted-foreground: #A9A0B3;
-  --primary: #9B7BC4;
-  --accent: #9B7BC4;
-  --accent-highlight: #C6A9E8;
-  --border: rgba(244, 240, 248, 0.1);
-  --input: rgba(244, 240, 248, 0.12);
-  --ring: #9B7BC4;
-}
-
-/* 5. Espresso + Terracotta + Ivory */
-.theme-espresso-terracotta {
-  --background: #100D0B;
-  --card: #1B1512;
-  --foreground: #F4EEE5;
-  --muted-foreground: #B4A79B;
-  --primary: #B86F52;
-  --accent: #B86F52;
-  --accent-highlight: #D99A78;
-  --border: rgba(244, 238, 229, 0.1);
-  --input: rgba(244, 238, 229, 0.12);
-  --ring: #B86F52;
-}
 
 @layer base {
   * {

@@ -20,9 +20,9 @@ export default function Footer() {
         <div className="space-y-4">
           <h4 className="text-xs font-sans tracking-[0.2em] text-foreground uppercase">STUDIO</h4>
           <ul className="space-y-2 text-xs">
-            <li><a href="#work" className="hover:text-foreground transition-colors">SELECTED WORK</a></li>
-            <li><a href="#services" className="hover:text-foreground transition-colors">EXPERIENCES</a></li>
-            <li><a href="#about" className="hover:text-foreground transition-colors">OUR STORY</a></li>
+            <li><Link href="/work" className="hover:text-foreground transition-colors">SELECTED WORK</Link></li>
+            <li><Link href="/services" className="hover:text-foreground transition-colors">EXPERIENCES</Link></li>
+            <li><Link href="/about" className="hover:text-foreground transition-colors">OUR STORY</Link></li>
           </ul>
         </div>
 

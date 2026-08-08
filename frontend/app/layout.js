@@ -1,6 +1,5 @@
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
-import ThemeLab from "@/components/ThemeLab";
 
 const serifFont = Cormorant_Garamond({
   variable: "--font-serif",
@@ -27,7 +26,6 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col bg-background text-foreground selection:bg-primary/30 selection:text-foreground">
         {children}
-        <ThemeLab />
       </body>
     </html>
   );

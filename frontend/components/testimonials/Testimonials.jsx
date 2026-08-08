@@ -85,7 +85,7 @@ export default function Testimonials() {
           </span>
           <div className="relative h-[40vh] w-full bg-card overflow-hidden border border-border group">
             <Image
-              src="https://images.unsplash.com/photo-1452780212940-6f5c0d14d84a?q=80&w=800&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800&auto=format&fit=crop"
               alt="Behind the Scenes Studio Session"
               fill
               className="object-cover transition-transform duration-700 group-hover:scale-103"

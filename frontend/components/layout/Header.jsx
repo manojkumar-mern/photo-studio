@@ -8,10 +8,10 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: "SELECTED WORK", href: "#work" },
-    { name: "SERVICES", href: "#services" },
-    { name: "ABOUT", href: "#about" },
-    { name: "TESTIMONIALS", href: "#testimonials" },
+    { name: "ABOUT", href: "/about" },
+    { name: "WORK", href: "/work" },
+    { name: "SERVICES", href: "/services" },
+    { name: "CONTACT", href: "/contact" },
   ];
 
   return (
@@ -26,16 +26,16 @@ export default function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
                 href={link.href}
                 className="text-xs font-sans tracking-[0.2em] text-muted-foreground hover:text-foreground transition-colors editorial-underline"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
             <Link
-              href="#book"
+              href="/booking"
               className="text-xs font-sans tracking-[0.2em] border border-primary/30 hover:border-primary text-primary hover:bg-primary hover:text-primary-foreground px-6 py-2 transition-all duration-300"
             >
               BOOK SESSION
@@ -75,13 +75,13 @@ export default function Header() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.05 }}
                 >
-                  <a
+                  <Link
                     href={link.href}
                     onClick={() => setIsOpen(false)}
                     className="text-lg font-serif tracking-[0.15em] text-muted-foreground hover:text-foreground"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </motion.div>
               ))}
               <motion.div
@@ -91,7 +91,7 @@ export default function Header() {
                 className="pt-6"
               >
                 <Link
-                  href="#book"
+                  href="/booking"
                   onClick={() => setIsOpen(false)}
                   className="inline-block text-xs font-sans tracking-[0.2em] border border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-3 w-full max-w-[280px]"
                 >
