@@ -49,13 +49,13 @@ export default function SelectedWork() {
   }, []);
 
   return (
-    <div id="work" ref={containerRef} className="relative bg-[#0C0C0D] z-20">
+    <div id="work" ref={containerRef} className="relative bg-background z-20">
       {/* Section Header */}
       <div className="px-6 md:px-12 py-16 md:py-24 max-w-7xl mx-auto">
-        <span className="text-[10px] font-sans tracking-[0.3em] text-[#C5A880] uppercase block mb-3">
+        <span className="text-[10px] font-sans tracking-[0.3em] text-primary block mb-3 uppercase">
           PORTFOLIO SELECTION
         </span>
-        <h2 className="text-3xl md:text-5xl font-serif text-[#F4F1EA]">
+        <h2 className="text-3xl md:text-5xl font-serif text-foreground">
           Selected narratives
         </h2>
       </div>
@@ -69,7 +69,7 @@ export default function SelectedWork() {
           {portfolioItems.map((item) => (
             <div
               key={item.id}
-              className="relative w-[80vw] sm:w-[50vw] lg:w-[45vw] h-[55vh] lg:h-full bg-[#161618] flex-shrink-0 group overflow-hidden border border-white/5"
+              className="relative w-[80vw] sm:w-[50vw] lg:w-[45vw] h-[55vh] lg:h-full bg-card flex-shrink-0 group overflow-hidden border border-border"
             >
               {/* Image Container */}
               <div className="relative w-full h-full">
@@ -86,17 +86,17 @@ export default function SelectedWork() {
 
               {/* Text Hover Content - Focus on Client Experience */}
               <div className="absolute inset-0 p-6 md:p-10 flex flex-col justify-end text-left">
-                <span className="text-[10px] font-sans tracking-[0.25em] text-[#C5A880] mb-2 uppercase">
+                <span className="text-[10px] font-sans tracking-[0.25em] text-primary mb-2 uppercase">
                   {item.category}
                 </span>
-                <h3 className="text-2xl md:text-3xl font-serif text-[#F4F1EA] mb-1">
+                <h3 className="text-2xl md:text-3xl font-serif text-foreground mb-1">
                   {item.title}
                 </h3>
-                <p className="text-xs font-sans text-[#8E8E93] tracking-[0.1em] mb-6">
+                <p className="text-xs font-sans text-muted-foreground tracking-[0.1em] mb-6">
                   {item.location} · {item.year}
                 </p>
                 <div className="overflow-hidden">
-                  <span className="text-[10px] font-sans tracking-[0.25em] text-[#F4F1EA] group-hover:text-[#C5A880] inline-flex items-center gap-2 transform translate-y-6 group-hover:translate-y-0 transition-transform duration-300">
+                  <span className="text-[10px] font-sans tracking-[0.25em] text-foreground group-hover:text-primary inline-flex items-center gap-2 transform translate-y-6 group-hover:translate-y-0 transition-transform duration-300">
                     VIEW STORY <span className="text-xs">→</span>
                   </span>
                 </div>

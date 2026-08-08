@@ -54,19 +54,19 @@ export default function BookingWizard() {
   };
 
   return (
-    <section id="book" className="relative bg-[#0C0C0D] py-24 md:py-36 px-6 md:px-12 z-20">
-      <div className="max-w-3xl mx-auto border border-white/5 bg-[#161618] p-8 md:p-12">
+    <section id="book" className="relative bg-background py-24 md:py-36 px-6 md:px-12 z-20">
+      <div className="max-w-3xl mx-auto border border-border bg-card p-8 md:p-12">
         
         {/* Header Block */}
         <div className="mb-10 text-center md:text-left">
-          <span className="text-[10px] font-sans tracking-[0.3em] text-[#C5A880] uppercase block mb-3">
+          <span className="text-[10px] font-sans tracking-[0.3em] text-primary uppercase block mb-3">
             ENQUIRY PORTAL
           </span>
-          <h2 className="text-3xl font-serif text-[#F4F1EA]">
+          <h2 className="text-3xl font-serif text-foreground">
             Begin your story
           </h2>
           {step < 5 && (
-            <p className="text-xs font-sans text-[#8E8E93] mt-2">
+            <p className="text-xs font-sans text-muted-foreground mt-2">
               Step {step} of 4: {
                 step === 1 ? "Select Photography Format" : 
                 step === 2 ? "Date Preference" : 
@@ -93,8 +93,8 @@ export default function BookingWizard() {
                     key={srv}
                     type="button"
                     onClick={() => handleSelectService(srv)}
-                    className={`p-6 border text-left font-serif text-lg tracking-wide hover:border-[#C5A880] transition-colors duration-300 ${
-                      formData.service === srv ? "border-[#C5A880] bg-[#C5A880]/5" : "border-white/5 bg-[#0C0C0D]"
+                    className={`p-6 border text-left font-serif text-lg tracking-wide hover:border-primary transition-colors duration-300 ${
+                      formData.service === srv ? "border-primary bg-primary/5" : "border-border bg-background"
                     }`}
                   >
                     {srv}
@@ -113,7 +113,7 @@ export default function BookingWizard() {
                 className="space-y-6"
               >
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="date" className="text-xs font-sans tracking-widest text-[#8E8E93] uppercase">
+                  <label htmlFor="date" className="text-xs font-sans tracking-widest text-muted-foreground uppercase">
                     Preferred Session Date
                   </label>
                   <input
@@ -123,7 +123,7 @@ export default function BookingWizard() {
                     required
                     value={formData.date}
                     onChange={handleInputChange}
-                    className="w-full bg-[#0C0C0D] border border-white/5 p-4 text-sm text-[#F4F1EA] focus:outline-none focus:border-[#C5A880] transition-colors"
+                    className="w-full bg-background border border-border p-4 text-sm text-foreground focus:outline-none focus:border-primary transition-colors"
                   />
                 </div>
 
@@ -131,7 +131,7 @@ export default function BookingWizard() {
                   <button
                     type="button"
                     onClick={prevStep}
-                    className="text-xs font-sans tracking-widest text-[#8E8E93] hover:text-[#F4F1EA]"
+                    className="text-xs font-sans tracking-widest text-muted-foreground hover:text-foreground"
                   >
                     BACK
                   </button>
@@ -139,7 +139,7 @@ export default function BookingWizard() {
                     type="button"
                     onClick={nextStep}
                     disabled={!formData.date}
-                    className="text-xs font-sans tracking-widest text-[#C5A880] hover:text-[#F4F1EA] disabled:opacity-40"
+                    className="text-xs font-sans tracking-widest text-primary hover:text-foreground disabled:opacity-40"
                   >
                     CONTINUE
                   </button>
@@ -157,7 +157,7 @@ export default function BookingWizard() {
                 className="space-y-4"
               >
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="name" className="text-xs font-sans tracking-widest text-[#8E8E93] uppercase">
+                  <label htmlFor="name" className="text-xs font-sans tracking-widest text-muted-foreground uppercase">
                     Full Name
                   </label>
                   <input
@@ -168,12 +168,12 @@ export default function BookingWizard() {
                     placeholder="[Client Name]"
                     value={formData.name}
                     onChange={handleInputChange}
-                    className="w-full bg-[#0C0C0D] border border-white/5 p-4 text-sm text-[#F4F1EA] focus:outline-none focus:border-[#C5A880] transition-colors"
+                    className="w-full bg-background border border-border p-4 text-sm text-foreground focus:outline-none focus:border-primary transition-colors"
                   />
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="email" className="text-xs font-sans tracking-widest text-[#8E8E93] uppercase">
+                  <label htmlFor="email" className="text-xs font-sans tracking-widest text-muted-foreground uppercase">
                     Email Address
                   </label>
                   <input
@@ -184,12 +184,12 @@ export default function BookingWizard() {
                     placeholder="[client@email.com]"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full bg-[#0C0C0D] border border-white/5 p-4 text-sm text-[#F4F1EA] focus:outline-none focus:border-[#C5A880] transition-colors"
+                    className="w-full bg-background border border-border p-4 text-sm text-foreground focus:outline-none focus:border-primary transition-colors"
                   />
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="phone" className="text-xs font-sans tracking-widest text-[#8E8E93] uppercase">
+                  <label htmlFor="phone" className="text-xs font-sans tracking-widest text-muted-foreground uppercase">
                     Phone Number
                   </label>
                   <input
@@ -200,7 +200,7 @@ export default function BookingWizard() {
                     placeholder="[+91 00000 00000]"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="w-full bg-[#0C0C0D] border border-white/5 p-4 text-sm text-[#F4F1EA] focus:outline-none focus:border-[#C5A880] transition-colors"
+                    className="w-full bg-background border border-border p-4 text-sm text-foreground focus:outline-none focus:border-primary transition-colors"
                   />
                 </div>
 
@@ -208,7 +208,7 @@ export default function BookingWizard() {
                   <button
                     type="button"
                     onClick={prevStep}
-                    className="text-xs font-sans tracking-widest text-[#8E8E93] hover:text-[#F4F1EA]"
+                    className="text-xs font-sans tracking-widest text-muted-foreground hover:text-foreground"
                   >
                     BACK
                   </button>
@@ -216,7 +216,7 @@ export default function BookingWizard() {
                     type="button"
                     onClick={nextStep}
                     disabled={!formData.name || !formData.email || !formData.phone}
-                    className="text-xs font-sans tracking-widest text-[#C5A880] hover:text-[#F4F1EA] disabled:opacity-40"
+                    className="text-xs font-sans tracking-widest text-primary hover:text-foreground disabled:opacity-40"
                   >
                     CONTINUE
                   </button>
@@ -234,7 +234,7 @@ export default function BookingWizard() {
                 className="space-y-6"
               >
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="scope" className="text-xs font-sans tracking-widest text-[#8E8E93] uppercase">
+                  <label htmlFor="scope" className="text-xs font-sans tracking-widest text-muted-foreground uppercase">
                     Tell us about your visual concept
                   </label>
                   <textarea
@@ -244,7 +244,7 @@ export default function BookingWizard() {
                     placeholder="[E.g., location ideas, references, stylistic elements, moodboards]"
                     value={formData.scope}
                     onChange={handleInputChange}
-                    className="w-full bg-[#0C0C0D] border border-white/5 p-4 text-sm text-[#F4F1EA] focus:outline-none focus:border-[#C5A880] transition-colors resize-none"
+                    className="w-full bg-background border border-border p-4 text-sm text-foreground focus:outline-none focus:border-primary transition-colors resize-none"
                   />
                 </div>
 
@@ -252,14 +252,14 @@ export default function BookingWizard() {
                   <button
                     type="button"
                     onClick={prevStep}
-                    className="text-xs font-sans tracking-widest text-[#8E8E93] hover:text-[#F4F1EA]"
+                    className="text-xs font-sans tracking-widest text-muted-foreground hover:text-foreground"
                   >
                     BACK
                   </button>
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="text-xs font-sans tracking-widest text-[#C5A880] hover:text-[#F4F1EA] disabled:opacity-40 uppercase"
+                    className="text-xs font-sans tracking-widest text-primary hover:text-foreground disabled:opacity-40 uppercase"
                   >
                     {isSubmitting ? "Submitting..." : "Send Request →"}
                   </button>
@@ -275,13 +275,13 @@ export default function BookingWizard() {
                 animate={{ opacity: 1, scale: 1.0 }}
                 className="text-center py-10 space-y-6"
               >
-                <div className="w-16 h-16 border border-[#C5A880] rounded-full flex items-center justify-center mx-auto text-[#C5A880] text-xl">
+                <div className="w-16 h-16 border border-primary rounded-full flex items-center justify-center mx-auto text-primary text-xl">
                   ✓
                 </div>
-                <h3 className="font-serif text-2xl text-[#F4F1EA]">
+                <h3 className="font-serif text-2xl text-foreground">
                   Request Submitted
                 </h3>
-                <p className="text-xs font-sans text-[#8E8E93] max-w-md mx-auto leading-relaxed">
+                <p className="text-xs font-sans text-muted-foreground max-w-md mx-auto leading-relaxed">
                   Thank you for sharing your concept. We review every narrative carefully and will respond to your contact details within 24 hours.
                 </p>
                 <button
@@ -290,7 +290,7 @@ export default function BookingWizard() {
                     setFormData({ service: "", date: "", name: "", email: "", phone: "", scope: "" });
                     setStep(1);
                   }}
-                  className="text-[10px] font-sans tracking-[0.2em] border border-white/10 hover:border-white/20 text-[#8E8E93] hover:text-[#F4F1EA] px-6 py-2 transition-all mt-4"
+                  className="text-[10px] font-sans tracking-[0.2em] border border-border hover:border-white/20 text-muted-foreground hover:text-foreground px-6 py-2 transition-all mt-4"
                 >
                   START NEW ENQUIRY
                 </button>

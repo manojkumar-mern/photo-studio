@@ -9,12 +9,12 @@ export default function ServicesList() {
   const [activeIdx, setActiveIdx] = useState(0);
 
   return (
-    <section id="services" className="relative bg-[#0C0C0D] py-24 md:py-36 px-6 md:px-12 z-20 border-b border-white/5">
+    <section id="services" className="relative bg-background py-24 md:py-36 px-6 md:px-12 z-20 border-b border-border">
       <div className="max-w-7xl mx-auto">
-        <span className="text-[10px] font-sans tracking-[0.3em] text-[#C5A880] uppercase block mb-3">
+        <span className="text-[10px] font-sans tracking-[0.3em] text-primary uppercase block mb-3">
           CREATIVE SERVICES
         </span>
-        <h2 className="text-3xl md:text-5xl font-serif text-[#F4F1EA] mb-16">
+        <h2 className="text-3xl md:text-5xl font-serif text-foreground mb-16">
           Photography experiences
         </h2>
 
@@ -25,15 +25,15 @@ export default function ServicesList() {
               <div
                 key={service.id}
                 onMouseEnter={() => setActiveIdx(idx)}
-                className={`py-8 border-b border-white/5 cursor-pointer transition-all duration-350 ${
+                className={`py-8 border-b border-border cursor-pointer transition-all duration-350 ${
                   activeIdx === idx ? "opacity-100" : "opacity-40"
                 }`}
               >
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-2xl md:text-4xl font-serif text-[#F4F1EA]">
+                  <h3 className="text-2xl md:text-4xl font-serif text-foreground">
                     {service.name}
                   </h3>
-                  <span className="text-xs font-sans text-[#C5A880] tracking-wider">
+                  <span className="text-xs font-sans text-primary tracking-wider">
                     0{idx + 1}
                   </span>
                 </div>
@@ -47,12 +47,12 @@ export default function ServicesList() {
                       transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
-                      <p className="text-sm font-sans text-[#8E8E93] leading-relaxed max-w-xl mb-6">
+                      <p className="text-sm font-sans text-muted-foreground leading-relaxed max-w-xl mb-6">
                         {service.description}
                       </p>
                       <a
                         href="#book"
-                        className="inline-block text-xs font-sans tracking-[0.2em] text-[#C5A880] hover:text-[#F4F1EA] transition-colors"
+                        className="inline-block text-xs font-sans tracking-[0.2em] text-primary hover:text-foreground transition-colors"
                       >
                         BOOK SESSION →
                       </a>
@@ -64,7 +64,7 @@ export default function ServicesList() {
           </div>
 
           {/* Interactive Image Panel */}
-          <div className="lg:col-span-5 relative h-[50vh] md:h-[60vh] w-full bg-[#161618] overflow-hidden border border-white/5">
+          <div className="lg:col-span-5 relative h-[50vh] md:h-[60vh] w-full bg-card overflow-hidden border border-border">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeIdx}
@@ -83,7 +83,7 @@ export default function ServicesList() {
                 />
               </motion.div>
             </AnimatePresence>
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0C0C0D] to-transparent opacity-40 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-40 pointer-events-none" />
           </div>
         </div>
       </div>

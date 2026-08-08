@@ -16,10 +16,10 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#0C0C0D]/80 backdrop-blur-md border-b border-white/5 py-6 px-6 md:px-12 transition-all duration-300">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border py-6 px-6 md:px-12 transition-all duration-300">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Logo / Brand Name */}
-          <Link href="/" className="text-xl font-serif tracking-[0.25em] text-[#F4F1EA] hover:text-[#C5A880] transition-colors">
+          <Link href="/" className="text-xl font-serif tracking-[0.25em] text-foreground hover:text-primary transition-colors">
             A U R A
           </Link>
 
@@ -29,14 +29,14 @@ export default function Header() {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-xs font-sans tracking-[0.2em] text-[#8E8E93] hover:text-[#F4F1EA] transition-colors editorial-underline"
+                className="text-xs font-sans tracking-[0.2em] text-muted-foreground hover:text-foreground transition-colors editorial-underline"
               >
                 {link.name}
               </a>
             ))}
             <Link
               href="#book"
-              className="text-xs font-sans tracking-[0.2em] border border-[#C5A880]/30 hover:border-[#C5A880] text-[#C5A880] hover:bg-[#C5A880] hover:text-[#0C0C0D] px-6 py-2 transition-all duration-300"
+              className="text-xs font-sans tracking-[0.2em] border border-primary/30 hover:border-primary text-primary hover:bg-primary hover:text-primary-foreground px-6 py-2 transition-all duration-300"
             >
               BOOK SESSION
             </Link>
@@ -45,7 +45,7 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-[#F4F1EA] hover:text-[#C5A880] p-2 focus:outline-none"
+            className="md:hidden text-foreground hover:text-primary p-2 focus:outline-none"
             aria-label="Toggle navigation menu"
           >
             <div className="w-6 h-4 flex flex-col justify-between items-end">
@@ -65,7 +65,7 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed inset-0 z-40 bg-[#0C0C0D] pt-28 px-8 flex flex-col md:hidden"
+            className="fixed inset-0 z-40 bg-background pt-28 px-8 flex flex-col md:hidden"
           >
             <nav className="flex flex-col space-y-8 text-center">
               {navLinks.map((link, idx) => (
@@ -78,7 +78,7 @@ export default function Header() {
                   <a
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="text-lg font-serif tracking-[0.15em] text-[#8E8E93] hover:text-[#F4F1EA]"
+                    className="text-lg font-serif tracking-[0.15em] text-muted-foreground hover:text-foreground"
                   >
                     {link.name}
                   </a>
@@ -93,7 +93,7 @@ export default function Header() {
                 <Link
                   href="#book"
                   onClick={() => setIsOpen(false)}
-                  className="inline-block text-xs font-sans tracking-[0.2em] border border-[#C5A880] text-[#C5A880] hover:bg-[#C5A880] hover:text-[#0C0C0D] px-8 py-3 w-full max-w-[280px]"
+                  className="inline-block text-xs font-sans tracking-[0.2em] border border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-3 w-full max-w-[280px]"
                 >
                   BOOK SESSION
                 </Link>

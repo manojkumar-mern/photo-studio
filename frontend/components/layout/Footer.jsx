@@ -4,11 +4,11 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#161618] border-t border-white/5 py-16 px-6 md:px-12 text-[#8E8E93]">
+    <footer className="bg-card border-t border-border py-16 px-6 md:px-12 text-muted-foreground">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
         {/* Brand Info */}
         <div className="space-y-4">
-          <Link href="/" className="text-xl font-serif tracking-[0.25em] text-[#F4F1EA] hover:text-[#C5A880] transition-colors">
+          <Link href="/" className="text-xl font-serif tracking-[0.25em] text-foreground hover:text-primary transition-colors">
             A U R A
           </Link>
           <p className="text-xs leading-relaxed max-w-[240px]">
@@ -18,38 +18,38 @@ export default function Footer() {
 
         {/* Studio Links */}
         <div className="space-y-4">
-          <h4 className="text-xs font-sans tracking-[0.2em] text-[#F4F1EA] uppercase">STUDIO</h4>
+          <h4 className="text-xs font-sans tracking-[0.2em] text-foreground uppercase">STUDIO</h4>
           <ul className="space-y-2 text-xs">
-            <li><a href="#work" className="hover:text-[#F4F1EA] transition-colors">SELECTED WORK</a></li>
-            <li><a href="#services" className="hover:text-[#F4F1EA] transition-colors">EXPERIENCES</a></li>
-            <li><a href="#about" className="hover:text-[#F4F1EA] transition-colors">OUR STORY</a></li>
+            <li><a href="#work" className="hover:text-foreground transition-colors">SELECTED WORK</a></li>
+            <li><a href="#services" className="hover:text-foreground transition-colors">EXPERIENCES</a></li>
+            <li><a href="#about" className="hover:text-foreground transition-colors">OUR STORY</a></li>
           </ul>
         </div>
 
         {/* Contact Info (Placeholders) */}
         <div className="space-y-4">
-          <h4 className="text-xs font-sans tracking-[0.2em] text-[#F4F1EA] uppercase">CONNECT</h4>
+          <h4 className="text-xs font-sans tracking-[0.2em] text-foreground uppercase">CONNECT</h4>
           <ul className="space-y-2 text-xs">
-            <li className="hover:text-[#F4F1EA] transition-colors">hello@auraphotostudio.com</li>
-            <li className="hover:text-[#F4F1EA] transition-colors">+91 98765 43210</li>
-            <li className="hover:text-[#F4F1EA] transition-colors">Studio Location Placeholder</li>
+            <li className="hover:text-foreground transition-colors">hello@auraphotostudio.com</li>
+            <li className="hover:text-foreground transition-colors">+91 98765 43210</li>
+            <li className="hover:text-foreground transition-colors">Studio Location Placeholder</li>
           </ul>
         </div>
 
         {/* Social Media (Placeholders) */}
         <div className="space-y-4">
-          <h4 className="text-xs font-sans tracking-[0.2em] text-[#F4F1EA] uppercase">SOCIALS</h4>
+          <h4 className="text-xs font-sans tracking-[0.2em] text-foreground uppercase">SOCIALS</h4>
           <ul className="space-y-2 text-xs">
-            <li><span className="hover:text-[#F4F1EA] transition-colors cursor-pointer">INSTAGRAM</span></li>
-            <li><span className="hover:text-[#F4F1EA] transition-colors cursor-pointer">PINTEREST</span></li>
-            <li><span className="hover:text-[#F4F1EA] transition-colors cursor-pointer">VIMEO</span></li>
+            <li><span className="hover:text-foreground transition-colors cursor-pointer">INSTAGRAM</span></li>
+            <li><span className="hover:text-foreground transition-colors cursor-pointer">PINTEREST</span></li>
+            <li><span className="hover:text-foreground transition-colors cursor-pointer">VIMEO</span></li>
           </ul>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto border-t border-white/5 mt-16 pt-8 flex flex-col md:flex-row items-center justify-between text-[10px] tracking-[0.15em] uppercase">
+      <div className="max-w-7xl mx-auto border-t border-border mt-16 pt-8 flex flex-col md:flex-row items-center justify-between text-[10px] tracking-[0.15em] uppercase">
         <p>© {new Date().getFullYear()} AURA STUDIO. ALL RIGHTS RESERVED.</p>
-        <p className="mt-4 md:mt-0 text-[#8E8E93]/60">DESIGNED FOR ELEGANCE</p>
+        <p className="mt-4 md:mt-0 text-muted-foreground/60">DESIGNED FOR ELEGANCE</p>
       </div>
     </footer>
   );

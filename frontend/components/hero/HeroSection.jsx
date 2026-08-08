@@ -25,7 +25,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-[#0C0C0D]">
+    <section className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-background">
       {/* Background Cinematic Image with Zoom Animation */}
       <div className="absolute inset-0 z-0">
         <motion.div
@@ -44,7 +44,7 @@ export default function HeroSection() {
           />
         </motion.div>
         {/* Deep Overlay Vignette */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0C0C0D] via-transparent to-black/35 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-black/35 z-10" />
       </div>
 
       {/* Content Overlay */}
@@ -57,7 +57,7 @@ export default function HeroSection() {
         {/* Micro Category */}
         <motion.span
           variants={itemVariants}
-          className="text-xs font-sans tracking-[0.3em] text-[#C5A880] mb-4 uppercase"
+          className="text-xs font-sans tracking-[0.3em] text-primary mb-4 uppercase"
         >
           FINE ART & EDITORIAL PHOTOGRAPHY
         </motion.span>
@@ -65,17 +65,17 @@ export default function HeroSection() {
         {/* Huge Title */}
         <motion.h1
           variants={itemVariants}
-          className="text-5xl md:text-8xl lg:text-9xl font-serif text-[#F4F1EA] leading-[0.9] tracking-tight max-w-4xl"
+          className="text-5xl md:text-8xl lg:text-9xl font-serif text-foreground leading-[0.9] tracking-tight max-w-4xl"
         >
           Capturing the <br />
-          <span className="italic font-light text-[#C5A880]">essence of shadow</span>
+          <span className="italic font-light text-primary">essence of shadow</span>
         </motion.h1>
 
         {/* Subtitle / CTA */}
         <div className="mt-8 flex flex-col md:flex-row items-center md:items-end justify-between gap-6">
           <motion.p
             variants={itemVariants}
-            className="text-sm md:text-base font-sans text-[#8E8E93] max-w-sm leading-relaxed text-center md:text-left"
+            className="text-sm md:text-base font-sans text-muted-foreground max-w-sm leading-relaxed text-center md:text-left"
           >
             We document timeless human narratives, styling high-contrast compositions with raw, organic elegance.
           </motion.p>
@@ -83,7 +83,7 @@ export default function HeroSection() {
           <motion.div variants={itemVariants}>
             <a
               href="#work"
-              className="group text-xs font-sans tracking-[0.25em] text-[#F4F1EA] hover:text-[#C5A880] transition-colors inline-flex items-center gap-2"
+              className="group text-xs font-sans tracking-[0.25em] text-foreground hover:text-primary transition-colors inline-flex items-center gap-2"
             >
               EXPLORE WORKS
               <span className="inline-block transform group-hover:translate-x-1 transition-transform duration-200">
@@ -101,8 +101,8 @@ export default function HeroSection() {
         transition={{ delay: 1.5, duration: 1 }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center gap-2"
       >
-        <span className="text-[9px] font-sans tracking-[0.2em] text-[#8E8E93] uppercase">SCROLL</span>
-        <div className="w-[1px] h-8 bg-gradient-to-b from-[#8E8E93] to-transparent animate-pulse" />
+        <span className="text-[9px] font-sans tracking-[0.2em] text-muted-foreground uppercase">SCROLL</span>
+        <div className="w-[1px] h-8 bg-gradient-to-b from-muted-foreground to-transparent animate-pulse" />
       </motion.div>
     </section>
   );
