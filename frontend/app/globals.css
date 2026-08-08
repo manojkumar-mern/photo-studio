@@ -1,0 +1,124 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+  
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+}
+
+:root {
+  /* Obsidian Dark Theme by default */
+  --background: #0C0C0D;
+  --foreground: #F4F1EA;
+  
+  --card: #161618;
+  --card-foreground: #F4F1EA;
+  
+  --popover: #0C0C0D;
+  --popover-foreground: #F4F1EA;
+  
+  --primary: #C5A880;
+  --primary-foreground: #0C0C0D;
+  
+  --secondary: #161618;
+  --secondary-foreground: #E8E3D5;
+  
+  --muted: #161618;
+  --muted-foreground: #8E8E93;
+  
+  --accent: #C5A880;
+  --accent-foreground: #0C0C0D;
+  
+  --destructive: #EF4444;
+  --border: rgba(244, 241, 234, 0.08);
+  --input: rgba(244, 241, 234, 0.12);
+  --ring: #C5A880;
+  
+  --radius: 0rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50 transition-colors duration-200;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-light tracking-tight;
+  }
+}
+
+/* Custom premium hover and animation classes */
+.editorial-underline {
+  position: relative;
+}
+.editorial-underline::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--primary);
+  transform-origin: bottom right;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.editorial-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Smooth custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(244, 241, 234, 0.1);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Reduced motion considerations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-delay: 0s !important;
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}
