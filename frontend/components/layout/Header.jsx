@@ -85,11 +85,7 @@ export default function Header() {
             })}
             <Link
               href="/booking"
-              className={`text-xs font-sans tracking-[0.2em] border px-6 py-2 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary
-                ${pathname === "/booking"
-                  ? "border-primary bg-primary text-primary-foreground"
-                  : "border-primary/30 hover:border-primary text-primary hover:bg-primary hover:text-primary-foreground"}`}
-              aria-current={pathname === "/booking" ? "page" : undefined}
+              className="text-xs font-sans tracking-[0.2em] border border-primary bg-primary text-primary-foreground rounded-md px-6 py-2 transition-all duration-300 hover:bg-transparent hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               BOOK SESSION
             </Link>
@@ -168,7 +164,7 @@ export default function Header() {
                 <Link
                   href="/booking"
                   onClick={close}
-                  className="inline-block text-xs font-sans tracking-[0.2em] border border-primary text-primary hover:bg-primary hover:text-primary-foreground px-10 py-3 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  className="inline-block text-xs font-sans tracking-[0.2em] border border-primary bg-primary text-primary-foreground rounded-md px-10 py-3 transition-all duration-300 hover:bg-transparent hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                 >
                   BOOK SESSION
                 </Link>

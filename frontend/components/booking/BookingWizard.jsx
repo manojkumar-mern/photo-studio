@@ -19,7 +19,7 @@ const STEP_LABELS = {
 
 // Shared input class
 const inputCls =
-  "w-full bg-background border border-border p-3.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary transition-colors";
+  "w-full bg-background border border-border p-3.5 rounded-md text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary transition-colors";
 
 // Step indicator
 function StepDots({ current, total }) {
@@ -108,7 +108,7 @@ export default function BookingWizard() {
 
   return (
     <section id="book" className="relative bg-background py-20 md:py-32 px-4 sm:px-6 md:px-12 z-20">
-      <div className="max-w-2xl mx-auto border border-border bg-card p-6 sm:p-8 md:p-12">
+      <div className="max-w-2xl mx-auto border border-border bg-card rounded-xl p-6 sm:p-8 md:p-12">
 
         {/* Header */}
         <div className="mb-8">
@@ -150,7 +150,7 @@ export default function BookingWizard() {
                         key={srv}
                         type="button"
                         onClick={() => handleSelectService(srv)}
-                        className={`p-5 border text-left font-serif text-base sm:text-lg tracking-wide transition-colors duration-300 min-h-[72px] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary
+                        className={`p-5 border rounded-md text-left font-serif text-base sm:text-lg tracking-wide transition-colors duration-300 min-h-[72px] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary
                           ${formData.service === srv
                             ? "border-primary bg-primary/8 text-foreground"
                             : "border-border bg-background text-foreground hover:border-primary/60"
@@ -286,7 +286,7 @@ export default function BookingWizard() {
                   </svg>
                 </div>
                 <h3 className="font-serif text-2xl text-foreground">Request Submitted</h3>
-                <p className="text-xs font-sans text-muted-foreground max-w-sm mx-auto leading-relaxed">
+                <p className="text-sm md:text-base font-sans text-muted-foreground max-w-sm mx-auto leading-relaxed">
                   Thank you for sharing your concept. We review every enquiry carefully and will respond within 24 hours.
                 </p>
                 <button
@@ -296,7 +296,7 @@ export default function BookingWizard() {
                     setErrors({});
                     setStep(1);
                   }}
-                  className="text-[10px] font-sans tracking-[0.2em] border border-border hover:border-primary/50 text-muted-foreground hover:text-foreground px-6 py-2.5 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  className="text-[10px] font-sans tracking-[0.2em] border border-border hover:border-primary/50 rounded-md text-muted-foreground hover:text-foreground px-6 py-2.5 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                 >
                   Start New Enquiry
                 </button>
@@ -329,7 +329,7 @@ function FormField({ id, name, type, label, placeholder, value, onChange, error,
         onChange={onChange}
         aria-describedby={error ? errorId : undefined}
         aria-invalid={!!error}
-        className={`w-full bg-background border p-3.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none transition-colors ${
+        className={`w-full bg-background border p-3.5 rounded-md text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none transition-colors ${
           error ? "border-red-500/60 focus:border-red-400" : "border-border focus:border-primary"
         }`}
       />
@@ -360,7 +360,7 @@ function NavRow({ onBack, onNext, submitLabel, isSubmit = false, disabled = fals
         <button
           type="submit"
           disabled={disabled}
-          className="text-xs font-sans tracking-[0.2em] uppercase text-primary hover:text-foreground disabled:opacity-40 min-h-[44px] px-4 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          className="text-xs font-sans tracking-[0.2em] uppercase text-primary hover:text-foreground disabled:opacity-40 min-h-[44px] px-4 rounded-md border border-primary/20 hover:border-primary/50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
           {submitLabel} →
         </button>
@@ -369,7 +369,7 @@ function NavRow({ onBack, onNext, submitLabel, isSubmit = false, disabled = fals
           type="button"
           onClick={onNext}
           disabled={disabled}
-          className="text-xs font-sans tracking-[0.2em] uppercase text-primary hover:text-foreground disabled:opacity-40 min-h-[44px] px-4 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          className="text-xs font-sans tracking-[0.2em] uppercase text-primary hover:text-foreground disabled:opacity-40 min-h-[44px] px-4 rounded-md border border-primary/20 hover:border-primary/50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
           Continue →
         </button>

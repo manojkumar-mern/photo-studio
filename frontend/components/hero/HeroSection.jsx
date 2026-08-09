@@ -75,7 +75,7 @@ export default function HeroSection() {
         <div className="mt-8 flex flex-col md:flex-row items-center md:items-end justify-between gap-6">
           <motion.p
             variants={itemVariants}
-            className="text-sm md:text-base font-sans text-muted-foreground max-w-sm leading-relaxed text-center md:text-left"
+            className="text-base md:text-lg font-sans text-muted-foreground max-w-sm leading-relaxed text-center md:text-left"
           >
             We document timeless human narratives, styling high-contrast compositions with raw, organic elegance.
           </motion.p>

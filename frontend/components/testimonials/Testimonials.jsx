@@ -83,7 +83,7 @@ export default function Testimonials() {
           <span className="text-[10px] font-sans tracking-[0.25em] text-primary uppercase block">
             BEHIND THE LENS
           </span>
-          <div className="relative h-[40vh] w-full bg-card overflow-hidden border border-border group">
+          <div className="relative h-[40vh] w-full bg-card overflow-hidden rounded-xl border border-border group">
             <Image
               src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800&auto=format&fit=crop"
               alt="Behind the Scenes Studio Session"

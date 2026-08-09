@@ -142,7 +142,7 @@ function ProjectDetail({ project, onClose }) {
             <CornerBracket position="bottom-left"  size="w-4 h-4" color="rgba(197,168,128,0.35)" />
             <Divider label="Project Highlights" />
             <ul className="space-y-3" aria-label="Project highlights">
-              {project.highlights.map((h, i) => (
+              {project.highlights?.map((h, i) => (
                 <li key={i} className="flex items-start gap-3 text-xs font-sans text-muted-foreground">
                   <span
                     className="flex-shrink-0 w-5 h-5 border border-primary/30 flex items-center justify-center text-[9px] font-mono text-primary mt-0.5"

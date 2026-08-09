@@ -87,7 +87,7 @@ export default function PortfolioCard({ item, idx, onClick }) {
         }
       }}
       className={`
-        group relative w-full cursor-pointer overflow-hidden card-glow
+        group relative w-full cursor-pointer overflow-hidden rounded-lg card-glow
         focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background
         ${heightClass}
       `}

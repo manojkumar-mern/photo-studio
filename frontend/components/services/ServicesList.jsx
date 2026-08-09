@@ -47,7 +47,7 @@ export default function ServicesList() {
                       transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
-                      <p className="text-sm font-sans text-muted-foreground leading-relaxed max-w-xl mb-6">
+                      <p className="text-base md:text-lg font-sans text-muted-foreground leading-relaxed max-w-xl mb-6">
                         {service.description}
                       </p>
                       <a
@@ -63,8 +63,7 @@ export default function ServicesList() {
             ))}
           </div>
 
-          {/* Interactive Image Panel */}
-          <div className="lg:col-span-5 relative h-[50vh] md:h-[60vh] w-full bg-card overflow-hidden border border-border">
+          <div className="lg:col-span-5 relative h-[50vh] md:h-[60vh] w-full bg-card overflow-hidden rounded-xl border border-border">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeIdx}

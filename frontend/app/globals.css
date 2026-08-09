@@ -28,10 +28,10 @@
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
 
-  --radius-sm: 0px;
-  --radius-md: 0px;
-  --radius-lg: 0px;
-  --radius-xl: 0px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 10px;
 }
 
 :root {
@@ -54,7 +54,7 @@
   --border: rgba(244, 241, 234, 0.1);
   --input: rgba(244, 241, 234, 0.12);
   --ring: #C5A880;
-  --radius: 0rem;
+  --radius: 0.5rem;
 }
 
 
@@ -304,4 +304,9 @@
   .pulse-dot::after {
     animation: none;
   }
+}
+
+/* Suppress card hover state changes while actively scrolling to prevent rendering jitter/shakes */
+.is-scrolling a {
+  pointer-events: none !important;
 }

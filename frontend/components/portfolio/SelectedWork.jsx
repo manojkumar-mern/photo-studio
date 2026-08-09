@@ -41,6 +41,7 @@ export default function SelectedWork() {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isDesktop = window.innerWidth >= 1024;
     let ctx;
+    let scrollTimeout;
 
     if (isDesktop && !prefersReducedMotion) {
       ctx = gsap.context(() => {
@@ -62,12 +63,26 @@ export default function SelectedWork() {
             start: "top top",
             end: () => `+=${getAnimateWidth()}`,
             invalidateOnRefresh: true,
+            onUpdate: (self) => {
+              if (scrollStripRef.current) {
+                scrollStripRef.current.classList.add("is-scrolling");
+              }
+              clearTimeout(scrollTimeout);
+              scrollTimeout = setTimeout(() => {
+                if (scrollStripRef.current) {
+                  scrollStripRef.current.classList.remove("is-scrolling");
+                }
+              }, 100);
+            }
           },
         });
       }, containerRef);
     }
 
-    return () => { if (ctx) ctx.revert(); };
+    return () => { 
+      if (ctx) ctx.revert(); 
+      clearTimeout(scrollTimeout);
+    };
   }, []);
 
 
@@ -127,7 +142,7 @@ export default function SelectedWork() {
                 key={item.id}
                 href={`/work/${item.slug}`}
                 className="
-                  group relative flex-shrink-0 overflow-hidden
+                  group relative flex-shrink-0 overflow-hidden rounded-lg
                   bg-card border border-border/50
                   hover:border-primary/30 transition-colors duration-500
                   snap-start
@@ -221,7 +236,7 @@ export default function SelectedWork() {
           <Link
             href="/work"
             className="
-              group relative flex-shrink-0 snap-start
+              group relative flex-shrink-0 snap-start rounded-lg
               flex flex-col items-center justify-center gap-5
               border border-dashed border-primary/25
               hover:border-primary/60 transition-colors duration-500

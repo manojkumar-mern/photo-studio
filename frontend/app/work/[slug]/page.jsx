@@ -91,7 +91,7 @@ export default async function ProjectDetailPage({ params }) {
                 Project Highlights
               </h2>
               <ul className="text-xs font-sans text-muted-foreground space-y-2 list-disc pl-4" aria-label="Project highlights">
-                {item.highlights.map((h, i) => <li key={i}>{h}</li>)}
+                {item.highlights?.map((h, i) => <li key={i}>{h}</li>)}
               </ul>
             </div>
           </div>
