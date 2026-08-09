@@ -3,6 +3,44 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+const SERVICES = [
+  "Fashion & Editorial",
+  "Wedding Documentary",
+  "Fine Art Portraiture",
+  "Other Studio Shoot",
+];
+
+const STEP_LABELS = {
+  1: "Select Photography Format",
+  2: "Date Preference",
+  3: "Contact Information",
+  4: "Creative Direction Notes",
+};
+
+// Shared input class
+const inputCls =
+  "w-full bg-background border border-border p-3.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary transition-colors";
+
+// Step indicator
+function StepDots({ current, total }) {
+  return (
+    <div className="flex items-center gap-2" aria-label={`Step ${current} of ${total}`} role="status">
+      {Array.from({ length: total }).map((_, i) => (
+        <span
+          key={i}
+          className={`h-[2px] transition-all duration-300 ${
+            i < current ? "bg-primary" : "bg-border"
+          } ${i === current - 1 ? "w-6" : "w-3"}`}
+          aria-hidden="true"
+        />
+      ))}
+      <span className="text-[10px] font-sans tracking-[0.15em] text-muted-foreground ml-1">
+        {current}/{total}
+      </span>
+    </div>
+  );
+}
+
 export default function BookingWizard() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -14,285 +52,253 @@ export default function BookingWizard() {
     scope: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const servicesList = [
-    "Fashion & Editorial",
-    "Wedding Documentary",
-    "Fine Art Portraiture",
-    "Other Studio Shoot",
-  ];
+  const [errors, setErrors] = useState({});
 
   const handleSelectService = (service) => {
-    setFormData({ ...formData, service });
+    setFormData((prev) => ({ ...prev, service }));
     setStep(2);
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    // Clear error on change
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
+  };
+
+  const validateStep = () => {
+    const newErrors = {};
+    if (step === 2 && !formData.date) {
+      newErrors.date = "Please select a preferred date.";
+    }
+    if (step === 3) {
+      if (!formData.name.trim())  newErrors.name  = "Full name is required.";
+      if (!formData.email.trim()) newErrors.email = "Email address is required.";
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+        newErrors.email = "Please enter a valid email address.";
+      if (!formData.phone.trim()) newErrors.phone = "Phone number is required.";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const nextStep = () => {
-    if (step === 2 && !formData.date) return;
-    if (step === 3 && (!formData.name || !formData.email || !formData.phone)) return;
+    if (!validateStep()) return;
     setStep((prev) => prev + 1);
   };
 
   const prevStep = () => {
+    setErrors({});
     setStep((prev) => prev - 1);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    if (!validateStep()) return;
     setIsSubmitting(true);
-    
-    // Simulate API request
+    // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
       setStep(5);
-    }, 1500);
+    }, 1400);
   };
 
+  // Today's date string for min attribute
+  const today = new Date().toISOString().split("T")[0];
+
   return (
-    <section id="book" className="relative bg-background py-24 md:py-36 px-6 md:px-12 z-20">
-      <div className="max-w-3xl mx-auto border border-border bg-card p-8 md:p-12">
-        
-        {/* Header Block */}
-        <div className="mb-10 text-center md:text-left">
-          <span className="text-[10px] font-sans tracking-[0.3em] text-primary uppercase block mb-3">
-            ENQUIRY PORTAL
+    <section id="book" className="relative bg-background py-20 md:py-32 px-4 sm:px-6 md:px-12 z-20">
+      <div className="max-w-2xl mx-auto border border-border bg-card p-6 sm:p-8 md:p-12">
+
+        {/* Header */}
+        <div className="mb-8">
+          <span className="text-[10px] font-sans tracking-[0.3em] text-primary uppercase block mb-2">
+            Enquiry Portal
           </span>
-          <h2 className="text-3xl font-serif text-foreground">
+          <h2 className="text-2xl sm:text-3xl font-serif text-foreground mb-3">
             Begin your story
           </h2>
           {step < 5 && (
-            <p className="text-xs font-sans text-muted-foreground mt-2">
-              Step {step} of 4: {
-                step === 1 ? "Select Photography Format" : 
-                step === 2 ? "Date Preference" : 
-                step === 3 ? "Contact Information" : "Creative Direction Notes"
-              }
-            </p>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <p className="text-xs font-sans text-muted-foreground">
+                {STEP_LABELS[step]}
+              </p>
+              <StepDots current={step} total={4} />
+            </div>
           )}
         </div>
 
-        {/* Wizard Form Frame */}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} noValidate>
           <AnimatePresence mode="wait">
-            {/* Step 1: Choose Service */}
+
+            {/* Step 1 — Service selection */}
             {step === 1 && (
               <motion.div
                 key="step1"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                transition={{ duration: 0.25 }}
               >
-                {servicesList.map((srv) => (
-                  <button
-                    key={srv}
-                    type="button"
-                    onClick={() => handleSelectService(srv)}
-                    className={`p-6 border text-left font-serif text-lg tracking-wide hover:border-primary transition-colors duration-300 ${
-                      formData.service === srv ? "border-primary bg-primary/5" : "border-border bg-background"
-                    }`}
-                  >
-                    {srv}
-                  </button>
-                ))}
+                <fieldset>
+                  <legend className="text-xs font-sans tracking-widest text-muted-foreground uppercase mb-4 block">
+                    Choose your photography format
+                  </legend>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {SERVICES.map((srv) => (
+                      <button
+                        key={srv}
+                        type="button"
+                        onClick={() => handleSelectService(srv)}
+                        className={`p-5 border text-left font-serif text-base sm:text-lg tracking-wide transition-colors duration-300 min-h-[72px] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary
+                          ${formData.service === srv
+                            ? "border-primary bg-primary/8 text-foreground"
+                            : "border-border bg-background text-foreground hover:border-primary/60"
+                          }`}
+                        aria-pressed={formData.service === srv}
+                      >
+                        {srv}
+                      </button>
+                    ))}
+                  </div>
+                </fieldset>
               </motion.div>
             )}
 
-            {/* Step 2: Preferred Date */}
+            {/* Step 2 — Date */}
             {step === 2 && (
               <motion.div
                 key="step2"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.25 }}
                 className="space-y-6"
               >
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="date" className="text-xs font-sans tracking-widest text-muted-foreground uppercase">
+                  <label htmlFor="booking-date" className="text-xs font-sans tracking-widest text-muted-foreground uppercase">
                     Preferred Session Date
                   </label>
                   <input
                     type="date"
-                    id="date"
+                    id="booking-date"
                     name="date"
                     required
+                    min={today}
                     value={formData.date}
                     onChange={handleInputChange}
-                    className="w-full bg-background border border-border p-4 text-sm text-foreground focus:outline-none focus:border-primary transition-colors"
+                    aria-describedby={errors.date ? "date-error" : undefined}
+                    aria-invalid={!!errors.date}
+                    className={inputCls}
                   />
+                  {errors.date && (
+                    <p id="date-error" role="alert" className="text-xs text-red-400 mt-1">
+                      {errors.date}
+                    </p>
+                  )}
                 </div>
-
-                <div className="flex justify-between items-center pt-4">
-                  <button
-                    type="button"
-                    onClick={prevStep}
-                    className="text-xs font-sans tracking-widest text-muted-foreground hover:text-foreground"
-                  >
-                    BACK
-                  </button>
-                  <button
-                    type="button"
-                    onClick={nextStep}
-                    disabled={!formData.date}
-                    className="text-xs font-sans tracking-widest text-primary hover:text-foreground disabled:opacity-40"
-                  >
-                    CONTINUE
-                  </button>
-                </div>
+                <NavRow onBack={prevStep} onNext={nextStep} disabled={!formData.date} />
               </motion.div>
             )}
 
-            {/* Step 3: Contact Info */}
+            {/* Step 3 — Contact info */}
             {step === 3 && (
               <motion.div
                 key="step3"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.25 }}
                 className="space-y-4"
               >
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="name" className="text-xs font-sans tracking-widest text-muted-foreground uppercase">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    placeholder="[Client Name]"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className="w-full bg-background border border-border p-4 text-sm text-foreground focus:outline-none focus:border-primary transition-colors"
-                  />
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="email" className="text-xs font-sans tracking-widest text-muted-foreground uppercase">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    placeholder="[client@email.com]"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="w-full bg-background border border-border p-4 text-sm text-foreground focus:outline-none focus:border-primary transition-colors"
-                  />
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="phone" className="text-xs font-sans tracking-widest text-muted-foreground uppercase">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    required
-                    placeholder="[+91 00000 00000]"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    className="w-full bg-background border border-border p-4 text-sm text-foreground focus:outline-none focus:border-primary transition-colors"
-                  />
-                </div>
-
-                <div className="flex justify-between items-center pt-4">
-                  <button
-                    type="button"
-                    onClick={prevStep}
-                    className="text-xs font-sans tracking-widest text-muted-foreground hover:text-foreground"
-                  >
-                    BACK
-                  </button>
-                  <button
-                    type="button"
-                    onClick={nextStep}
-                    disabled={!formData.name || !formData.email || !formData.phone}
-                    className="text-xs font-sans tracking-widest text-primary hover:text-foreground disabled:opacity-40"
-                  >
-                    CONTINUE
-                  </button>
-                </div>
+                <FormField
+                  id="booking-name" name="name" type="text" label="Full Name"
+                  placeholder="Your name" value={formData.name}
+                  onChange={handleInputChange} error={errors.name} required
+                />
+                <FormField
+                  id="booking-email" name="email" type="email" label="Email Address"
+                  placeholder="you@example.com" value={formData.email}
+                  onChange={handleInputChange} error={errors.email} required
+                />
+                <FormField
+                  id="booking-phone" name="phone" type="tel" label="Phone Number"
+                  placeholder="+91 00000 00000" value={formData.phone}
+                  onChange={handleInputChange} error={errors.phone} required
+                />
+                <NavRow
+                  onBack={prevStep}
+                  onNext={nextStep}
+                  disabled={!formData.name || !formData.email || !formData.phone}
+                />
               </motion.div>
             )}
 
-            {/* Step 4: Creative Scope */}
+            {/* Step 4 — Creative scope */}
             {step === 4 && (
               <motion.div
                 key="step4"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.25 }}
                 className="space-y-6"
               >
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="scope" className="text-xs font-sans tracking-widest text-muted-foreground uppercase">
-                    Tell us about your visual concept
+                  <label htmlFor="booking-scope" className="text-xs font-sans tracking-widest text-muted-foreground uppercase">
+                    Tell us about your visual concept{" "}
+                    <span className="text-muted-foreground/50 normal-case tracking-normal">(optional)</span>
                   </label>
                   <textarea
-                    id="scope"
+                    id="booking-scope"
                     name="scope"
-                    rows="5"
-                    placeholder="[E.g., location ideas, references, stylistic elements, moodboards]"
+                    rows={5}
+                    placeholder="Location ideas, references, stylistic elements, mood boards…"
                     value={formData.scope}
                     onChange={handleInputChange}
-                    className="w-full bg-background border border-border p-4 text-sm text-foreground focus:outline-none focus:border-primary transition-colors resize-none"
+                    className={`${inputCls} resize-none`}
                   />
                 </div>
-
-                <div className="flex justify-between items-center pt-4">
-                  <button
-                    type="button"
-                    onClick={prevStep}
-                    className="text-xs font-sans tracking-widest text-muted-foreground hover:text-foreground"
-                  >
-                    BACK
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="text-xs font-sans tracking-widest text-primary hover:text-foreground disabled:opacity-40 uppercase"
-                  >
-                    {isSubmitting ? "Submitting..." : "Send Request →"}
-                  </button>
-                </div>
+                <NavRow
+                  onBack={prevStep}
+                  submitLabel={isSubmitting ? "Submitting…" : "Send Request"}
+                  isSubmit
+                  disabled={isSubmitting}
+                />
               </motion.div>
             )}
 
-            {/* Step 5: Confirmation */}
+            {/* Step 5 — Confirmation */}
             {step === 5 && (
               <motion.div
                 key="step5"
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1.0 }}
+                initial={{ opacity: 0, scale: 0.97 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.35 }}
                 className="text-center py-10 space-y-6"
               >
-                <div className="w-16 h-16 border border-primary rounded-full flex items-center justify-center mx-auto text-primary text-xl">
-                  ✓
+                <div
+                  className="w-14 h-14 border border-primary rounded-full flex items-center justify-center mx-auto text-primary"
+                  aria-hidden="true"
+                >
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
                 </div>
-                <h3 className="font-serif text-2xl text-foreground">
-                  Request Submitted
-                </h3>
-                <p className="text-xs font-sans text-muted-foreground max-w-md mx-auto leading-relaxed">
-                  Thank you for sharing your concept. We review every narrative carefully and will respond to your contact details within 24 hours.
+                <h3 className="font-serif text-2xl text-foreground">Request Submitted</h3>
+                <p className="text-xs font-sans text-muted-foreground max-w-sm mx-auto leading-relaxed">
+                  Thank you for sharing your concept. We review every enquiry carefully and will respond within 24 hours.
                 </p>
                 <button
                   type="button"
                   onClick={() => {
                     setFormData({ service: "", date: "", name: "", email: "", phone: "", scope: "" });
+                    setErrors({});
                     setStep(1);
                   }}
-                  className="text-[10px] font-sans tracking-[0.2em] border border-border hover:border-white/20 text-muted-foreground hover:text-foreground px-6 py-2 transition-all mt-4"
+                  className="text-[10px] font-sans tracking-[0.2em] border border-border hover:border-primary/50 text-muted-foreground hover:text-foreground px-6 py-2.5 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                 >
-                  START NEW ENQUIRY
+                  Start New Enquiry
                 </button>
               </motion.div>
             )}
@@ -300,5 +306,74 @@ export default function BookingWizard() {
         </form>
       </div>
     </section>
+  );
+}
+
+// ── Sub-components ────────────────────────────────────────────
+
+function FormField({ id, name, type, label, placeholder, value, onChange, error, required }) {
+  const errorId = `${id}-error`;
+  return (
+    <div className="flex flex-col gap-1.5">
+      <label htmlFor={id} className="text-xs font-sans tracking-widest text-muted-foreground uppercase">
+        {label}
+        {required && <span className="text-primary ml-1" aria-hidden="true">*</span>}
+      </label>
+      <input
+        type={type}
+        id={id}
+        name={name}
+        required={required}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        aria-describedby={error ? errorId : undefined}
+        aria-invalid={!!error}
+        className={`w-full bg-background border p-3.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none transition-colors ${
+          error ? "border-red-500/60 focus:border-red-400" : "border-border focus:border-primary"
+        }`}
+      />
+      {error && (
+        <p id={errorId} role="alert" className="text-xs text-red-400">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+
+function NavRow({ onBack, onNext, submitLabel, isSubmit = false, disabled = false }) {
+  return (
+    <div className="flex items-center justify-between pt-4 gap-4">
+      {onBack ? (
+        <button
+          type="button"
+          onClick={onBack}
+          className="text-xs font-sans tracking-widest text-muted-foreground hover:text-foreground transition-colors min-h-[44px] min-w-[44px] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        >
+          ← Back
+        </button>
+      ) : (
+        <span />
+      )}
+      {isSubmit ? (
+        <button
+          type="submit"
+          disabled={disabled}
+          className="text-xs font-sans tracking-[0.2em] uppercase text-primary hover:text-foreground disabled:opacity-40 min-h-[44px] px-4 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        >
+          {submitLabel} →
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={onNext}
+          disabled={disabled}
+          className="text-xs font-sans tracking-[0.2em] uppercase text-primary hover:text-foreground disabled:opacity-40 min-h-[44px] px-4 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        >
+          Continue →
+        </button>
+      )}
+    </div>
   );
 }

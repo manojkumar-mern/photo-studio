@@ -7,24 +7,24 @@
   --color-foreground: var(--foreground);
   --font-serif: var(--font-serif);
   --font-sans: var(--font-sans);
-  
+
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  
+
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
-  
+
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-  
+
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  
+
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent-highlight: var(--accent-highlight);
-  
+
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
 
@@ -45,11 +45,11 @@
   --secondary: #161618;
   --secondary-foreground: #E8E3D5;
   --muted: #161618;
-  
+
   --accent: #C5A880;
   --accent-foreground: #0C0C0D;
   --accent-highlight: #D5B890;
-  
+
   --destructive: #EF4444;
   --border: rgba(244, 241, 234, 0.1);
   --input: rgba(244, 241, 234, 0.12);
@@ -64,10 +64,17 @@
   * {
     @apply border-border outline-ring/50 transition-colors duration-250;
   }
+
   body {
     @apply bg-background text-foreground font-sans antialiased;
   }
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-serif font-light tracking-tight;
   }
 }
@@ -76,6 +83,7 @@
 .editorial-underline {
   position: relative;
 }
+
 .editorial-underline::after {
   content: '';
   position: absolute;
@@ -88,6 +96,7 @@
   transform-origin: bottom right;
   transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .editorial-underline:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
@@ -98,17 +107,185 @@
   width: 6px;
   height: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--background);
 }
+
 ::-webkit-scrollbar-thumb {
   background: rgba(244, 241, 234, 0.1);
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
 }
 
-/* Reduced motion considerations */
+/* ─────────────────────────────────────────────────────────────
+   UTILITY — hide scrollbar while keeping scroll functionality
+   ───────────────────────────────────────────────────────────── */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   DECORATIVE UTILITIES — Photo Studio
+   ───────────────────────────────────────────────────────────── */
+
+/* Horizontal glow rule — use as <div class="glow-rule"> */
+.glow-rule {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(197, 168, 128, 0.5) 35%,
+    rgba(213, 184, 144, 0.9) 50%,
+    rgba(197, 168, 128, 0.5) 65%,
+    transparent 100%
+  );
+}
+
+/* Faint ambient glow behind a card/panel */
+.card-glow {
+  box-shadow:
+    0 0 0 1px rgba(197, 168, 128, 0.08),
+    0 4px 32px -8px rgba(197, 168, 128, 0.12),
+    0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.card-glow:hover {
+  box-shadow:
+    0 0 0 1px rgba(197, 168, 128, 0.2),
+    0 8px 48px -8px rgba(197, 168, 128, 0.22),
+    0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* Top-edge shimmer bar — animated left→right sweep */
+.shimmer-top {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--primary) 40%,
+    #e8d5b0 50%,
+    var(--primary) 60%,
+    transparent
+  );
+  animation: shimmer-sweep 2.8s ease-in-out infinite;
+  z-index: 20;
+}
+
+@keyframes shimmer-sweep {
+  0%   { left: -100%; opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
+/* Pulsing dot — use for "live" or active state indicators */
+.pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  position: relative;
+}
+
+.pulse-dot::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid var(--primary);
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(0.8); opacity: 0.8; }
+  70%  { transform: scale(1.6); opacity: 0;   }
+  100% { transform: scale(1.6); opacity: 0;   }
+}
+
+/* Decorative crosshair marker — use on image containers for a viewfinder feel */
+.viewfinder::before,
+.viewfinder::after {
+  content: '';
+  position: absolute;
+  background: var(--primary);
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity 0.4s ease;
+}
+
+.viewfinder::before {
+  /* Horizontal crosshair line */
+  top: 50%;
+  left: 8px;
+  right: 8px;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+.viewfinder::after {
+  /* Vertical crosshair line */
+  left: 50%;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  transform: translateX(-50%);
+}
+
+.viewfinder:hover::before,
+.viewfinder:hover::after {
+  opacity: 0.5;
+}
+
+/* Grain texture overlay — place on image wrappers for a film-photo feel */
+.grain-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 4;
+  mix-blend-mode: overlay;
+}
+
+/* Masked reveal text — text that clips a gradient for a gold-foil look */
+.text-gold-foil {
+  background: linear-gradient(
+    135deg,
+    #b8923a 0%,
+    #e8c96a 30%,
+    #c5a880 50%,
+    #e8c96a 70%,
+    #b8923a 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   REDUCED MOTION
+   ───────────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-delay: 0s !important;
@@ -116,5 +293,15 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0s !important;
     scroll-behavior: auto !important;
+  }
+
+  .shimmer-top::before {
+    animation: none;
+    left: 0;
+    opacity: 0.6;
+  }
+
+  .pulse-dot::after {
+    animation: none;
   }
 }

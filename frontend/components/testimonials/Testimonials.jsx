@@ -42,7 +42,7 @@ export default function Testimonials() {
                 className="space-y-6"
               >
                 <p className="font-serif text-xl md:text-2xl text-foreground leading-relaxed italic">
-                  "{testimonials[activeIdx].quote}"
+                  &ldquo;{testimonials[activeIdx].quote}&rdquo;
                 </p>
                 <div>
                   <h4 className="text-xs font-sans tracking-[0.2em] text-foreground uppercase">

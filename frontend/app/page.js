@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="flex-1 w-full">
+      <main className="flex-1 w-full overflow-x-hidden relative">
         <HeroSection />
         <SelectedWork />
         <StudioStatement />

@@ -25,7 +25,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-background">
+    <section className="relative min-h-[100svh] w-full overflow-hidden flex items-center justify-center bg-background">
       {/* Background Cinematic Image with Zoom Animation */}
       <div className="absolute inset-0 z-0">
         <motion.div
@@ -52,7 +52,7 @@ export default function HeroSection() {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-20 max-w-7xl mx-auto w-full px-6 md:px-12 text-center md:text-left flex flex-col justify-end h-full pb-20 md:pb-28"
+        className="relative z-20 max-w-7xl mx-auto w-full px-6 md:px-12 text-center md:text-left flex flex-col justify-end min-h-[100svh] pt-28 md:pt-36 lg:pt-44 pb-20 md:pb-28"
       >
         {/* Micro Category */}
         <motion.span
