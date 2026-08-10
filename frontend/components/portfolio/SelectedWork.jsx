@@ -77,10 +77,19 @@ export default function SelectedWork() {
           },
         });
       }, containerRef);
+
+      const refreshTimeout = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 500);
+
+      return () => {
+        if (ctx) ctx.revert();
+        clearTimeout(scrollTimeout);
+        clearTimeout(refreshTimeout);
+      };
     }
 
-    return () => { 
-      if (ctx) ctx.revert(); 
+    return () => {
       clearTimeout(scrollTimeout);
     };
   }, []);

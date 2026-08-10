@@ -35,7 +35,7 @@ export default function Footer() {
               VISUAL CO-CREATION
             </span>
             <h2 className="text-3xl md:text-5xl font-serif text-foreground max-w-xl leading-tight">
-              Let's create something worth remembering.
+              Let&apos;s create something worth remembering.
             </h2>
           </div>
           <div className="flex-shrink-0">

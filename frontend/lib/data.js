@@ -110,14 +110,23 @@ export const services = [
 export const testimonials = [
   {
     id: 1,
-    quote: "The visual curation and pacing of the photoshoot were extraordinary. The studio understood our brand intent perfectly and delivered a cinematic narrative that exceeded expectations.",
-    author: "Creative Director",
-    context: "Apparel Brand Campaign"
+    quote: "The photographs felt effortless, intimate, and completely true to us. Every moment was captured with such care that looking through the gallery felt like reliving the day.",
+    author: "Elena & Marcus",
+    context: "Wedding Documentary",
+    image: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop"
   },
   {
     id: 2,
-    quote: "A completely non-intrusive approach. We barely noticed the cameras, yet every single frame feels like a high-end film still. Truly a masterpiece of storytelling.",
-    author: "Client Narrative",
-    context: "Celebration Ceremony"
+    quote: "The visual curation and pacing of the photoshoot were extraordinary. The studio understood our brand intent perfectly and delivered a cinematic narrative that exceeded expectations.",
+    author: "Creative Director",
+    context: "Apparel Brand Campaign",
+    image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    id: 3,
+    quote: "A completely non-intrusive approach. We barely noticed the cameras, yet every single frame feels like a high-end film still. Truly a masterpiece of portraiture.",
+    author: "Dr. Adrian Vance",
+    context: "Fine Art Portraiture",
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop"
   }
 ];

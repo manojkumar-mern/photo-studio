@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function StudioStatement() {
   return (
-    <section className="relative bg-background py-24 md:py-36 px-6 md:px-12 z-20 border-b border-border">
+    <section className="relative bg-background py-32 md:py-48 lg:py-56 px-6 md:px-12 z-20 border-b border-border">
       <div className="max-w-4xl mx-auto text-center md:text-left">
         <motion.span
           initial={{ opacity: 0, y: 15 }}

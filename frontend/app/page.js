@@ -14,8 +14,8 @@ export default function Home() {
       <Header />
       <main className="flex-1 w-full overflow-x-hidden relative">
         <HeroSection />
-        <SelectedWork />
         <StudioStatement />
+        <SelectedWork />
         <ServicesList />
         <AboutStudio />
         <Testimonials />

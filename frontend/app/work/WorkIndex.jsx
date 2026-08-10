@@ -78,7 +78,7 @@ function ProjectDetail({ project, onClose }) {
     >
       {/* Back */}
       <button
-        onClick={onClose}
+        onClick={() => onClose()}
         className="group inline-flex items-center gap-3 text-[10px] font-sans tracking-[0.25em] text-muted-foreground hover:text-primary transition-colors uppercase focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
       >
         <svg className="w-3 h-3 group-hover:-translate-x-0.5 transition-transform duration-200" fill="none" viewBox="0 0 16 16" stroke="currentColor" strokeWidth={2} aria-hidden="true">
@@ -159,7 +159,7 @@ function ProjectDetail({ project, onClose }) {
       </div>
 
       {/* Secondary images */}
-      {project.images.slice(1).length > 0 && (
+      {project?.images && project.images.slice(1).length > 0 && (
         <div className="space-y-6">
           <Divider label="Visual Sequence" />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
@@ -291,7 +291,7 @@ export default function WorkIndex() {
   // Called both by "Back" and by prev/next navigation.
   // If a project is passed, navigate to it; otherwise go back to list.
   const handleClose = (nextProject = null) => {
-    if (nextProject) {
+    if (nextProject && typeof nextProject === "object" && nextProject.slug) {
       setSelectedProject(nextProject);
     } else {
       setSelectedProject(null);

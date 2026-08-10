@@ -35,10 +35,10 @@ export default function Testimonials() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeIdx}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 10 }}
-                transition={{ duration: 0.4 }}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
                 className="space-y-6"
               >
                 <p className="font-serif text-xl md:text-2xl text-foreground leading-relaxed italic">
@@ -59,17 +59,17 @@ export default function Testimonials() {
             <div className="flex items-center gap-6 mt-8">
               <button
                 onClick={prevSlide}
-                className="text-xs font-sans tracking-[0.15em] text-muted-foreground hover:text-foreground transition-colors"
+                className="text-xs font-sans tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors py-2 focus:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded-sm"
                 aria-label="Previous testimonial"
               >
                 PREV
               </button>
-              <div className="text-[10px] font-sans tracking-widest text-primary">
-                {activeIdx + 1} / {testimonials.length}
+              <div className="text-[10px] font-sans tracking-widest text-primary font-semibold select-none">
+                {String(activeIdx + 1).padStart(2, "0")} / {String(testimonials.length).padStart(2, "0")}
               </div>
               <button
                 onClick={nextSlide}
-                className="text-xs font-sans tracking-[0.15em] text-muted-foreground hover:text-foreground transition-colors"
+                className="text-xs font-sans tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors py-2 focus:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded-sm"
                 aria-label="Next testimonial"
               >
                 NEXT
@@ -78,25 +78,30 @@ export default function Testimonials() {
           </div>
         </div>
 
-        {/* Right Column: Behind the Lens Media Placeholder */}
+        {/* Right Column: Behind the Lens Media */}
         <div className="lg:col-span-5 space-y-4">
           <span className="text-[10px] font-sans tracking-[0.25em] text-primary uppercase block">
             BEHIND THE LENS
           </span>
           <div className="relative h-[40vh] w-full bg-card overflow-hidden rounded-xl border border-border group">
-            <Image
-              src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800&auto=format&fit=crop"
-              alt="Behind the Scenes Studio Session"
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-103"
-              sizes="(max-width: 1024px) 100vw, 40vw"
-            />
-            {/* Visual Indicator of video play */}
-            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-              <div className="border border-border p-4 text-[10px] tracking-widest text-foreground uppercase">
-                [PROCESS PREVIEW LOOP]
-              </div>
-            </div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeIdx}
+                initial={{ opacity: 0, scale: 0.97 }}
+                animate={{ opacity: 0.8, scale: 1.0 }}
+                exit={{ opacity: 0, scale: 0.97 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="relative w-full h-full"
+              >
+                <Image
+                  src={testimonials[activeIdx].image}
+                  alt={testimonials[activeIdx].author}
+                  fill
+                  className="object-cover transition-transform duration-75 hover:scale-103"
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                />
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
 
