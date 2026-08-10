@@ -7,6 +7,7 @@
   --color-foreground: var(--foreground);
   --font-serif: var(--font-serif);
   --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
 
   --color-border: var(--border);
   --color-input: var(--input);
@@ -55,6 +56,46 @@
   --input: rgba(244, 241, 234, 0.12);
   --ring: #C5A880;
   --radius: 0.5rem;
+}
+
+/* ─── THEME 1: Current (explicit, matches :root) ─────────────────────── */
+[data-theme="current"] {
+  --primary:           #C5A880;
+  --ring:              #C5A880;
+  --accent:            #C5A880;
+  --accent-highlight:  #D5B890;
+  --primary-foreground:#0C0C0D;
+  --accent-foreground: #0C0C0D;
+}
+
+/* ─── THEME 2: Pixelbees Gold ────────────────────────────────────────── */
+/*
+  Derived from the warm amber-honey gold of the bee body in the
+  official Pixelbees Photography logo. Warmer and deeper than the
+  current muted champagne; still premium, editorial, not neon.
+  HSL(38, 68%, 50%) → #C8892A  with slight desaturation → #C08A38
+*/
+[data-theme="pixelbees-gold"] {
+  --primary:           #C08A38;
+  --ring:              #C08A38;
+  --accent:            #C08A38;
+  --accent-highlight:  #D4A050;
+  --primary-foreground:#0C0C0D;
+  --accent-foreground: #0C0C0D;
+}
+
+/* ─── THEME 3: Screenshot Gold ───────────────────────────────────────── */
+/*
+  Exact color matching the title text in the user's uploaded screenshot.
+  A brighter, premium golden champagne tone (#D6C18C).
+*/
+[data-theme="screenshot-gold"] {
+  --primary:           #D6C18C;
+  --ring:              #D6C18C;
+  --accent:            #D6C18C;
+  --accent-highlight:  #E5D3A3;
+  --primary-foreground:#0C0C0D;
+  --accent-foreground: #0C0C0D;
 }
 
 

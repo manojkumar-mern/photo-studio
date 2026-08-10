@@ -11,7 +11,7 @@ export default function AboutStudio() {
         <div className="lg:col-span-5 relative h-[56vh] md:h-[68vh] bg-card overflow-hidden rounded-xl border border-border">
           <Image
             src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop"
-            alt="AURA Studio team member in a natural-light setting"
+            alt="Pixel Bees Photos team member in a natural-light setting"
             fill
             className="object-cover object-center grayscale hover:grayscale-0 transition-all duration-700"
             sizes="(max-width: 1024px) 92vw, 40vw"
@@ -30,7 +30,7 @@ export default function AboutStudio() {
           </div>
 
           <p className="text-base md:text-lg font-sans text-muted-foreground leading-relaxed max-w-2xl">
-            AURA Studio was built around a single conviction: that great photography is never rushed. We
+            Pixel Bees Photos was built around a single conviction: that great photography is never rushed. We
             collaborate closely with each client to shape visual narratives that are premium in craft and
             timeless in character.
           </p>

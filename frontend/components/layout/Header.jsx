@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -61,22 +62,65 @@ export default function Header() {
           {/* ── Logo ────────────────────────────────────── */}
           <Link
             href="/"
-            className="text-xl font-serif tracking-[0.25em] text-foreground hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            aria-label="AURA Studio — return to home"
+            className="group flex items-center gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm shrink-0"
+            aria-label="Pixel Bees Photos — return to home"
           >
-            A U R A
+            {/* Bee mark — w-auto lets the 436:394 natural ratio expand wider
+                while h-[52px] keeps the vertical footprint identical to before */}
+            <Image
+              src="/client_logo.svg"
+              alt="Pixel Bees Photography logo"
+              width={64}
+              height={52}
+              className="h-[52px] w-auto object-contain flex-shrink-0"
+              priority
+            />
+
+            {/* Brand lockup */}
+            <div className="flex flex-col text-left min-w-0">
+              <span
+                className="
+                  text-[22px] leading-[1.1]
+                  font-serif font-medium
+                  tracking-[0.05em]
+                  text-[#F5EFE6]
+                  group-hover:text-primary
+                  transition-colors duration-300
+                  whitespace-nowrap
+                "
+              >
+                Pixelbees Photography
+              </span>
+              <span
+                className="
+                  text-[13px] leading-[1.25]
+                  font-serif font-light italic
+                  tracking-[0.12em]
+                  text-primary/65
+                  group-hover:text-primary/90
+                  transition-colors duration-300
+                  mt-[3px]
+                  whitespace-nowrap
+                "
+              >
+                Emotion through Photos
+              </span>
+            </div>
           </Link>
 
           {/* ── Desktop nav ─────────────────────────────── */}
-          <nav className="hidden md:flex items-center space-x-8" aria-label="Main navigation">
+          <nav className="hidden md:flex items-center space-x-9" aria-label="Main navigation">
             {NAV_LINKS.map((link) => {
               const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
               return (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-xs font-sans tracking-[0.2em] transition-colors editorial-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm
-                    ${isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+                  className={`relative text-[13px] font-sans tracking-[0.18em] transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm
+                    after:absolute after:bottom-[-3px] after:left-0 after:h-[1px] after:bg-primary after:transition-all after:duration-300
+                    ${isActive
+                      ? "text-foreground after:w-full"
+                      : "text-muted-foreground hover:text-foreground after:w-0 hover:after:w-full"}`}
                   aria-current={isActive ? "page" : undefined}
                 >
                   {link.name}
@@ -85,7 +129,7 @@ export default function Header() {
             })}
             <Link
               href="/booking"
-              className="text-xs font-sans tracking-[0.2em] border border-primary bg-primary text-primary-foreground rounded-md px-6 py-2 transition-all duration-300 hover:bg-transparent hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="text-[13px] font-sans tracking-[0.18em] border border-primary bg-primary text-primary-foreground rounded-md px-7 py-2.5 transition-all duration-300 hover:bg-transparent hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               BOOK SESSION
             </Link>
@@ -174,7 +218,7 @@ export default function Header() {
             {/* Bottom decorative rule */}
             <div className="px-8 pb-10 text-center">
               <p className="text-[9px] font-sans tracking-[0.3em] text-muted-foreground/40 uppercase">
-                AURA Fine Art & Editorial Photography
+                Pixel Bees Fine Art & Editorial Photography
               </p>
             </div>
           </motion.div>

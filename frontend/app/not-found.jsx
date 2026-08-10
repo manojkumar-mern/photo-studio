@@ -3,7 +3,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
 export const metadata = {
-  title: "Page Not Found | AURA Studio",
+  title: "Page Not Found | Pixel Bees Photos",
 };
 
 export default function NotFound() {

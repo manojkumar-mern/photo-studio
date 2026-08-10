@@ -5,11 +5,11 @@ import Footer from "@/components/layout/Footer";
 import { services } from "@/lib/data";
 
 export const metadata = {
-  title: "Services & Experiences | AURA Studio",
+  title: "Services & Experiences | Pixel Bees Photos",
   description:
     "Explore our photography services: Fashion & Editorial, Wedding Documentary, and Fine Art Portraiture. Custom creative direction for every project.",
   openGraph: {
-    title: "Services & Experiences | AURA Studio",
+    title: "Services & Experiences | Pixel Bees Photos",
     description:
       "Explore our photography services: Fashion & Editorial, Wedding Documentary, and Fine Art Portraiture.",
   },

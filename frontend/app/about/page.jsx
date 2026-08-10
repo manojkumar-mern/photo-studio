@@ -4,13 +4,13 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
 export const metadata = {
-  title: "About Our Studio | AURA Studio",
+  title: "About Our Studio | Pixel Bees Photos",
   description:
-    "Learn about the storytelling philosophy, team, and professional shooting workflow behind AURA Studio.",
+    "Learn about the storytelling philosophy, team, and professional shooting workflow behind Pixel Bees Photos.",
   openGraph: {
-    title: "About Our Studio | AURA Studio",
+    title: "About Our Studio | Pixel Bees Photos",
     description:
-      "Learn about the storytelling philosophy, team, and professional shooting workflow behind AURA Studio.",
+      "Learn about the storytelling philosophy, team, and professional shooting workflow behind Pixel Bees Photos.",
   },
 };
 

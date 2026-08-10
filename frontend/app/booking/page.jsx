@@ -3,13 +3,13 @@ import Footer from "@/components/layout/Footer";
 import BookingWizard from "@/components/booking/BookingWizard";
 
 export const metadata = {
-  title: "Book a Session | AURA Studio",
+  title: "Book a Session | Pixel Bees Photos",
   description:
-    "Begin your creative story with AURA Studio's photography enquiry wizard. Select your service, preferred date, and share your visual concept.",
+    "Begin your creative story with Pixel Bees Photos' photography enquiry wizard. Select your service, preferred date, and share your visual concept.",
   openGraph: {
-    title: "Book a Session | AURA Studio",
+    title: "Book a Session | Pixel Bees Photos",
     description:
-      "Begin your creative story with AURA Studio's photography enquiry wizard.",
+      "Begin your creative story with Pixel Bees Photos' photography enquiry wizard.",
   },
 };
 

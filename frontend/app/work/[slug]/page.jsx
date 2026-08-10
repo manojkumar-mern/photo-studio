@@ -17,7 +17,7 @@ export async function generateMetadata({ params }) {
     title: item.title,
     description: item.description,
     openGraph: {
-      title: `${item.title} | AURA Studio`,
+      title: `${item.title} | Pixel Bees Photos`,
       description: item.description,
     },
   };

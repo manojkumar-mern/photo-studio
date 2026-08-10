@@ -4,13 +4,13 @@ import Footer from "@/components/layout/Footer";
 import ContactForm from "./ContactForm";
 
 export const metadata = {
-  title: "Contact | AURA Studio",
+  title: "Contact | Pixel Bees Photos",
   description:
-    "Get in touch with AURA Studio. Reach out for collaborations, bookings, or general enquiries about our photography services.",
+    "Get in touch with Pixel Bees Photos. Reach out for collaborations, bookings, or general enquiries about our photography services.",
   openGraph: {
-    title: "Contact | AURA Studio",
+    title: "Contact | Pixel Bees Photos",
     description:
-      "Get in touch with AURA Studio. Reach out for collaborations, bookings, or general enquiries.",
+      "Get in touch with Pixel Bees Photos. Reach out for collaborations, bookings, or general enquiries.",
   },
 };
 
@@ -41,10 +41,10 @@ export default function ContactPage() {
               <div className="space-y-1.5">
                 <h2 className="text-[10px] tracking-[0.2em] text-foreground uppercase font-bold">Email Direct</h2>
                 <a
-                  href="mailto:hello@auraphotostudio.com"
+                  href="mailto:hello@pixelbeesphotos.com"
                   className="block hover:text-primary transition-colors focus:outline-none focus-visible:underline"
                 >
-                  hello@auraphotostudio.com
+                  hello@pixelbeesphotos.com
                 </a>
               </div>
               <div className="space-y-1.5">
@@ -59,7 +59,7 @@ export default function ContactPage() {
               <div className="space-y-1.5">
                 <h2 className="text-[10px] tracking-[0.2em] text-foreground uppercase font-bold">Studio Location</h2>
                 <address className="not-italic text-muted-foreground/80">
-                  Mumbai, India
+                  Salem, Tamil Nadu, India
                 </address>
               </div>
               <div className="space-y-1.5">

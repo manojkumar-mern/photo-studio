@@ -3,7 +3,7 @@ import Footer from "@/components/layout/Footer";
 import WorkIndex from "./WorkIndex";
 
 export const metadata = {
-  title: "Selected Work | AURA Studio",
+  title: "Selected Work | Pixel Bees Photos",
   description: "Explore our archive of fashion editorials, fine art portraiture, and wedding documentaries.",
 };
 
