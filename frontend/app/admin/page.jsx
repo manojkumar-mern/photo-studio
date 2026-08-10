@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { X } from "lucide-react";
 
 export default function AdminPage() {
@@ -13,18 +12,26 @@ export default function AdminPage() {
   const [error, setError] = useState("");
   const [selectedBooking, setSelectedBooking] = useState(null);
 
-  const handleLogout = () => {
-    localStorage.removeItem("admin_token");
+  const handleLogout = async () => {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+      await fetch(`${apiUrl}/auth/logout`, {
+        method: "POST",
+        credentials: "include"
+      });
+    } catch (err) {
+      console.error("Logout request failed:", err);
+    }
+    
+    // Clear stale token from previous implementation if present
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("admin_token");
+    }
+    
     router.push("/admin/login");
   };
 
   const fetchBookings = useCallback(async () => {
-    const token = localStorage.getItem("admin_token");
-    if (!token) {
-      router.push("/admin/login");
-      return;
-    }
-
     setIsLoading(true);
     setError("");
 
@@ -32,15 +39,12 @@ export default function AdminPage() {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
       const response = await fetch(`${apiUrl}/bookings`, {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        credentials: "include"
       });
 
       const result = await response.json();
 
       if (response.status === 401) {
-        localStorage.removeItem("admin_token");
         router.push("/admin/login");
         return;
       }
@@ -66,16 +70,18 @@ export default function AdminPage() {
     if (!window.confirm("Are you sure you want to delete this booking enquiry?")) return;
 
     try {
-      const token = localStorage.getItem("admin_token");
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
       const response = await fetch(`${apiUrl}/bookings/${id}`, {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        credentials: "include"
       });
 
       const result = await response.json();
+
+      if (response.status === 401) {
+        router.push("/admin/login");
+        return;
+      }
 
       if (!response.ok) {
         throw new Error(result.message || "Failed to delete booking");

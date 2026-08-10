@@ -22,9 +22,17 @@ export const loginAdmin = async (req, res) => {
       { expiresIn: '24h' }
     );
 
+    // Set token in HttpOnly cookie
+    res.cookie('admin_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      path: '/'
+    });
+
     return res.status(200).json({
       status: 'success',
-      token,
       message: 'Logged in successfully'
     });
   }
@@ -32,5 +40,20 @@ export const loginAdmin = async (req, res) => {
   return res.status(401).json({
     status: 'error',
     message: 'Invalid username or password'
+  });
+};
+
+export const logoutAdmin = async (req, res) => {
+  res.cookie('admin_token', '', {
+    httpOnly: true,
+    expires: new Date(0),
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    path: '/'
+  });
+
+  return res.status(200).json({
+    status: 'success',
+    message: 'Logged out successfully'
   });
 };
