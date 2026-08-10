@@ -1,4 +1,5 @@
 import Booking from '../models/Booking.js';
+import { sendBookingEmails } from '../config/emailService.js';
 
 // Create a new booking
 export const createBooking = async (req, res) => {
@@ -26,6 +27,9 @@ export const createBooking = async (req, res) => {
     });
 
     const savedBooking = await newBooking.save();
+
+    // Trigger confirmation and notification emails asynchronously
+    sendBookingEmails(savedBooking);
 
     return res.status(201).json({
       status: 'success',
