@@ -1,5 +1,5 @@
 import express from 'express';
-import { createBooking, getBookings } from '../controllers/bookingController.js';
+import { createBooking, getBookings, deleteBooking } from '../controllers/bookingController.js';
 import protect from '../middleware/authMiddleware.js';
 
 const router = express.Router();
@@ -10,4 +10,8 @@ router.post('/', createBooking);
 // Protected route to retrieve all bookings (admin only)
 router.get('/', protect, getBookings);
 
+// Protected route to delete a booking (admin only)
+router.delete('/:id', protect, deleteBooking);
+
 export default router;
+

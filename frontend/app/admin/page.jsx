@@ -1,61 +1,97 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { X } from "lucide-react";
 
 export default function AdminPage() {
   const router = useRouter();
   const [bookings, setBookings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [selectedBooking, setSelectedBooking] = useState(null);
 
   const handleLogout = () => {
     localStorage.removeItem("admin_token");
     router.push("/admin/login");
   };
 
-  useEffect(() => {
+  const fetchBookings = useCallback(async () => {
     const token = localStorage.getItem("admin_token");
     if (!token) {
       router.push("/admin/login");
       return;
     }
 
-    const fetchBookings = async () => {
-      try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-        const response = await fetch(`${apiUrl}/bookings`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+    setIsLoading(true);
+    setError("");
 
-        const result = await response.json();
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+      const response = await fetch(`${apiUrl}/bookings`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-        if (response.status === 401) {
-          // Token expired or invalid
-          localStorage.removeItem("admin_token");
-          router.push("/admin/login");
-          return;
-        }
+      const result = await response.json();
 
-        if (!response.ok) {
-          throw new Error(result.message || "Failed to load bookings");
-        }
-
-        setBookings(result.data || []);
-      } catch (err) {
-        setError(err.message || "Error loading bookings list.");
-      } finally {
-        setIsLoading(false);
+      if (response.status === 401) {
+        localStorage.removeItem("admin_token");
+        router.push("/admin/login");
+        return;
       }
-    };
 
-    fetchBookings();
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to load bookings");
+      }
+
+      setBookings(result.data || []);
+    } catch (err) {
+      setError(err.message || "Error loading bookings list.");
+    } finally {
+      setIsLoading(false);
+    }
   }, [router]);
+
+  useEffect(() => {
+    fetchBookings();
+  }, [fetchBookings]);
+
+  const handleDelete = async (e, id) => {
+    e.stopPropagation(); // Prevents opening the details modal
+    if (!window.confirm("Are you sure you want to delete this booking enquiry?")) return;
+
+    try {
+      const token = localStorage.getItem("admin_token");
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+      const response = await fetch(`${apiUrl}/bookings/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to delete booking");
+      }
+
+      // Close details modal if the deleted one was open
+      if (selectedBooking && selectedBooking._id === id) {
+        setSelectedBooking(null);
+      }
+
+      // Refresh list after deletion
+      fetchBookings();
+    } catch (err) {
+      setError(err.message || "Error deleting booking.");
+    }
+  };
 
   // Format date utility
   const formatDate = (dateStr) => {
@@ -88,18 +124,33 @@ export default function AdminPage() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-border pb-6 mb-8 gap-4">
             <div>
               <span className="text-[10px] font-sans tracking-[0.3em] text-primary uppercase block mb-1">
-                Studio Management
+                Pixelbees Photography
               </span>
               <h1 className="text-3xl sm:text-4xl font-serif text-foreground">
-                Client Enquiries
+                Admin Dashboard
               </h1>
             </div>
-            <button
-              onClick={handleLogout}
-              className="text-xs font-sans tracking-widest text-muted-foreground hover:text-foreground border border-border hover:border-primary/50 px-4 py-2 rounded-md transition-colors"
-            >
-              Sign Out
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => router.push("/")}
+                className="text-xs font-sans tracking-widest text-muted-foreground hover:text-foreground border border-border hover:border-primary/50 px-4 py-2 rounded-md transition-colors"
+              >
+                Back to Site
+              </button>
+              <button
+                onClick={fetchBookings}
+                disabled={isLoading}
+                className="text-xs font-sans tracking-widest text-foreground border border-border hover:border-primary/50 px-4 py-2 rounded-md transition-colors disabled:opacity-40"
+              >
+                Refresh
+              </button>
+              <button
+                onClick={handleLogout}
+                className="text-xs font-sans tracking-widest text-muted-foreground hover:text-foreground border border-border hover:border-primary/50 px-4 py-2 rounded-md transition-colors"
+              >
+                Sign Out
+              </button>
+            </div>
           </div>
 
           {/* Error Message */}
@@ -133,11 +184,17 @@ export default function AdminPage() {
                     <th className="p-4 text-[10px] font-sans tracking-widest text-muted-foreground uppercase">Preferred Date</th>
                     <th className="p-4 text-[10px] font-sans tracking-widest text-muted-foreground uppercase">Concept / Notes</th>
                     <th className="p-4 text-[10px] font-sans tracking-widest text-muted-foreground uppercase">Submitted</th>
+                    <th className="p-4 text-[10px] font-sans tracking-widest text-muted-foreground uppercase text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border/50">
                   {bookings.map((booking) => (
-                    <tr key={booking._id} className="hover:bg-background/20 transition-colors">
+                    <tr
+                      key={booking._id}
+                      onClick={() => setSelectedBooking(booking)}
+                      className="hover:bg-background/20 transition-colors cursor-pointer"
+                      title="Click to view details"
+                    >
                       <td className="p-4">
                         <div className="font-medium text-foreground text-sm">{booking.name}</div>
                         <div className="text-xs text-muted-foreground mt-0.5">{booking.email}</div>
@@ -151,11 +208,19 @@ export default function AdminPage() {
                       <td className="p-4 text-sm text-foreground">
                         {formatDate(booking.date)}
                       </td>
-                      <td className="p-4 text-xs text-muted-foreground max-w-xs break-words whitespace-pre-line leading-relaxed">
+                      <td className="p-4 text-xs text-muted-foreground max-w-xs truncate leading-relaxed">
                         {booking.message || <span className="italic text-muted-foreground/30">No notes provided</span>}
                       </td>
                       <td className="p-4 text-xs text-muted-foreground">
                         {formatDateTime(booking.createdAt)}
+                      </td>
+                      <td className="p-4 text-right">
+                        <button
+                          onClick={(e) => handleDelete(e, booking._id)}
+                          className="text-[10px] font-sans tracking-widest text-red-400 hover:text-red-300 uppercase transition-colors duration-200 cursor-pointer"
+                        >
+                          Delete
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -165,7 +230,115 @@ export default function AdminPage() {
           )}
         </div>
       </main>
-      <Footer />
+
+      {/* Luxury Details Modal Overlay */}
+      {selectedBooking && (
+        <div
+          className="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={() => setSelectedBooking(null)}
+        >
+          <div
+            className="bg-card border border-border rounded-xl p-8 max-w-xl w-full relative card-glow shimmer-top text-left space-y-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between border-b border-border pb-4">
+              <div>
+                <span className="text-[10px] font-sans tracking-[0.2em] text-primary uppercase block mb-1">
+                  Enquiry Details
+                </span>
+                <h3 className="text-2xl font-serif text-foreground">
+                  {selectedBooking.name}
+                </h3>
+              </div>
+              <button
+                onClick={() => setSelectedBooking(null)}
+                className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer p-1"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Modal Details Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm">
+              <div className="space-y-1">
+                <span className="text-[10px] font-sans tracking-wider text-muted-foreground uppercase block">
+                  Email Address
+                </span>
+                <a
+                  href={`mailto:${selectedBooking.email}`}
+                  className="text-foreground hover:text-primary transition-colors block"
+                >
+                  {selectedBooking.email}
+                </a>
+              </div>
+              <div className="space-y-1">
+                <span className="text-[10px] font-sans tracking-wider text-muted-foreground uppercase block">
+                  Phone Number
+                </span>
+                <a
+                  href={`tel:${selectedBooking.phone}`}
+                  className="text-foreground hover:text-primary transition-colors block"
+                >
+                  {selectedBooking.phone}
+                </a>
+              </div>
+              <div className="space-y-1">
+                <span className="text-[10px] font-sans tracking-wider text-muted-foreground uppercase block">
+                  Photography Service
+                </span>
+                <span className="text-primary font-medium block">
+                  {selectedBooking.service}
+                </span>
+              </div>
+              <div className="space-y-1">
+                <span className="text-[10px] font-sans tracking-wider text-muted-foreground uppercase block">
+                  Preferred Date
+                </span>
+                <span className="text-foreground block">
+                  {formatDate(selectedBooking.date)}
+                </span>
+              </div>
+              <div className="space-y-1 sm:col-span-2">
+                <span className="text-[10px] font-sans tracking-wider text-muted-foreground uppercase block">
+                  Submitted On
+                </span>
+                <span className="text-muted-foreground text-xs block">
+                  {formatDateTime(selectedBooking.createdAt)}
+                </span>
+              </div>
+            </div>
+
+            {/* Modal Concept Notes */}
+            <div className="border-t border-border pt-4 space-y-2">
+              <span className="text-[10px] font-sans tracking-wider text-muted-foreground uppercase block">
+                Visual Concept / Creative Notes
+              </span>
+              <div className="bg-background/40 border border-border/50 rounded-lg p-4 text-sm text-foreground/90 whitespace-pre-wrap leading-relaxed max-h-48 overflow-y-auto">
+                {selectedBooking.message || (
+                  <span className="italic text-muted-foreground/45">No notes provided for this session concept.</span>
+                )}
+              </div>
+            </div>
+
+            {/* Modal Actions */}
+            <div className="flex justify-end gap-3 pt-2">
+              <button
+                onClick={(e) => handleDelete(e, selectedBooking._id)}
+                className="text-xs font-sans tracking-widest text-red-400 hover:text-red-300 border border-red-500/20 hover:border-red-500/40 px-4 py-2 rounded-md transition-colors uppercase"
+              >
+                Delete Enquiry
+              </button>
+              <button
+                onClick={() => setSelectedBooking(null)}
+                className="text-xs font-sans tracking-widest text-muted-foreground hover:text-foreground border border-border hover:border-primary/50 px-4 py-2 rounded-md transition-colors uppercase"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

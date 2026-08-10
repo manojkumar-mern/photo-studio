@@ -65,3 +65,30 @@ export const getBookings = async (req, res) => {
     });
   }
 };
+
+// Delete a booking (Admin protected)
+export const deleteBooking = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedBooking = await Booking.findByIdAndDelete(id);
+
+    if (!deletedBooking) {
+      return res.status(404).json({
+        status: 'error',
+        message: 'Booking not found'
+      });
+    }
+
+    return res.status(200).json({
+      status: 'success',
+      message: 'Booking deleted successfully'
+    });
+  } catch (error) {
+    console.error('Error deleting booking:', error);
+    return res.status(500).json({
+      status: 'error',
+      message: 'Internal server error while deleting booking'
+    });
+  }
+};
+
