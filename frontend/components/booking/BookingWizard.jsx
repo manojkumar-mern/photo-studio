@@ -92,15 +92,36 @@ export default function BookingWizard() {
     setStep((prev) => prev - 1);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateStep()) return;
     setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+      const response = await fetch(`${apiUrl}/bookings`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to submit booking");
+      }
+
       setIsSubmitting(false);
       setStep(5);
-    }, 1400);
+    } catch (err) {
+      console.error("Booking submission error:", err);
+      setErrors((prev) => ({
+        ...prev,
+        submit: err.message || "An unexpected error occurred. Please try again.",
+      }));
+      setIsSubmitting(false);
+    }
   };
 
   // Today's date string for min attribute
@@ -259,6 +280,11 @@ export default function BookingWizard() {
                     className={`${inputCls} resize-none`}
                   />
                 </div>
+                {errors.submit && (
+                  <p role="alert" className="text-xs text-red-400 text-center">
+                    {errors.submit}
+                  </p>
+                )}
                 <NavRow
                   onBack={prevStep}
                   submitLabel={isSubmitting ? "Submitting…" : "Send Request"}
