@@ -1,6 +1,6 @@
 import { Cormorant_Garamond, DM_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import ThemeSwitcher from "@/components/ui/ThemeSwitcher";
+import ScrollProvider from "@/components/layout/ScrollProvider";
 
 const serifFont = Cormorant_Garamond({
   variable: "--font-serif",
@@ -77,9 +77,9 @@ export default function RootLayout({ children }) {
       className={`${serifFont.variable} ${sansFont.variable} ${displayFont.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground selection:bg-primary/30 selection:text-foreground">
-        {children}
-        {/* Theme preview switcher — development/design only, remove when final theme is decided */}
-        <ThemeSwitcher />
+        <ScrollProvider>
+          {children}
+        </ScrollProvider>
       </body>
     </html>
   );

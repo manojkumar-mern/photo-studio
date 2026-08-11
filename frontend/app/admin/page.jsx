@@ -62,7 +62,10 @@ export default function AdminPage() {
   }, [router]);
 
   useEffect(() => {
-    fetchBookings();
+    const timer = setTimeout(() => {
+      fetchBookings();
+    }, 0);
+    return () => clearTimeout(timer);
   }, [fetchBookings]);
 
   const handleDelete = async (e, id) => {

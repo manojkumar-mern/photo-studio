@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform, animate } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useScroll, animate } from "framer-motion";
 import Image from "next/image";
 
 // Decorative corner bracket
@@ -37,6 +37,8 @@ const DEFAULT_ACCENT = { bg: "bg-primary/20", text: "text-primary", dot: "bg-pri
 const CARD_HEIGHTS = ["h-[58vh] sm:h-[64vh]", "h-[46vh] sm:h-[52vh]", "h-[46vh] sm:h-[52vh]"];
 
 export default function PortfolioCard({ item, idx, onClick }) {
+  const cardRef = useRef(null);
+  const [isLoaded, setIsLoaded] = useState(false);
   // Read reduced-motion preference.
   // The initial value is evaluated lazily inside useState so it runs
   // once on the client without triggering the setState-in-effect lint rule.
@@ -44,6 +46,13 @@ export default function PortfolioCard({ item, idx, onClick }) {
     if (typeof window === "undefined") return false;
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   });
+
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "end start"]
+  });
+
+  const yParallax = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -74,6 +83,7 @@ export default function PortfolioCard({ item, idx, onClick }) {
 
   return (
     <div
+      ref={cardRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={() => onClick(item)}
@@ -94,14 +104,17 @@ export default function PortfolioCard({ item, idx, onClick }) {
     >
       {/* ── Image ────────────────────────────────────────── */}
       <motion.div
-        style={{ scale: reducedMotion ? 1 : imageScale }}
-        className="absolute inset-0 w-full h-full"
+        style={{ y: reducedMotion ? 0 : yParallax, scale: reducedMotion ? 1 : imageScale, height: "112%", top: "-6%" }}
+        className="absolute inset-0 w-full"
       >
         <Image
           src={item.image}
           alt={item.title}
           fill
-          className="object-cover"
+          className={`object-cover transition-all duration-1000 ease-out ${
+            isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105"
+          }`}
+          onLoad={() => setIsLoaded(true)}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 45vw"
           priority={idx === 0}
         />

@@ -116,7 +116,7 @@ export default function Header() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`relative text-[13px] font-sans tracking-[0.18em] transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm
+                  className={`relative text-[13px] font-sans tracking-[0.18em] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 hover:scale-[1.03] active:scale-[0.98] rounded-sm
                     after:absolute after:bottom-[-3px] after:left-0 after:h-[1px] after:bg-primary after:transition-all after:duration-300
                     ${isActive
                       ? "text-foreground after:w-full"
@@ -129,7 +129,7 @@ export default function Header() {
             })}
             <Link
               href="/booking"
-              className="text-[13px] font-sans tracking-[0.18em] border border-primary bg-primary text-primary-foreground rounded-md px-7 py-2.5 transition-all duration-300 hover:bg-transparent hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="text-[13px] font-sans tracking-[0.18em] border border-primary bg-primary text-primary-foreground rounded-md px-7 py-2.5 transition-all duration-300 hover:bg-transparent hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 hover:scale-[1.03] active:scale-[0.97]"
             >
               BOOK SESSION
             </Link>

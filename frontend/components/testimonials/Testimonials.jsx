@@ -1,19 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { testimonials } from "@/lib/data";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 export default function Testimonials() {
   const [activeIdx, setActiveIdx] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const nextSlide = () => {
+    setIsLoaded(false);
     setActiveIdx((prev) => (prev + 1) % testimonials.length);
   };
 
   const prevSlide = () => {
+    setIsLoaded(false);
     setActiveIdx((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const revealVariants = {
+    hidden: { opacity: 0, y: 25 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
+    }
   };
 
   return (
@@ -21,7 +33,13 @@ export default function Testimonials() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
         
         {/* Left Column: Testimonial Slideshow */}
-        <div className="lg:col-span-7 space-y-8">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={revealVariants}
+          className="lg:col-span-7 space-y-8"
+        >
           <div>
             <span className="text-[10px] font-sans tracking-[0.3em] text-primary uppercase block mb-3">
               CLIENT EXPERIENCES
@@ -76,10 +94,16 @@ export default function Testimonials() {
               </button>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Right Column: Behind the Lens Media */}
-        <div className="lg:col-span-5 space-y-4">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={revealVariants}
+          className="lg:col-span-5 space-y-4"
+        >
           <span className="text-[10px] font-sans tracking-[0.25em] text-primary uppercase block">
             BEHIND THE LENS
           </span>
@@ -97,13 +121,16 @@ export default function Testimonials() {
                   src={testimonials[activeIdx].image}
                   alt={testimonials[activeIdx].author}
                   fill
-                  className="object-cover transition-transform duration-75 hover:scale-103"
+                  className={`object-cover transition-all duration-1000 ease-out hover:scale-103 ${
+                    isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105"
+                  }`}
+                  onLoad={() => setIsLoaded(true)}
                   sizes="(max-width: 1024px) 100vw, 40vw"
                 />
               </motion.div>
             </AnimatePresence>
           </div>
-        </div>
+        </motion.div>
 
       </div>
     </section>

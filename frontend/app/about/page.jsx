@@ -104,13 +104,13 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 md:gap-14">
               {TEAM.map((member) => (
                 <article key={member.name} className="space-y-5">
-                  <div className="relative h-[44vw] sm:h-[42vh] md:h-[52vh] max-h-[520px] bg-card border border-border overflow-hidden">
+                  <div className="relative h-[44vw] sm:h-[42vh] md:h-[52vh] max-h-[520px] bg-card border border-border overflow-hidden group">
                     <Image
                       src={member.image}
                       alt={member.alt}
                       fill
-                      className="object-cover grayscale hover:grayscale-0 transition-all duration-500"
-                      sizes="(max-width: 640px) 92vw, (max-width: 1024px) 45vw, 35vw"
+                      className="object-cover grayscale hover:grayscale-0 group-hover:scale-[1.04] transition-all duration-700 ease-out"
+                      sizes="(max-width: 640px) 92vw, 40vw"
                     />
                   </div>
                   <div>

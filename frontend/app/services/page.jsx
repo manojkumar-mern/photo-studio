@@ -47,7 +47,7 @@ export default function ServicesPage() {
                 >
                   {/* Image */}
                   <div
-                    className={`lg:col-span-5 relative h-[52vw] sm:h-[50vh] md:h-[58vh] max-h-[620px] bg-card border border-border overflow-hidden ${
+                    className={`lg:col-span-5 relative h-[52vw] sm:h-[50vh] md:h-[58vh] max-h-[620px] bg-card border border-border overflow-hidden group ${
                       isEven ? "lg:order-1" : "lg:order-2"
                     }`}
                   >
@@ -55,7 +55,7 @@ export default function ServicesPage() {
                       src={service.image}
                       alt={`${service.name} — example photography`}
                       fill
-                      className="object-cover"
+                      className="object-cover group-hover:scale-[1.04] transition-transform duration-700 ease-out"
                       sizes="(max-width: 1024px) 92vw, 40vw"
                     />
                   </div>
