@@ -304,7 +304,7 @@ export default function BookingWizard() {
                 className="text-center py-10 space-y-6"
               >
                 <div
-                  className="w-14 h-14 border border-primary rounded-full flex items-center justify-center mx-auto text-primary"
+                  className="w-14 h-14 border border-emerald-500 rounded-full flex items-center justify-center mx-auto text-emerald-400 bg-emerald-500/10"
                   aria-hidden="true"
                 >
                   <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -312,9 +312,9 @@ export default function BookingWizard() {
                   </svg>
                 </div>
                 <h3 className="font-serif text-2xl text-foreground">Request Submitted</h3>
-                <p className="text-sm md:text-base font-sans text-muted-foreground max-w-sm mx-auto leading-relaxed">
-                  Thank you for sharing your concept. We review every enquiry carefully and will respond within 24 hours.
-                </p>
+                <div role="alert" className="text-sm md:text-base font-sans text-muted-foreground max-w-md mx-auto leading-relaxed px-4">
+                  Booking request submitted successfully! Thank you for choosing Pixelbees Photography. We’ve received your request and will get back to you soon.
+                </div>
                 <button
                   type="button"
                   onClick={() => {

@@ -164,10 +164,16 @@ export const sendBookingEmails = async (booking) => {
   // Perform independent email deliveries
   // 1. Send to Customer
   try {
-    console.log(`[Email Service] Attempting to send customer confirmation email to: ${booking.email} from: ${fromEmail}`);
+    const isProd = process.env.NODE_ENV === 'production';
+    const recipientEmail = (!isProd && process.env.RESEND_TEST_RECIPIENT) || booking.email;
+    if (!isProd && process.env.RESEND_TEST_RECIPIENT) {
+      console.log(`[Email Service] Sandbox Mode: Redirecting customer confirmation email from ${booking.email} to verified recipient: ${recipientEmail}`);
+    } else {
+      console.log(`[Email Service] Attempting to send customer confirmation email to: ${booking.email} from: ${fromEmail}`);
+    }
     const res = await resend.emails.send({
       from: fromEmail,
-      to: booking.email,
+      to: recipientEmail,
       subject: 'Booking Request Received - Pixelbees Photography',
       html: customerHtml,
     });
