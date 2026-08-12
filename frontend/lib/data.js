@@ -128,5 +128,27 @@ export const testimonials = [
     author: "Dr. Adrian Vance",
     context: "Fine Art Portraiture",
     image: "/photos/portrait_1.jpg"
+  },
+  {
+    id: 4,
+    quote: "The team's creativity is unbounded. They turned a simple lifestyle shoot into a gorgeous, high-fashion editorial story that perfectly captures the artistic mood we wanted.",
+    author: "Sasha & Julian",
+    context: "Fashion Editorial",
+    image: "/photos/_Mournful and yet grand is the destiny of the artist._(JPG).jpg"
+  },
+  {
+    id: 5,
+    quote: "The outdoor session was so fun and light. They kept everyone comfortable and captured the most genuine, joyful moments in natural lighting.",
+    author: "The Iyer Family",
+    context: "Family Portraiture",
+    image: "/photos/_If you look the right way_ you can see that the whole world is a garden_(JPG).jpg"
+  },
+  {
+    id: 6,
+    quote: "Stunning product and food styling! The playing with lighting shadows and textures brought our culinary creations to life. An absolute pleasure to work with.",
+    author: "Chef Vivek",
+    context: "Commercial Foodgraphy",
+    image: "/photos/_The only way to get rid of a temptation is to yield to it.___On today_s foodgraphy ___canonr5 _canonindia _foodstyling __vino_ranga(JPG).jpg"
   }
 ];
+
