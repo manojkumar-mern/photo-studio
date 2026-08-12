@@ -32,7 +32,7 @@ export default function HeroSection() {
         return;
       }
 
-      // Initial setup for entrance (done via inline styles too, but keep for robustness)
+      // Initial setup for entrance
       gsap.set(imageRef.current, { scale: 1.06, opacity: 0 });
       gsap.set([categoryRef.current, textRef.current, ctaRef.current], { opacity: 0, y: 25 });
       gsap.set(scrollIndicatorRef.current, { opacity: 0 });
@@ -40,12 +40,12 @@ export default function HeroSection() {
       const titleLines = titleRef.current.querySelectorAll(".title-line");
       gsap.set(titleLines, { yPercent: 40, opacity: 0 });
 
-      // Run entrance sequence
-      tl.to(imageRef.current, { scale: 1.0, opacity: 0.45, duration: 2.0, ease: "power2.out" })
-        .to(titleLines, { yPercent: 0, opacity: 1, duration: 1.2, stagger: 0.12, ease: "power4.out" }, "-=1.5")
-        .to(categoryRef.current, { opacity: 1, y: 0, duration: 0.8 }, "-=1.1")
-        .to([textRef.current, ctaRef.current], { opacity: 1, y: 0, duration: 0.8, stagger: 0.15 }, "-=0.9")
-        .to(scrollIndicatorRef.current, { opacity: 0.6, duration: 1.0 }, "-=0.5");
+      // Run entrance sequence with a slight delay and slower transitions
+      tl.to(imageRef.current, { scale: 1.0, opacity: 0.45, duration: 2.2, ease: "power2.out" })
+        .to(titleLines, { yPercent: 0, opacity: 1, duration: 1.4, stagger: 0.15, ease: "power4.out" }, "-=1.0")
+        .to(categoryRef.current, { opacity: 1, y: 0, duration: 1.0 }, "-=0.7")
+        .to([textRef.current, ctaRef.current], { opacity: 1, y: 0, duration: 1.0, stagger: 0.2 }, "-=0.5")
+        .to(scrollIndicatorRef.current, { opacity: 0.6, duration: 1.2 }, "-=0.2");
 
       // Scroll-linked parallax & scale on background image wrapper
       gsap.to(imageWrapperRef.current, {
@@ -59,10 +59,11 @@ export default function HeroSection() {
         }
       });
 
-      // Fade out copy elements wrapper on scroll (no conflict with entrance animation elements)
+      // Fade out and blur copy elements wrapper on scroll
       gsap.to([contentWrapperRef.current, scrollIndicatorWrapperRef.current], {
         opacity: 0,
         y: -30,
+        filter: "blur(10px)",
         ease: "none",
         scrollTrigger: {
           trigger: containerRef.current,
@@ -77,12 +78,12 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative min-h-[100svh] w-full overflow-hidden flex items-center justify-center bg-background">
+    <section ref={containerRef} data-no-scroll-blur="true" className="relative min-h-[100svh] w-full overflow-hidden flex items-center justify-center bg-background">
       {/* Background Cinematic Image */}
       <div ref={imageWrapperRef} className="absolute inset-0 z-0 overflow-hidden">
         <div ref={imageRef} style={{ opacity: 0 }} className="relative w-full h-[110%] top-[-5%]">
           <Image
-            src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1920&auto=format&fit=crop"
+            src="/images/hero.png"
             alt="Cinematic Portrait Cover"
             fill
             priority

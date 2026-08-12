@@ -6,6 +6,7 @@ import Image from "next/image";
 const STUDIO_LINKS = [
   { label: "Our Story",     href: "/about"    },
   { label: "Selected Work", href: "/work"     },
+  { label: "Gallery Archive", href: "/gallery" },
   { label: "Experiences",   href: "/services" },
 ];
 

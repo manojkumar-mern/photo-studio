@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/components/layout/Header";
+import CursorGrid from "@/components/ui/CursorGrid";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -69,8 +70,20 @@ export default function AdminLoginPage() {
   return (
     <>
       <Header />
-      <main className="flex-1 bg-background flex items-center justify-center min-h-[calc(100vh-100px)] pt-20">
-        <div className="max-w-md w-full px-4 py-8">
+      <main className="flex-1 bg-background flex items-center justify-center min-h-[calc(100vh-100px)] pt-20 relative overflow-hidden">
+        {/* Background Grid Hover Glow Effect */}
+        <CursorGrid
+          cellSize={50}
+          color="#C5A880"
+          radius={140}
+          holdTime={200}
+          fadeDuration={600}
+          lineWidth={1.0}
+          maxOpacity={0.4}
+          gridOpacity={0.025}
+        />
+
+        <div className="max-w-md w-full px-4 py-8 relative z-10">
           <div className="border border-border bg-card rounded-xl p-8 card-glow shimmer-top">
             <div className="text-center mb-8">
               <span className="text-[10px] font-sans tracking-[0.3em] text-primary uppercase block mb-2">

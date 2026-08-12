@@ -29,7 +29,7 @@ export default function Testimonials() {
   };
 
   return (
-    <section id="testimonials" className="relative bg-background py-24 md:py-36 px-6 md:px-12 z-20 border-b border-border">
+    <section id="testimonials" className="relative bg-[#FAF8F5] py-24 md:py-36 px-6 md:px-12 z-20 border-b border-[#E8E4DC]">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
         
         {/* Left Column: Testimonial Slideshow */}
@@ -44,7 +44,7 @@ export default function Testimonials() {
             <span className="text-[10px] font-sans tracking-[0.3em] text-primary uppercase block mb-3">
               CLIENT EXPERIENCES
             </span>
-            <h2 className="text-3xl md:text-5xl font-serif text-foreground">
+            <h2 className="text-3xl md:text-5xl font-serif text-[#1C1C1E]">
               Testimonials
             </h2>
           </div>
@@ -59,14 +59,14 @@ export default function Testimonials() {
                 transition={{ duration: 0.4, ease: "easeOut" }}
                 className="space-y-6"
               >
-                <p className="font-serif text-xl md:text-2xl text-foreground leading-relaxed italic">
+                <p className="font-serif text-xl md:text-2xl text-[#1C1C1E] leading-relaxed italic">
                   &ldquo;{testimonials[activeIdx].quote}&rdquo;
                 </p>
                 <div>
-                  <h4 className="text-xs font-sans tracking-[0.2em] text-foreground uppercase">
+                  <h4 className="text-xs font-sans tracking-[0.2em] text-[#1C1C1E] uppercase">
                     [{testimonials[activeIdx].author}]
                   </h4>
-                  <p className="text-[10px] font-sans tracking-[0.1em] text-muted-foreground uppercase">
+                  <p className="text-[10px] font-sans tracking-[0.1em] text-[#5A5A5C] uppercase">
                     [{testimonials[activeIdx].context}]
                   </p>
                 </div>
@@ -77,7 +77,7 @@ export default function Testimonials() {
             <div className="flex items-center gap-6 mt-8">
               <button
                 onClick={prevSlide}
-                className="text-xs font-sans tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors py-2 focus:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded-sm"
+                className="text-xs font-sans tracking-[0.2em] text-[#5A5A5C] hover:text-primary transition-colors py-2 focus:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded-sm"
                 aria-label="Previous testimonial"
               >
                 PREV
@@ -87,7 +87,7 @@ export default function Testimonials() {
               </div>
               <button
                 onClick={nextSlide}
-                className="text-xs font-sans tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors py-2 focus:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded-sm"
+                className="text-xs font-sans tracking-[0.2em] text-[#5A5A5C] hover:text-primary transition-colors py-2 focus:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded-sm"
                 aria-label="Next testimonial"
               >
                 NEXT

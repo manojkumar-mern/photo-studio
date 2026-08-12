@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import CursorGrid from "@/components/ui/CursorGrid";
 
 const SERVICES = [
   "Fashion & Editorial",
@@ -128,8 +129,20 @@ export default function BookingWizard() {
   const today = new Date().toISOString().split("T")[0];
 
   return (
-    <section id="book" className="relative bg-background py-20 md:py-32 px-4 sm:px-6 md:px-12 z-20">
-      <div className="max-w-2xl mx-auto border border-border bg-card rounded-xl p-6 sm:p-8 md:p-12">
+    <section id="book" className="relative bg-background py-20 md:py-32 px-4 sm:px-6 md:px-12 z-20 overflow-hidden">
+      {/* Background Grid Hover Glow Effect */}
+      <CursorGrid
+        cellSize={50}
+        color="#C5A880"
+        radius={140}
+        holdTime={200}
+        fadeDuration={600}
+        lineWidth={1.0}
+        maxOpacity={0.4}
+        gridOpacity={0.025}
+      />
+
+      <div className="max-w-2xl mx-auto border border-border bg-card rounded-xl p-6 sm:p-8 md:p-12 relative z-10">
 
         {/* Header */}
         <div className="mb-8">

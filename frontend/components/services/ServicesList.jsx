@@ -70,12 +70,12 @@ export default function ServicesList() {
   }, [activeIdx]);
 
   return (
-    <section id="services" ref={containerRef} className="relative bg-background py-28 md:py-36 px-6 md:px-12 z-20 border-b border-border">
+    <section id="services" ref={containerRef} className="relative bg-[#FAF8F5] py-28 md:py-36 px-6 md:px-12 z-20 border-b border-[#E8E4DC]">
       <div className="max-w-7xl mx-auto">
         <span className="text-[10px] font-sans tracking-[0.3em] text-primary uppercase block mb-3 reveal-fade">
           CREATIVE SERVICES
         </span>
-        <h2 className="text-3xl md:text-5xl font-serif text-foreground mb-16 reveal-fade">
+        <h2 className="text-3xl md:text-5xl font-serif text-[#1C1C1E] mb-16 reveal-fade">
           Photography experiences
         </h2>
 
@@ -88,12 +88,12 @@ export default function ServicesList() {
                 <div
                   key={service.id}
                   onMouseEnter={() => setActiveIdx(idx)}
-                  className={`py-8 border-b border-border cursor-pointer transition-opacity duration-500 ${
+                  className={`py-8 border-b border-[#E8E4DC] cursor-pointer transition-opacity duration-500 ${
                     isActive ? "opacity-100" : "opacity-35 hover:opacity-60"
                   }`}
                 >
                   <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-2xl md:text-3.5xl font-serif text-foreground">
+                    <h3 className="text-2xl md:text-3.5xl font-serif text-[#1C1C1E]">
                       {service.name}
                     </h3>
                     <span className="text-xs font-sans text-primary tracking-wider">
@@ -109,12 +109,12 @@ export default function ServicesList() {
                       opacity: isActive ? 1 : 0,
                     }}
                   >
-                    <p className="text-base md:text-lg font-sans text-muted-foreground leading-relaxed max-w-xl mb-6 mt-2">
+                    <p className="text-base md:text-lg font-sans text-[#4A4A4C] leading-relaxed max-w-xl mb-6 mt-2">
                       {service.description}
                     </p>
                     <a
                       href="#book"
-                      className="inline-block text-xs font-sans tracking-[0.2em] text-primary hover:text-foreground transition-colors"
+                      className="inline-block text-xs font-sans tracking-[0.2em] text-primary hover:text-[#1C1C1E] transition-colors"
                     >
                       BOOK SESSION →
                     </a>

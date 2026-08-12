@@ -41,7 +41,7 @@ export default function AboutStudio() {
         {/* Left: Premium Team Image with Clip Reveal */}
         <div className="lg:col-span-5 relative h-[56vh] md:h-[68vh] bg-card rounded-xl border border-border overflow-hidden">
           <CinematicImage
-            src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop"
+            src="/photos/outdoor_portrait_1.jpg"
             alt="Pixel Bees Photos team member in a natural-light setting"
             fill
             revealType="clip-right"
@@ -90,6 +90,7 @@ export default function AboutStudio() {
             </div>
           </div>
         </div>
+
       </div>
     </section>
   );

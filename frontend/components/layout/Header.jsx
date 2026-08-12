@@ -5,11 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import MaskedHeading from "@/components/ui/MaskedHeading";
 
 const NAV_LINKS = [
   { name: "ABOUT",    href: "/about"    },
   { name: "WORK",     href: "/work"     },
   { name: "SERVICES", href: "/services" },
+  { name: "GALLERY",  href: "/gallery"  },
   { name: "CONTACT",  href: "/contact"  },
 ];
 
@@ -33,10 +35,15 @@ export default function Header() {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      if (window.lenis) window.lenis.stop();
     } else {
       document.body.style.overflow = "";
+      if (window.lenis) window.lenis.start();
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+      if (window.lenis) window.lenis.start();
+    };
   }, [isOpen]);
 
   // ── ESC key closes menu ───────────────────────────────────
@@ -78,19 +85,19 @@ export default function Header() {
 
             {/* Brand lockup */}
             <div className="flex flex-col text-left min-w-0">
-              <span
-                className="
-                  text-[22px] leading-[1.1]
-                  font-serif font-medium
-                  tracking-[0.05em]
-                  text-[#F5EFE6]
-                  group-hover:text-primary
-                  transition-colors duration-300
-                  whitespace-nowrap
-                "
-              >
-                Pixelbees Photography
-              </span>
+              <MaskedHeading
+                text="Pixelbees Photography"
+                tag="span"
+                src="/photos/beauty_1.webp"
+                fillScale={1.3}
+                parallax={12}
+                drift={8}
+                align="left"
+                weight={500}
+                tracking={0.05}
+                lineHeight={1.1}
+                className="brand-title text-[22px] font-serif font-medium whitespace-nowrap"
+              />
               <span
                 className="
                   text-[13px] leading-[1.25]
