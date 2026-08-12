@@ -202,7 +202,7 @@ export default function CinematicImage({
     >
       <div
         ref={imageWrapperRef}
-        className="w-full h-full overflow-hidden"
+        className="w-full h-full overflow-hidden cinematic-image-wrapper"
         style={{
           clipPath: prefersRevealClip(revealType) ? "inset(0% 100% 0% 0%)" : "none",
           width: "100%",

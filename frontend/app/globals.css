@@ -309,3 +309,15 @@
 .is-scrolling a {
   pointer-events: none !important;
 }
+
+/* Disable reveal clipping and force visibility of CinematicImage components on mobile/tablet viewports to prevent black loading boxes */
+@media (max-width: 1023px) {
+  .cinematic-image-wrapper {
+    clip-path: none !important;
+    opacity: 1 !important;
+  }
+  .cinematic-image-wrapper img {
+    scale: 1 !important;
+    transform: none !important;
+  }
+}

@@ -152,7 +152,7 @@ export default function ServicesPage() {
   return (
     <>
       <Header />
-      <main ref={containerRef} className="flex-1 bg-[#FAF8F5] pt-28 md:pt-32 pb-24 px-4 sm:px-6 md:px-12 text-[#1C1C1E]">
+      <main ref={containerRef} className="flex-1 bg-[#FAF8F5] pt-28 md:pt-32 pb-24 px-4 sm:px-6 md:px-12 text-[#1C1C1E] overflow-x-hidden w-full relative">
         <div className="max-w-7xl mx-auto">
 
           {/* Page heading */}
@@ -185,7 +185,7 @@ export default function ServicesPage() {
                     }`}
                   >
                     {/* Main Image Frame */}
-                    <div className="service-img-main relative w-[82%] h-[82%] bg-[#161618] overflow-hidden rounded-xl border border-border/40 shadow-2xl mr-auto mb-auto">
+                    <div className="service-img-main relative w-[76%] h-[76%] sm:w-[82%] sm:h-[82%] bg-[#161618] overflow-hidden rounded-xl border border-border/40 shadow-2xl mr-auto mb-auto">
                       <Image
                         src={service.image}
                         alt={`${service.name} — main photography`}
@@ -198,7 +198,7 @@ export default function ServicesPage() {
                     </div>
 
                     {/* Overlapping Detail Frame */}
-                    <div className="service-img-detail absolute bottom-0 right-0 w-[52%] h-[52%] bg-[#161618] overflow-hidden rounded-xl border border-primary/20 shadow-2xl ml-auto mt-auto">
+                    <div className="service-img-detail absolute bottom-0 right-0 w-[44%] h-[44%] sm:w-[52%] sm:h-[52%] bg-[#161618] overflow-hidden rounded-xl border border-primary/20 shadow-2xl ml-auto mt-auto">
                       <Image
                         src={DETAIL_IMAGES[service.id]}
                         alt={`${service.name} — detail photography`}

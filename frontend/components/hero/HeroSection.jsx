@@ -96,7 +96,7 @@ export default function HeroSection() {
       </div>
 
       {/* Content Overlay */}
-      <div ref={contentWrapperRef} className="relative z-20 max-w-7xl mx-auto w-full px-6 md:px-12 text-center md:text-left flex flex-col justify-end min-h-[100svh] pt-28 md:pt-36 lg:pt-44 pb-20 md:pb-28">
+      <div ref={contentWrapperRef} className="relative z-20 max-w-7xl mx-auto w-full px-6 md:px-12 text-center md:text-left flex flex-col justify-center md:justify-end min-h-[100svh] pt-28 md:pt-36 lg:pt-44 pb-20 md:pb-28">
         {/* Micro Category */}
         <span
           ref={categoryRef}
