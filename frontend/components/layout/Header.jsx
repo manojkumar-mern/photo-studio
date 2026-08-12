@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import MaskedHeading from "@/components/ui/MaskedHeading";
 
 const NAV_LINKS = [
   { name: "ABOUT",    href: "/about"    },
@@ -85,19 +84,9 @@ export default function Header() {
 
             {/* Brand lockup */}
             <div className="flex flex-col text-left min-w-0">
-              <MaskedHeading
-                text="Pixelbees Photography"
-                tag="span"
-                src="/photos/beauty_1.webp"
-                fillScale={1.3}
-                parallax={12}
-                drift={8}
-                align="left"
-                weight={500}
-                tracking={0.05}
-                lineHeight={1.1}
-                className="brand-title text-[22px] font-serif font-medium whitespace-nowrap"
-              />
+              <span className="text-[22px] leading-[1.1] font-serif font-medium tracking-[0.05em] whitespace-nowrap navbar-brand-logo">
+                Pixelbees Photography
+              </span>
               <span
                 className="
                   text-[13px] leading-[1.25]
@@ -231,6 +220,27 @@ export default function Header() {
           </motion.div>
         )}
       </AnimatePresence>
+      <style dangerouslySetInnerHTML={{ __html: `
+        .navbar-brand-logo {
+          background: linear-gradient(
+            120deg,
+            #FAF8F5 0%,
+            #FAF8F5 35%,
+            #C5A880 50%,
+            #FAF8F5 65%,
+            #FAF8F5 100%
+          );
+          background-size: 250% auto;
+          background-position: 0% 50%;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          transition: background-position 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+          display: inline-block;
+        }
+        .group:hover .navbar-brand-logo {
+          background-position: 100% 50%;
+        }
+      ` }} />
     </>
   );
 }

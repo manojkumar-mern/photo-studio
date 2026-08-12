@@ -1,6 +1,7 @@
-import { Cormorant_Garamond, DM_Sans, Playfair_Display } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans, Playfair_Display, Pinyon_Script } from "next/font/google";
 import "./globals.css";
 import ScrollProvider from "@/components/layout/ScrollProvider";
+import Preloader from "@/components/ui/Preloader";
 
 const serifFont = Cormorant_Garamond({
   variable: "--font-serif",
@@ -21,6 +22,13 @@ const displayFont = Playfair_Display({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
+  display: "swap",
+});
+
+const cursiveFont = Pinyon_Script({
+  variable: "--font-cursive",
+  subsets: ["latin"],
+  weight: ["400"],
   display: "swap",
 });
 
@@ -74,9 +82,10 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${serifFont.variable} ${sansFont.variable} ${displayFont.variable} h-full antialiased`}
+      className={`${serifFont.variable} ${sansFont.variable} ${displayFont.variable} ${cursiveFont.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground selection:bg-primary/30 selection:text-foreground">
+        <Preloader />
         <ScrollProvider>
           {children}
         </ScrollProvider>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useId, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 
 import './MaskedHeading.css';
@@ -32,6 +32,11 @@ const MaskedHeading = ({
   style,
   ...rest
 }) => {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const rootRef = useRef(null);
   const measureRef = useRef(null);
   const revealRef = useRef(null);
@@ -250,6 +255,24 @@ const MaskedHeading = ({
   }, [reveal, trigger, duration, stagger, words]);
 
   const Tag = tag;
+
+  if (!mounted) {
+    return (
+      <Tag
+        className={`masked-heading ${className}`.trim()}
+        style={{
+          textAlign: align,
+          fontWeight: weight,
+          letterSpacing: `${tracking}em`,
+          lineHeight,
+          ...style
+        }}
+        {...rest}
+      >
+        {text}
+      </Tag>
+    );
+  }
 
   return (
     <Tag
