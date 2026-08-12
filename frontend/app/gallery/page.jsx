@@ -144,23 +144,44 @@ export default function GalleryPage() {
 
       const cards = gridRef.current?.querySelectorAll(".gallery-card");
       if (cards && cards.length > 0) {
-        gsap.fromTo(
-          cards,
-          { opacity: 0, y: 35, scale: 0.98 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 1.0,
-            stagger: 0.1,
-            ease: "power3.out",
+        cards.forEach((card) => {
+          const img = card.querySelector("img");
+          
+          // Set initial visual states for container and image
+          gsap.set(card, { 
+            y: 80, 
+            opacity: 0, 
+            clipPath: "inset(100% 0% 0% 0%)" 
+          });
+          if (img) {
+            gsap.set(img, { scale: 1.25 });
+          }
+
+          // Create a custom timeline for the reveal
+          const tl = gsap.timeline({
             scrollTrigger: {
-              trigger: gridRef.current,
-              start: "top 80%",
+              trigger: card,
+              start: "top 92%", // Starts revealing when the card enters the lower viewport edge
               toggleActions: "play none none none"
             }
+          });
+
+          tl.to(card, {
+            y: 0,
+            opacity: 1,
+            clipPath: "inset(0% 0% 0% 0%)",
+            duration: 1.2,
+            ease: "power4.out"
+          });
+
+          if (img) {
+            tl.to(img, {
+              scale: 1.03, // Returns to normal slight scale
+              duration: 1.5,
+              ease: "power3.out"
+            }, "-=1.2"); // Overlaps timeline animation
           }
-        );
+        });
       }
     }, gridRef);
 

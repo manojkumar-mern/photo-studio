@@ -1,148 +1,165 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { services } from "@/lib/data";
 import Image from "next/image";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const SIZE_CLASSES = [
+  "md:col-span-6",  // Fashion
+  "md:col-span-6",  // Weddings
+  "md:col-span-12", // Portraiture
+];
+
+const ASPECT_CLASSES = [
+  "aspect-[3/4]",
+  "aspect-[3/4]",
+  "aspect-[16/9] md:aspect-[21/9]",
+];
+
 export default function ServicesList() {
-  const [activeIdx, setActiveIdx] = useState(0);
   const containerRef = useRef(null);
-  const listRef = useRef(null);
-  const imageContainerRef = useRef(null);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let ctx = gsap.context(() => {
-      // Reveal the entire section contents on entry
-      gsap.fromTo(
-        containerRef.current.querySelectorAll(".reveal-fade"),
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.0,
-          stagger: 0.1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
+      if (prefersReducedMotion) return;
 
-      // Subtle parallax on the image wrapper
-      if (!prefersReducedMotion && imageContainerRef.current) {
-        gsap.fromTo(
-          imageContainerRef.current.querySelector(".parallax-img"),
-          { yPercent: -8 },
-          {
-            yPercent: 8,
-            ease: "none",
-            scrollTrigger: {
-              trigger: containerRef.current,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true,
-            },
+      const cards = containerRef.current?.querySelectorAll(".service-card");
+      if (cards && cards.length > 0) {
+        cards.forEach((card) => {
+          const img = card.querySelector("img");
+
+          // Initial states
+          gsap.set(card, {
+            y: 100,
+            opacity: 0,
+            clipPath: "inset(100% 0% 0% 0%)"
+          });
+          if (img) {
+            gsap.set(img, { scale: 1.25 });
           }
-        );
+
+          // Timeline for reveal
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: card,
+              start: "top 90%", // Trigger when top of card enters 90% viewport
+              toggleActions: "play none none none"
+            }
+          });
+
+          tl.to(card, {
+            y: 0,
+            opacity: 1,
+            clipPath: "inset(0% 0% 0% 0%)",
+            duration: 1.3,
+            ease: "power4.out"
+          });
+
+          if (img) {
+            tl.to(img, {
+              scale: 1.03,
+              duration: 1.6,
+              ease: "power3.out"
+            }, "-=1.3");
+          }
+        });
       }
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
-  // Handle slide transitions for active service selection
-  useEffect(() => {
-    const activeImage = imageContainerRef.current?.querySelector(".active-service-img");
-    if (activeImage) {
-      gsap.fromTo(
-        activeImage,
-        { opacity: 0, scale: 1.03 },
-        { opacity: 0.85, scale: 1.0, duration: 0.6, ease: "power2.out" }
-      );
-    }
-  }, [activeIdx]);
-
   return (
     <section id="services" ref={containerRef} className="relative bg-[#FAF8F5] py-28 md:py-36 px-6 md:px-12 z-20 border-b border-[#E8E4DC]">
-      <div className="max-w-7xl mx-auto">
-        <span className="text-[10px] font-sans tracking-[0.3em] text-primary uppercase block mb-3 reveal-fade">
-          CREATIVE SERVICES
-        </span>
-        <h2 className="text-3xl md:text-5xl font-serif text-[#1C1C1E] mb-16 reveal-fade">
-          Photography experiences
-        </h2>
+      <div className="max-w-7xl mx-auto space-y-16">
+        
+        {/* Section Header */}
+        <div className="text-center md:text-left space-y-3">
+          <span className="text-[10px] font-sans tracking-[0.3em] text-primary uppercase block">
+            CREATIVE SERVICES
+          </span>
+          <h2 className="text-3xl md:text-5xl font-serif text-[#1C1C1E]">
+            Photography experiences
+          </h2>
+          <p className="text-sm font-sans text-[#5C5C5E] max-w-xl leading-relaxed">
+            Tailored visual storytelling formats designed around raw atmosphere, structure, and emotional authenticity.
+          </p>
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Services List Panel */}
-          <div ref={listRef} className="lg:col-span-7 space-y-2 reveal-fade">
-            {services.map((service, idx) => {
-              const isActive = activeIdx === idx;
-              return (
-                <div
-                  key={service.id}
-                  onMouseEnter={() => setActiveIdx(idx)}
-                  className={`py-8 border-b border-[#E8E4DC] cursor-pointer transition-opacity duration-500 ${
-                    isActive ? "opacity-100" : "opacity-35 hover:opacity-60"
-                  }`}
-                >
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-2xl md:text-3.5xl font-serif text-[#1C1C1E]">
-                      {service.name}
-                    </h3>
-                    <span className="text-xs font-sans text-primary tracking-wider">
-                      0{idx + 1}
-                    </span>
-                  </div>
+        {/* Gallery-like Asymmetric Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+          {services.map((service, idx) => (
+            <div
+              key={service.id}
+              className={`service-card relative group overflow-hidden bg-[#161618] border border-border/40 rounded-xl cursor-pointer ${SIZE_CLASSES[idx]}`}
+            >
+              {/* Image Frame */}
+              <div className={`relative w-full ${ASPECT_CLASSES[idx]} overflow-hidden`}>
+                <Image
+                  src={service.image}
+                  alt={service.name}
+                  fill
+                  className="object-cover transition-all duration-[1200ms] ease-out group-hover:scale-[1.06]"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  priority
+                />
+                
+                {/* Visual Overlays */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/10 z-10" />
+                <div className="absolute -inset-1 border border-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20" />
 
-                  {/* Elegant heights transition */}
-                  <div
-                    className={`overflow-hidden transition-all duration-500 ease-out`}
-                    style={{
-                      maxHeight: isActive ? "200px" : "0px",
-                      opacity: isActive ? 1 : 0,
-                    }}
-                  >
-                    <p className="text-base md:text-lg font-sans text-[#4A4A4C] leading-relaxed max-w-xl mb-6 mt-2">
+                {/* Card Top: Number */}
+                <div className="absolute top-6 right-6 z-20">
+                  <span className="font-sans text-xs tracking-widest text-primary font-bold">
+                    0{idx + 1}
+                  </span>
+                </div>
+
+                {/* Card Bottom: Service Content Lockup */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 z-20 flex flex-col justify-end text-left transition-all duration-500 translate-y-[170px] sm:translate-y-[150px] md:translate-y-[140px] group-hover:translate-y-0">
+                  <span className="text-[10px] font-sans tracking-[0.2em] text-primary uppercase font-bold mb-1.5">
+                    {service.useCase}
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-serif text-white mb-3 leading-tight">
+                    {service.name}
+                  </h3>
+                  
+                  {/* Expandable/Reveal Details */}
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 space-y-4 mt-2">
+                    <p className="text-xs font-sans text-white/70 leading-relaxed max-w-lg">
                       {service.description}
                     </p>
-                    <a
-                      href="#book"
-                      className="inline-block text-xs font-sans tracking-[0.2em] text-primary hover:text-[#1C1C1E] transition-colors"
-                    >
-                      BOOK SESSION →
-                    </a>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
 
-          {/* Service Photography Preview */}
-          <div
-            ref={imageContainerRef}
-            className="lg:col-span-5 relative h-[50vh] md:h-[60vh] w-full bg-card overflow-hidden rounded-xl border border-border reveal-fade"
-          >
-            <div className="absolute inset-0 w-full h-[116%] top-[-8%] parallax-img">
-              <Image
-                key={activeIdx}
-                src={services[activeIdx].image}
-                alt={services[activeIdx].name}
-                fill
-                className="object-cover active-service-img"
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                priority
-              />
+                    {/* Features checklist */}
+                    <ul className="text-[11px] font-sans text-white/60 space-y-1.5 border-l border-primary/40 pl-3 py-1">
+                      {service.includes.map((inc, i) => (
+                        <li key={i} className="flex items-center gap-2">
+                          <span className="text-primary font-bold">✓</span> {inc}
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Link */}
+                    <Link
+                      href="#book"
+                      className="inline-flex text-[10px] font-sans tracking-[0.25em] text-primary font-bold uppercase hover:text-white transition-colors gap-1.5 mt-2"
+                    >
+                      BOOK SESSION <span className="text-xs">→</span>
+                    </Link>
+                  </div>
+
+                </div>
+              </div>
             </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-30 pointer-events-none" />
-          </div>
+          ))}
         </div>
+
       </div>
     </section>
   );
