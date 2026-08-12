@@ -104,7 +104,8 @@ const GALLERY_ITEMS = [
     src: "/photos/cool_is_breeze_1.jpg",
     aspectRatio: "aspect-[3/4]",
     sizeClass: "md:col-span-5",
-    description: "Ambient portrait of a cool breeze mood, captured using cinematic lens depth."
+    description: "Ambient portrait of a cool breeze mood, captured using cinematic lens depth.",
+    objectPosition: "object-center"
   },
   {
     id: 11,
@@ -296,7 +297,7 @@ export default function GalleryPage() {
                       alt={item.title}
                       fill
                       sizes="(max-width: 768px) 100vw, 40vw"
-                      className="object-cover scale-[1.03] group-hover:scale-[1.07] transition-all duration-1000 ease-out"
+                      className={`object-cover ${item.objectPosition || "object-top"} scale-[1.03] group-hover:scale-[1.07] transition-all duration-1000 ease-out`}
                       priority={idx < 3}
                     />
                     

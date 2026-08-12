@@ -2,7 +2,6 @@ import Header from "@/components/layout/Header";
 import HeroSection from "@/components/hero/HeroSection";
 import SelectedWork from "@/components/portfolio/SelectedWork";
 import StudioStatement from "@/components/about/StudioStatement";
-import ServicesList from "@/components/services/ServicesList";
 import AboutStudio from "@/components/about/AboutStudio";
 import Testimonials from "@/components/testimonials/Testimonials";
 import BookingWizard from "@/components/booking/BookingWizard";
@@ -16,7 +15,6 @@ export default function Home() {
         <HeroSection />
         <StudioStatement />
         <SelectedWork />
-        <ServicesList />
         <AboutStudio />
         <Testimonials />
         <BookingWizard />
