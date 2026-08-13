@@ -7,6 +7,7 @@ import Footer from "@/components/layout/Footer";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { DraggableCardBody, DraggableCardContainer } from "@/components/ui/draggable-card";
 
 // Ensure ScrollTrigger is registered
 if (typeof window !== "undefined") {
@@ -30,8 +31,8 @@ const GALLERY_ITEMS = [
     title: "Subtle HD Glow",
     category: "PORTRAITS",
     src: "/photos/skin_finish_1.jpg",
-    aspectRatio: "aspect-video",
-    sizeClass: "md:col-span-7",
+    aspectRatio: "aspect-[3/4]",
+    sizeClass: "md:col-span-4",
     description: "Flawless skin finish makeup portrait under professional studio lighting."
   },
   {
@@ -53,6 +54,24 @@ const GALLERY_ITEMS = [
     description: "High-fashion model photography focused on pose and styling."
   },
   {
+    id: 13,
+    title: "The Icing on the Cake",
+    category: "FASHION",
+    src: "/photos/beauty_jewelry_1.jpg",
+    aspectRatio: "aspect-[3/4]",
+    sizeClass: "md:col-span-4",
+    description: "Exquisite bridal jewelry details showcasing intricate patterns and classic craftsmanship."
+  },
+  {
+    id: 14,
+    title: "Golden Candid Vows",
+    category: "WEDDINGS",
+    src: "/photos/bridal_candid_3.jpg",
+    aspectRatio: "aspect-video",
+    sizeClass: "md:col-span-8",
+    description: "Intimate and warm candid moments captured during the traditional wedding ceremony."
+  },
+  {
     id: 5,
     title: "Glamour Curation",
     category: "FASHION",
@@ -66,9 +85,27 @@ const GALLERY_ITEMS = [
     title: "Childhood Innocence",
     category: "PORTRAITS",
     src: "/photos/kids_1.jpg",
-    aspectRatio: "aspect-video",
-    sizeClass: "md:col-span-8",
+    aspectRatio: "aspect-[3/4]",
+    sizeClass: "md:col-span-4",
     description: "Candid children portrait capture full of natural expression."
+  },
+  {
+    id: 15,
+    title: "Imagination & Reality",
+    category: "PORTRAITS",
+    src: "/photos/imagination_guitar.jpg",
+    aspectRatio: "aspect-[4/5]",
+    sizeClass: "md:col-span-6",
+    description: "Artistic fine-art portrait mapping expressions, guitar details, and subtle ambient shadows."
+  },
+  {
+    id: 16,
+    title: "Playful Innocent Smile",
+    category: "PORTRAITS",
+    src: "/photos/kids_photography_2.jpg",
+    aspectRatio: "aspect-square",
+    sizeClass: "md:col-span-6",
+    description: "Delightful baby portrait capturing sweet laughter and genuine childhood expressions."
   },
   {
     id: 7,
@@ -89,12 +126,30 @@ const GALLERY_ITEMS = [
     description: "High-definition beauty shoot studying lighting contours and skin details."
   },
   {
+    id: 17,
+    title: "Maternal Grace",
+    category: "PORTRAITS",
+    src: "/photos/maternity_shoot_2.jpg",
+    aspectRatio: "aspect-[3/4]",
+    sizeClass: "md:col-span-5",
+    description: "Stunning outdoor maternity portrait session capturing the anticipation of new beginnings."
+  },
+  {
+    id: 18,
+    title: "Festive Crimson Portrait",
+    category: "EVENTS",
+    src: "/photos/merry_christmas_model.jpg",
+    aspectRatio: "aspect-[3/4]",
+    sizeClass: "md:col-span-7",
+    description: "Holiday themed portraiture utilizing rich red tones and warm studio lighting."
+  },
+  {
     id: 9,
     title: "The Candid Vow",
     category: "WEDDINGS",
     src: "/photos/for_booking_1.jpg",
-    aspectRatio: "aspect-[16/9]",
-    sizeClass: "md:col-span-12",
+    aspectRatio: "aspect-video",
+    sizeClass: "md:col-span-8",
     description: "Emotion-filled candid photography of wedding traditions."
   },
   {
@@ -103,7 +158,7 @@ const GALLERY_ITEMS = [
     category: "PORTRAITS",
     src: "/photos/cool_is_breeze_1.jpg",
     aspectRatio: "aspect-[3/4]",
-    sizeClass: "md:col-span-5",
+    sizeClass: "md:col-span-4",
     description: "Ambient portrait of a cool breeze mood, captured using cinematic lens depth.",
     objectPosition: "object-center"
   },
@@ -113,7 +168,7 @@ const GALLERY_ITEMS = [
     category: "EVENTS",
     src: "/photos/stunning_dance_1.jpg",
     aspectRatio: "aspect-video",
-    sizeClass: "md:col-span-7",
+    sizeClass: "md:col-span-8",
     description: "Capturing a stunning performance dynamically frozen in motion."
   },
   {
@@ -121,8 +176,8 @@ const GALLERY_ITEMS = [
     title: "New Beginnings",
     category: "PORTRAITS",
     src: "/photos/maternity_1.jpg",
-    aspectRatio: "aspect-[16/9]",
-    sizeClass: "md:col-span-12",
+    aspectRatio: "aspect-video",
+    sizeClass: "md:col-span-8",
     description: "Fine-art outdoor maternity portrait framing expectations and soft light."
   }
 ];
@@ -240,7 +295,7 @@ export default function GalleryPage() {
               The Gallery <span className="italic text-primary font-normal">Archive</span>
             </h1>
             <p className="text-sm md:text-base font-sans text-muted-foreground max-w-xl leading-relaxed">
-              A curated collection of human connection, styling narratives, and cinematic memories. Click any frame to inspect details.
+              A curated collection of human connection, styling narratives, and cinematic memories. Drag and scatter frames anywhere, or click to inspect details.
             </p>
           </div>
 
@@ -270,34 +325,29 @@ export default function GalleryPage() {
             })}
           </div>
 
-          {/* Premium Editorial Asymmetric Grid */}
-          <div
+          {/* Premium Editorial Asymmetric Grid wrapped in DraggableCardContainer */}
+          <DraggableCardContainer
             ref={gridRef}
-            className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center"
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 items-start"
           >
             <AnimatePresence mode="popLayout">
               {filteredItems.map((item, idx) => (
-                <motion.div
-                  layout
+                <DraggableCardBody
                   key={item.id}
-                  className={`gallery-card relative group cursor-pointer overflow-hidden bg-card border border-border/45 rounded-lg ${item.sizeClass}`}
+                  className="gallery-card group cursor-pointer overflow-hidden bg-card border border-border/45 rounded-lg w-full min-h-[auto] p-0 select-none"
                   onClick={() => setLightboxIndex(idx)}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
                 >
                   {/* Subtle outer gold frame */}
                   <div className="absolute -inset-1.5 border border-primary/5 pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                   
                   {/* Image wrapper */}
-                  <div className={`relative w-full ${item.aspectRatio} overflow-hidden`}>
+                  <div className={`relative w-full ${item.aspectRatio} overflow-hidden pointer-events-none`}>
                     <Image
                       src={item.src}
                       alt={item.title}
                       fill
                       sizes="(max-width: 768px) 100vw, 40vw"
-                      className={`object-cover ${item.objectPosition || "object-top"} scale-[1.03] group-hover:scale-[1.07] transition-all duration-1000 ease-out`}
+                      className={`object-cover ${item.objectPosition || "object-center"} scale-[1.03] group-hover:scale-[1.07] transition-all duration-1000 ease-out`}
                       priority={idx < 3}
                     />
                     
@@ -312,19 +362,15 @@ export default function GalleryPage() {
                       <h3 className="text-lg md:text-xl font-serif text-white mb-2 leading-none">
                         {item.title}
                       </h3>
-                      <p className="text-[11px] font-sans text-white/60 mb-4 leading-normal line-clamp-2 max-w-xs">
+                      <p className="text-[11px] font-sans text-white/60 mb-2 leading-normal line-clamp-2 max-w-xs">
                         {item.description}
                       </p>
-                      <span className="text-[10px] font-sans tracking-[0.2em] text-primary inline-flex items-center gap-1.5 font-bold uppercase mt-1">
-                        VIEW IMAGE <span className="text-xs">→</span>
-                      </span>
                     </div>
                   </div>
-                </motion.div>
+                </DraggableCardBody>
               ))}
             </AnimatePresence>
-          </div>
-
+          </DraggableCardContainer>
         </div>
       </main>
 
