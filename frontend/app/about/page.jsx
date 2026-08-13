@@ -44,14 +44,14 @@ const WORKFLOW_STEPS = [
 
 const TEAM = [
   {
-    image: "/photos/portrait_1.jpg",
+    image: "/images/lead_photographer.jpg",
     alt: "Lead Photographer Portrait",
     name: "Lead Photographer",
     role: "Co-Founder & Lead Photographer",
     bio: "Specialises in high-contrast editorial work and fine-art portraiture, with a focus on structural lighting and minimalist composition.",
   },
   {
-    image: "/photos/makeup_1.jpg",
+    image: "/images/art_director.jpg",
     alt: "Art Director Portrait",
     name: "Art Director",
     role: "Co-Founder & Art Director",

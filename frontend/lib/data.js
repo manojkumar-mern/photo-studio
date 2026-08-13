@@ -152,3 +152,77 @@ export const testimonials = [
   }
 ];
 
+export const unusedTestimonials = [
+  {
+    id: 1,
+    quote: "The details captured in the beauty portrait are incredibly refined. The lighting highlights skin textures perfectly, bringing out a stunning depth.",
+    author: "Bhuvani S.",
+    context: "Fine Art Beauty Shoot",
+    image: "/photos/Beauty is seen by the eyes but felt through the heart Γ¥ñ∩╕Å __MUA _neerajasampath_mua _In frame __bhuvani_ _Jewelery _saisanjanajewels _Retouching _vino_r(.webp"
+  },
+  {
+    id: 2,
+    quote: "An absolute masterclass in traditional bridal portraits. The dual cut crease makeup and intricate details of the saree draping were captured so beautifully.",
+    author: "Srimathi R.",
+    context: "Traditional Mugurtham Look",
+    image: "/photos/Mugurtham  look ≡ƒÆ½ with dual cut crease eye look ≡ƒÆ½__HMUA _ saree drape_ _aparna_makeover_artist _Doll_  _srimathilifestyle_Behind camera_ _pixelbeesph_1.jpg"
+  },
+  {
+    id: 3,
+    quote: "Capturing a child's pure innocence in a frame is extremely challenging, but the photographer did it with absolute ease. These portraits are treasures.",
+    author: "Nandini Kumar",
+    context: "Kids Candid Session",
+    image: "/photos/Kids phography ≡ƒºÜΓÇìΓÖÇ∩╕Å___portraits _candidphotography _candid _babygirl _babyshooting _kidsphotography _salemphotography _salemphotographer _babyshoo_1.jpg"
+  },
+  {
+    id: 4,
+    quote: "The Janmashtami conceptual shoot was breathtaking. The creative fine art composition combined with the moody lighting resulted in pure magic.",
+    author: "Shanmuga Balaji",
+    context: "Fine Art Conceptual Shoot",
+    image: "/photos/Happy Janmashtami Γ£¿__Fine art makeup creation and photography__Mua _neerajasampath_mua _Framed by _pixelbeesphotography _Model _shanmuga_balaji ___canonr5(.jpg"
+  },
+  {
+    id: 5,
+    quote: "Our Christmas-themed shoot was warm, festive, and editorial. The photography perfectly showcased the hair styling and makeup details in a cozy layout.",
+    author: "Jayasri M.",
+    context: "Holiday Editorial Campaign",
+    image: "/photos/Makeup _ Hairdo_ _aparna_makeover_artist _Clicked by_ _pixelbeesphotography_Muse _jayasri_official7714 ___merrychristmas _christmas _christmasshoot__model_1.webp"
+  },
+  {
+    id: 6,
+    quote: "The skin finish and high-definition styling details are phenomenal. The shoot captured subtle lighting contours that elevated the brand lookbook.",
+    author: "Aparna Dev",
+    context: "HD Beauty Campaign",
+    image: "/photos/Skin finish makeup_ subtle HD makeup ≡ƒÆä _model__shoot __HMUA _ _aparna_makeover_artist _Doll_ _jayasri_official7714_Behind camera_ _pixelbeesphotography__1.jpg"
+  },
+  {
+    id: 7,
+    quote: "The dynamic freeze-frame of our dance performance is spectacular. It captured the high-energy movement, expression, and absolute passion of the dancers.",
+    author: "Do Own Style Crew",
+    context: "Live Performance Documentary",
+    image: "/photos/A stunning dance performance from Do Own Style ≡ƒöÑKudos_On JCI national president meet___jci _jciindia _jcisalem __canonr5 _pixelbeesphotography _salem(JP_1.jpg"
+  },
+  {
+    id: 8,
+    quote: "Pure joy captured in the most genuine way possible. The bride's radiant smile and glowing expression say it all. Extremely happy with the results!",
+    author: "Punitha Makeovers",
+    context: "Bridal Happiness Documentary",
+    image: "/photos/Happiness is look gorgeous on you ≡ƒÆÑ≡ƒÆ»___nandies_makeover_artist _punitha_makeover_artist_salem _niralisai_boutique ____shining_starlight___0621 ___br_1.webp"
+  },
+  {
+    id: 9,
+    quote: "A gorgeous, cinematic sunset portrait. The depth of field, the cool ambient breeze, and the natural lighting blend together into an elegant work of art.",
+    author: "Vivek Ranga",
+    context: "Ambient Portrait Session",
+    image: "/photos/Cool is breeze_ not a competition≡ƒÿÄ___canonr5 _canonphotography _canonindia _potraits(JPG)_1.jpg"
+  },
+  {
+    id: 10,
+    quote: "Beautiful, candid capture during the ceremony. The warm colors, composition, and emotional timing of the photograph are absolutely remarkable.",
+    author: "Ranganathan Family",
+    context: "Traditional Candid Wedding",
+    image: "/photos/Bridal candid Photography___salemwedding _salemweddingphotography _salemweddingphotographer _candid _candidphotography _candidphotographer _candidweddingpho(.jpg"
+  }
+];
+
+

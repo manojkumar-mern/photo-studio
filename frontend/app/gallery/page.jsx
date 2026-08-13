@@ -8,6 +8,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { DraggableCardBody, DraggableCardContainer } from "@/components/ui/draggable-card";
+import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
+import { unusedTestimonials } from "@/lib/data";
 
 // Ensure ScrollTrigger is registered
 if (typeof window !== "undefined") {
@@ -373,6 +375,31 @@ export default function GalleryPage() {
           </DraggableCardContainer>
         </div>
       </main>
+
+      {/* Behind the Lens: Animated Testimonial Component showing unused images */}
+      <section className="relative bg-card border-y border-border/40 py-20 px-6 md:px-12 z-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="text-[10px] font-sans tracking-[0.3em] text-primary uppercase block mb-3">
+              CREATIVE STORIES & FEEDBACK
+            </span>
+            <h2 className="text-3xl md:text-5xl font-serif text-foreground font-light">
+              Behind the <span className="italic text-primary font-normal">Lens</span>
+            </h2>
+            <p className="text-xs md:text-sm font-sans text-muted-foreground max-w-md mx-auto mt-2 leading-relaxed">
+              Explore client memories and visual captures created during our custom editorial shoots.
+            </p>
+          </div>
+          <AnimatedTestimonials testimonials={
+            unusedTestimonials.map((t) => ({
+              quote: t.quote,
+              name: t.author,
+              designation: t.context,
+              src: t.image,
+            }))
+          } autoplay={true} />
+        </div>
+      </section>
 
       {/* Cinematic Fullscreen Lightbox */}
       <AnimatePresence>
