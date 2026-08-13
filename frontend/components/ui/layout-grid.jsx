@@ -22,7 +22,18 @@ export const LayoutGrid = ({ cards, onSelect }) => {
   return (
     <div className="w-full h-full grid grid-cols-1 md:grid-cols-3 grid-flow-row-dense max-w-7xl mx-auto gap-6 relative">
       {cards.map((card, i) => (
-        <div key={card.id || i} className={cn(card.className, "relative min-h-[380px] md:min-h-[460px]")}>
+        <motion.div
+          key={card.id || i}
+          className={cn(card.className, "relative min-h-[380px] md:min-h-[460px]")}
+          initial={{ opacity: 0, y: 75, scale: 0.96 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.05 }}
+          transition={{
+            duration: 0.9,
+            delay: (i % 3) * 0.12,
+            ease: [0.16, 1, 0.3, 1]
+          }}
+        >
           <motion.div
             onClick={() => handleClick(card)}
             className={cn(
@@ -40,8 +51,9 @@ export const LayoutGrid = ({ cards, onSelect }) => {
             )}
             <ImageComponent card={card} isSelected={selected?.id === card.id} />
           </motion.div>
-        </div>
+        </motion.div>
       ))}
+
       <motion.div
         onClick={handleOutsideClick}
         className={cn(
