@@ -12,7 +12,7 @@ export const loginAdmin = async (req, res) => {
 
   // Get credentials from environment variables, fallback for local dev
   const adminUser = process.env.ADMIN_USERNAME || 'admin';
-  const adminPass = process.env.ADMIN_PASSWORD || 'admin123';
+  const adminPass = process.env.ADMIN_PASSWORD || 'adminpassword123';
 
   if (username === adminUser && password === adminPass) {
     // Generate JWT token
