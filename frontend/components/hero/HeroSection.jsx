@@ -83,7 +83,7 @@ export default function HeroSection() {
       <div ref={imageWrapperRef} className="absolute inset-0 z-0 overflow-hidden">
         <div ref={imageRef} style={{ opacity: 0 }} className="relative w-full h-[110%] top-[-5%]">
           <Image
-            src="/images/hero.png"
+            src="/images/hero.webp"
             alt="Cinematic Portrait Cover"
             fill
             priority

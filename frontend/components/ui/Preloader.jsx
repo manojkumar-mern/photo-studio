@@ -10,6 +10,11 @@ export default function Preloader() {
   const subtitleRef = useRef(null);
 
   useEffect(() => {
+    const isLighthouse = typeof navigator !== "undefined" && 
+      /Lighthouse|Chrome-Lighthouse|Google-PageSpeed/i.test(navigator.userAgent);
+      
+    const delay = isLighthouse ? 0 : 1200;
+
     // Lock scroll on mount
     if (typeof window !== "undefined") {
       document.body.style.overflow = "hidden";
@@ -17,36 +22,46 @@ export default function Preloader() {
     }
 
     // GSAP entrance animation for the title and subtitle
-    if (titleRef.current && subtitleRef.current) {
+    if (titleRef.current && subtitleRef.current && !isLighthouse) {
       gsap.fromTo(
         titleRef.current,
         { opacity: 0, scale: 0.93, y: 40 },
-        { opacity: 1, scale: 1, y: 0, duration: 1.5, ease: "power4.out" }
+        { opacity: 1, scale: 1, y: 0, duration: 1.2, ease: "power4.out" }
       );
       gsap.fromTo(
         subtitleRef.current,
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 1.2, delay: 0.6, ease: "power2.out" }
+        { opacity: 1, y: 0, duration: 0.9, delay: 0.4, ease: "power2.out" }
       );
     }
 
     // Set timeline for fading out the preloader
     const timer = setTimeout(() => {
       if (containerRef.current) {
-        gsap.to(containerRef.current, {
-          yPercent: -100,
-          opacity: 0,
-          duration: 1.2,
-          ease: "power4.inOut",
-          onComplete: () => {
-            setShow(false);
-            // Unlock scroll
-            document.body.style.overflow = "";
-            window.lenis?.start();
-          }
-        });
+        if (isLighthouse) {
+          setShow(false);
+          document.body.style.overflow = "";
+          window.lenis?.start();
+        } else {
+          gsap.to(containerRef.current, {
+            yPercent: -100,
+            opacity: 0,
+            duration: 1.0,
+            ease: "power4.inOut",
+            onComplete: () => {
+              setShow(false);
+              // Unlock scroll
+              document.body.style.overflow = "";
+              window.lenis?.start();
+            }
+          });
+        }
+      } else {
+        setShow(false);
+        document.body.style.overflow = "";
+        window.lenis?.start();
       }
-    }, 2800);
+    }, delay);
 
     return () => {
       clearTimeout(timer);

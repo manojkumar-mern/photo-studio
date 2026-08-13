@@ -41,7 +41,7 @@ export default function AboutStudio() {
         {/* Left: Premium Team Image with Clip Reveal */}
         <div className="lg:col-span-5 relative h-[56vh] md:h-[68vh] bg-card rounded-xl border border-border overflow-hidden">
           <CinematicImage
-            src="/images/about_studio.png"
+            src="/images/about_studio.webp"
             alt="Pixel Bees Photos team member in a natural-light setting"
             fill
             revealType="clip-right"

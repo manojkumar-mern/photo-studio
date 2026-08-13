@@ -13,8 +13,8 @@ export const portfolioItems = [
     description: "An editorial styling exploration framing raw garment textures against stark minimalist concrete backdrops. Every image studies the play of light and dynamic contrast.",
     images: [
       "/photos/beauty_1.webp",
-      "/photos/makeup_1.jpg",
-      "/photos/stylish_model_1.jpg"
+      "/photos/makeup_1.webp",
+      "/photos/stylish_model_1.webp"
     ],
     prevSlug: "project-narrative-d",
     nextSlug: "project-narrative-b"
@@ -28,12 +28,12 @@ export const portfolioItems = [
     year: "2026",
     date: "June 24, 2026",
     highlights: ["Natural Sunset Lighting", "Candid Interactions", "Linen Box Proof Prints", "Cinematic Aspect Ratio"],
-    image: "/photos/wedding_candid_1.jpg",
+    image: "/photos/wedding_candid_1.webp",
     description: "Candid imagery documenting human connection along the oceanic shoreline. Designed to replicate natural, organic frames with warm ivory grain tones.",
     images: [
-      "/photos/wedding_candid_1.jpg",
-      "/photos/wedding_candid_2.jpg",
-      "/photos/bridal_1.jpg"
+      "/photos/wedding_candid_1.webp",
+      "/photos/wedding_candid_2.webp",
+      "/photos/bridal_1.webp"
     ],
     prevSlug: "project-narrative-a",
     nextSlug: "project-narrative-c"
@@ -47,12 +47,12 @@ export const portfolioItems = [
     year: "2025",
     date: "October 18, 2025",
     highlights: ["Ambient Light Study", "Minimalist Backdrops", "High Detail Capture", "Monochrome Tonality"],
-    image: "/photos/portrait_1.jpg",
+    image: "/photos/portrait_1.webp",
     description: "A close-up studio portrait study exploring subtle facial contours, high contrast styling, and ambient lighting states.",
     images: [
-      "/photos/portrait_1.jpg",
-      "/photos/outdoor_portrait_1.jpg",
-      "/photos/creative_guitar_1.jpg"
+      "/photos/portrait_1.webp",
+      "/photos/outdoor_portrait_1.webp",
+      "/photos/creative_guitar_1.webp"
     ],
     prevSlug: "project-narrative-b",
     nextSlug: "project-narrative-d"
@@ -66,12 +66,12 @@ export const portfolioItems = [
     year: "2025",
     date: "December 05, 2025",
     highlights: ["Architectural Integration", "Geometric Styling", "Lookbook Production", "Product Textures Study"],
-    image: "/photos/food_1.jpg",
+    image: "/photos/food_1.webp",
     description: "Editorial campaign photography created in collaboration with design spaces. Documenting architecture, geometry, and subtle human interaction.",
     images: [
-      "/photos/food_1.jpg",
-      "/photos/food_2.jpg",
-      "/photos/dance_1.jpg"
+      "/photos/food_1.webp",
+      "/photos/food_2.webp",
+      "/photos/dance_1.webp"
     ],
     prevSlug: "project-narrative-c",
     nextSlug: "project-narrative-a"
@@ -84,7 +84,7 @@ export const services = [
     id: "fashion",
     name: "Fashion & Editorial",
     description: "High-contrast visual storytelling tailored for brands, designers, and creative lookbooks. Focused on styling, unique compositions, and cinematic lighting setups.",
-    image: "/photos/stylish_model_1.jpg",
+    image: "/photos/stylish_model_1.webp",
     includes: ["Style curation & concept direction", "Full studio production & ambient lighting team", "15+ High-resolution editorial proofed images", "Digital & print output delivery formats"],
     useCase: "Best suited for clothing collections, design campaigns, model portfolios, and lookbooks."
   },
@@ -92,7 +92,7 @@ export const services = [
     id: "weddings",
     name: "Wedding Documentary",
     description: "Candid, non-intrusive documentation of your celebration. Capturing raw emotional narratives, architectural beauty of the venue, and intimate editorial moments.",
-    image: "/photos/mugurtham_1.jpg",
+    image: "/photos/mugurtham_1.webp",
     includes: ["Full-day coverage by chief visual artist", "Ambient lifestyle documentation (non-intrusive)", "300+ Color-graded digital negatives", "Handcrafted premium linen box print collection"],
     useCase: "Best suited for intimate or large celebrations that appreciate raw, non-posed artistic storytelling."
   },
@@ -100,7 +100,7 @@ export const services = [
     id: "portraiture",
     name: "Fine Art Portraiture",
     description: "Timeless solo or group portraits utilizing natural lighting, deep shadows, and architectural elements. Designed to reveal character and mood in a minimalist setup.",
-    image: "/photos/dramatic_artist_1.jpg",
+    image: "/photos/dramatic_artist_1.webp",
     includes: ["2-hour studio or outdoor architecture session", "Natural light manipulation & shadow study", "5 Premium retouched gallery print files", "Personal design consultation call"],
     useCase: "Best suited for artists, musicians, corporate profiles, and fine-art personal records."
   }
@@ -113,42 +113,42 @@ export const testimonials = [
     quote: "The photographs felt effortless, intimate, and completely true to us. Every moment was captured with such care that looking through the gallery felt like reliving the day.",
     author: "Elena & Marcus",
     context: "Wedding Documentary",
-    image: "/photos/wedding_candid_2.jpg"
+    image: "/photos/wedding_candid_2.webp"
   },
   {
     id: 2,
     quote: "The visual curation and pacing of the photoshoot were extraordinary. The studio understood our brand intent perfectly and delivered a cinematic narrative that exceeded expectations.",
     author: "Creative Director",
     context: "Apparel Brand Campaign",
-    image: "/photos/makeup_1.jpg"
+    image: "/photos/makeup_1.webp"
   },
   {
     id: 3,
     quote: "A completely non-intrusive approach. We barely noticed the cameras, yet every single frame feels like a high-end film still. Truly a masterpiece of portraiture.",
     author: "Dr. Adrian Vance",
     context: "Fine Art Portraiture",
-    image: "/photos/portrait_1.jpg"
+    image: "/photos/portrait_1.webp"
   },
   {
     id: 4,
     quote: "The team's creativity is unbounded. They turned a simple lifestyle shoot into a gorgeous, high-fashion editorial story that perfectly captures the artistic mood we wanted.",
     author: "Sasha & Julian",
     context: "Fashion Editorial",
-    image: "/photos/_Mournful and yet grand is the destiny of the artist._(JPG).jpg"
+    image: "/photos/_Mournful and yet grand is the destiny of the artist._(JPG).webp"
   },
   {
     id: 5,
     quote: "The outdoor session was so fun and light. They kept everyone comfortable and captured the most genuine, joyful moments in natural lighting.",
     author: "The Iyer Family",
     context: "Family Portraiture",
-    image: "/photos/_If you look the right way_ you can see that the whole world is a garden_(JPG).jpg"
+    image: "/photos/_If you look the right way_ you can see that the whole world is a garden_(JPG).webp"
   },
   {
     id: 6,
     quote: "Stunning product and food styling! The playing with lighting shadows and textures brought our culinary creations to life. An absolute pleasure to work with.",
     author: "Chef Vivek",
     context: "Commercial Foodgraphy",
-    image: "/photos/_The only way to get rid of a temptation is to yield to it.___On today_s foodgraphy ___canonr5 _canonindia _foodstyling __vino_ranga(JPG).jpg"
+    image: "/photos/_The only way to get rid of a temptation is to yield to it.___On today_s foodgraphy ___canonr5 _canonindia _foodstyling __vino_ranga(JPG).webp"
   }
 ];
 
@@ -165,21 +165,21 @@ export const unusedTestimonials = [
     quote: "An absolute masterclass in traditional bridal portraits. The dual cut crease makeup and intricate details of the saree draping were captured so beautifully.",
     author: "Srimathi R.",
     context: "Traditional Mugurtham Look",
-    image: "/photos/Mugurtham  look ≡ƒÆ½ with dual cut crease eye look ≡ƒÆ½__HMUA _ saree drape_ _aparna_makeover_artist _Doll_  _srimathilifestyle_Behind camera_ _pixelbeesph_1.jpg"
+    image: "/photos/Mugurtham  look ≡ƒÆ½ with dual cut crease eye look ≡ƒÆ½__HMUA _ saree drape_ _aparna_makeover_artist _Doll_  _srimathilifestyle_Behind camera_ _pixelbeesph_1.webp"
   },
   {
     id: 3,
     quote: "Capturing a child's pure innocence in a frame is extremely challenging, but the photographer did it with absolute ease. These portraits are treasures.",
     author: "Nandini Kumar",
     context: "Kids Candid Session",
-    image: "/photos/Kids phography ≡ƒºÜΓÇìΓÖÇ∩╕Å___portraits _candidphotography _candid _babygirl _babyshooting _kidsphotography _salemphotography _salemphotographer _babyshoo_1.jpg"
+    image: "/photos/Kids phography ≡ƒºÜΓÇìΓÖÇ∩╕Å___portraits _candidphotography _candid _babygirl _babyshooting _kidsphotography _salemphotography _salemphotographer _babyshoo_1.webp"
   },
   {
     id: 4,
     quote: "The Janmashtami conceptual shoot was breathtaking. The creative fine art composition combined with the moody lighting resulted in pure magic.",
     author: "Shanmuga Balaji",
     context: "Fine Art Conceptual Shoot",
-    image: "/photos/Happy Janmashtami Γ£¿__Fine art makeup creation and photography__Mua _neerajasampath_mua _Framed by _pixelbeesphotography _Model _shanmuga_balaji ___canonr5(.jpg"
+    image: "/photos/Happy Janmashtami Γ£¿__Fine art makeup creation and photography__Mua _neerajasampath_mua _Framed by _pixelbeesphotography _Model _shanmuga_balaji ___canonr5(.webp"
   },
   {
     id: 5,
@@ -193,14 +193,14 @@ export const unusedTestimonials = [
     quote: "The skin finish and high-definition styling details are phenomenal. The shoot captured subtle lighting contours that elevated the brand lookbook.",
     author: "Aparna Dev",
     context: "HD Beauty Campaign",
-    image: "/photos/Skin finish makeup_ subtle HD makeup ≡ƒÆä _model__shoot __HMUA _ _aparna_makeover_artist _Doll_ _jayasri_official7714_Behind camera_ _pixelbeesphotography__1.jpg"
+    image: "/photos/Skin finish makeup_ subtle HD makeup ≡ƒÆä _model__shoot __HMUA _ _aparna_makeover_artist _Doll_ _jayasri_official7714_Behind camera_ _pixelbeesphotography__1.webp"
   },
   {
     id: 7,
     quote: "The dynamic freeze-frame of our dance performance is spectacular. It captured the high-energy movement, expression, and absolute passion of the dancers.",
     author: "Do Own Style Crew",
     context: "Live Performance Documentary",
-    image: "/photos/A stunning dance performance from Do Own Style ≡ƒöÑKudos_On JCI national president meet___jci _jciindia _jcisalem __canonr5 _pixelbeesphotography _salem(JP_1.jpg"
+    image: "/photos/A stunning dance performance from Do Own Style ≡ƒöÑKudos_On JCI national president meet___jci _jciindia _jcisalem __canonr5 _pixelbeesphotography _salem(JP_1.webp"
   },
   {
     id: 8,
@@ -214,14 +214,14 @@ export const unusedTestimonials = [
     quote: "A gorgeous, cinematic sunset portrait. The depth of field, the cool ambient breeze, and the natural lighting blend together into an elegant work of art.",
     author: "Vivek Ranga",
     context: "Ambient Portrait Session",
-    image: "/photos/Cool is breeze_ not a competition≡ƒÿÄ___canonr5 _canonphotography _canonindia _potraits(JPG)_1.jpg"
+    image: "/photos/Cool is breeze_ not a competition≡ƒÿÄ___canonr5 _canonphotography _canonindia _potraits(JPG)_1.webp"
   },
   {
     id: 10,
     quote: "Beautiful, candid capture during the ceremony. The warm colors, composition, and emotional timing of the photograph are absolutely remarkable.",
     author: "Ranganathan Family",
     context: "Traditional Candid Wedding",
-    image: "/photos/Bridal candid Photography___salemwedding _salemweddingphotography _salemweddingphotographer _candid _candidphotography _candidphotographer _candidweddingpho(.jpg"
+    image: "/photos/Bridal candid Photography___salemwedding _salemweddingphotography _salemweddingphotographer _candid _candidphotography _candidphotographer _candidweddingpho(.webp"
   },
   {
     id: 11,

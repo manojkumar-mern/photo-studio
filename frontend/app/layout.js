@@ -87,7 +87,7 @@ export default function RootLayout({ children }) {
         "@id": `${SITE_URL}/#organization`,
         "name": "Pixel Bees Photos",
         "url": SITE_URL,
-        "logo": `${SITE_URL}/logo.png`,
+        "logo": `${SITE_URL}/logo.webp`,
         "sameAs": [
           "https://www.instagram.com/pixelbeesphotography"
         ]
@@ -96,7 +96,7 @@ export default function RootLayout({ children }) {
         "@type": "LocalBusiness",
         "@id": `${SITE_URL}/#localbusiness`,
         "name": "Pixel Bees Photos",
-        "image": [`${SITE_URL}/photos/bridal_look_1.jpg`],
+        "image": [`${SITE_URL}/photos/bridal_look_1.webp`],
         "url": SITE_URL,
         "telephone": "+918925101994",
         "priceRange": "$$",

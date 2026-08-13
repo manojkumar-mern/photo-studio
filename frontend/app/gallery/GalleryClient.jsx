@@ -23,7 +23,7 @@ const GALLERY_ITEMS = [
     id: 1,
     title: "Bridal Splendor",
     category: "WEDDINGS",
-    src: "/photos/bridal_look_1.jpg",
+    src: "/photos/bridal_look_1.webp",
     aspectRatio: "aspect-[3/4]",
     sizeClass: "md:col-span-5",
     description: "Elegant traditional bridal portrait with focus on fine details and expressions."
@@ -32,7 +32,7 @@ const GALLERY_ITEMS = [
     id: 2,
     title: "Subtle HD Glow",
     category: "PORTRAITS",
-    src: "/photos/skin_finish_1.jpg",
+    src: "/photos/skin_finish_1.webp",
     aspectRatio: "aspect-[3/4]",
     sizeClass: "md:col-span-4",
     description: "Flawless skin finish makeup portrait under professional studio lighting."
@@ -41,7 +41,7 @@ const GALLERY_ITEMS = [
     id: 3,
     title: "Festive Joy",
     category: "EVENTS",
-    src: "/photos/thats_a_wrap_1.jpg",
+    src: "/photos/thats_a_wrap_1.webp",
     aspectRatio: "aspect-square",
     sizeClass: "md:col-span-6",
     description: "Cozy and warm festive settings capturing the holiday spirit."
@@ -50,7 +50,7 @@ const GALLERY_ITEMS = [
     id: 4,
     title: "Editorial Statement",
     category: "FASHION",
-    src: "/photos/model_shoot_1.jpg",
+    src: "/photos/model_shoot_1.webp",
     aspectRatio: "aspect-[4/5]",
     sizeClass: "md:col-span-6",
     description: "High-fashion model photography focused on pose and styling."
@@ -59,7 +59,7 @@ const GALLERY_ITEMS = [
     id: 13,
     title: "The Icing on the Cake",
     category: "FASHION",
-    src: "/photos/beauty_jewelry_1.jpg",
+    src: "/photos/beauty_jewelry_1.webp",
     aspectRatio: "aspect-[3/4]",
     sizeClass: "md:col-span-4",
     description: "Exquisite bridal jewelry details showcasing intricate patterns and classic craftsmanship."
@@ -68,7 +68,7 @@ const GALLERY_ITEMS = [
     id: 14,
     title: "Golden Candid Vows",
     category: "WEDDINGS",
-    src: "/photos/bridal_candid_3.jpg",
+    src: "/photos/bridal_candid_3.webp",
     aspectRatio: "aspect-video",
     sizeClass: "md:col-span-8",
     description: "Intimate and warm candid moments captured during the traditional wedding ceremony."
@@ -86,7 +86,7 @@ const GALLERY_ITEMS = [
     id: 6,
     title: "Childhood Innocence",
     category: "PORTRAITS",
-    src: "/photos/kids_1.jpg",
+    src: "/photos/kids_1.webp",
     aspectRatio: "aspect-[3/4]",
     sizeClass: "md:col-span-4",
     description: "Candid children portrait capture full of natural expression."
@@ -95,7 +95,7 @@ const GALLERY_ITEMS = [
     id: 15,
     title: "Imagination & Reality",
     category: "PORTRAITS",
-    src: "/photos/imagination_guitar.jpg",
+    src: "/photos/imagination_guitar.webp",
     aspectRatio: "aspect-[4/5]",
     sizeClass: "md:col-span-6",
     description: "Artistic fine-art portrait mapping expressions, guitar details, and subtle ambient shadows."
@@ -104,7 +104,7 @@ const GALLERY_ITEMS = [
     id: 16,
     title: "Playful Innocent Smile",
     category: "PORTRAITS",
-    src: "/photos/kids_photography_2.jpg",
+    src: "/photos/kids_photography_2.webp",
     aspectRatio: "aspect-square",
     sizeClass: "md:col-span-6",
     description: "Delightful baby portrait capturing sweet laughter and genuine childhood expressions."
@@ -131,7 +131,7 @@ const GALLERY_ITEMS = [
     id: 17,
     title: "Maternal Grace",
     category: "PORTRAITS",
-    src: "/photos/maternity_shoot_2.jpg",
+    src: "/photos/maternity_shoot_2.webp",
     aspectRatio: "aspect-[3/4]",
     sizeClass: "md:col-span-5",
     description: "Stunning outdoor maternity portrait session capturing the anticipation of new beginnings."
@@ -140,7 +140,7 @@ const GALLERY_ITEMS = [
     id: 18,
     title: "Festive Crimson Portrait",
     category: "EVENTS",
-    src: "/photos/merry_christmas_model.jpg",
+    src: "/photos/merry_christmas_model.webp",
     aspectRatio: "aspect-[3/4]",
     sizeClass: "md:col-span-7",
     description: "Holiday themed portraiture utilizing rich red tones and warm studio lighting."
@@ -149,7 +149,7 @@ const GALLERY_ITEMS = [
     id: 9,
     title: "The Candid Vow",
     category: "WEDDINGS",
-    src: "/photos/for_booking_1.jpg",
+    src: "/photos/for_booking_1.webp",
     aspectRatio: "aspect-video",
     sizeClass: "md:col-span-8",
     description: "Emotion-filled candid photography of wedding traditions."
@@ -158,7 +158,7 @@ const GALLERY_ITEMS = [
     id: 10,
     title: "Breeze & Solitude",
     category: "PORTRAITS",
-    src: "/photos/cool_is_breeze_1.jpg",
+    src: "/photos/cool_is_breeze_1.webp",
     aspectRatio: "aspect-[3/4]",
     sizeClass: "md:col-span-4",
     description: "Ambient portrait of a cool breeze mood, captured using cinematic lens depth.",
@@ -168,7 +168,7 @@ const GALLERY_ITEMS = [
     id: 11,
     title: "Rhythmic Grace",
     category: "EVENTS",
-    src: "/photos/stunning_dance_1.jpg",
+    src: "/photos/stunning_dance_1.webp",
     aspectRatio: "aspect-video",
     sizeClass: "md:col-span-8",
     description: "Capturing a stunning performance dynamically frozen in motion."
@@ -177,7 +177,7 @@ const GALLERY_ITEMS = [
     id: 12,
     title: "New Beginnings",
     category: "PORTRAITS",
-    src: "/photos/maternity_1.jpg",
+    src: "/photos/maternity_1.webp",
     aspectRatio: "aspect-video",
     sizeClass: "md:col-span-8",
     description: "Fine-art outdoor maternity portrait framing expectations and soft light."

@@ -15,9 +15,9 @@ if (typeof window !== "undefined") {
 }
 
 const DETAIL_IMAGES = {
-  fashion: "/photos/makeup_1.jpg",
-  weddings: "/photos/wedding_candid_2.jpg", // The silhouette couple wedding photo
-  portraiture: "/photos/portrait_1.jpg"
+  fashion: "/photos/makeup_1.webp",
+  weddings: "/photos/wedding_candid_2.webp", // The silhouette couple wedding photo
+  portraiture: "/photos/portrait_1.webp"
 };
 
 export default function ServicesClient() {
