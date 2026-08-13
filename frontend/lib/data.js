@@ -222,7 +222,54 @@ export const unusedTestimonials = [
     author: "Ranganathan Family",
     context: "Traditional Candid Wedding",
     image: "/photos/Bridal candid Photography___salemwedding _salemweddingphotography _salemweddingphotographer _candid _candidphotography _candidphotographer _candidweddingpho(.jpg"
+  },
+  {
+    id: 11,
+    quote: "A breathtaking bridal look! The makeup was flawless, and the photographer captured every fine detail of the jewelry and styling with incredible precision.",
+    author: "Deepika P.",
+    context: "Traditional Bridal Session",
+    image: "/photos/Bridal look model shoot\u2261\u0192\u00C6\u00D1___salemwedding _salemweddingphotography _salemweddingphotographer _candid _candidphotography _candidphotographer _candidwedding_1.jpg"
+  },
+  {
+    id: 12,
+    quote: "The kids photography session was outstanding. They knew exactly how to make the children comfortable and captured the most beautiful, natural laughter.",
+    author: "Meera Krishnan",
+    context: "Kids Portrait Shoot",
+    image: "/photos/Kids phography \u2261\u0192\u00BA\u0393\u00C7\u00EC\u0393\u00D6\u00C7\u2229\u00B8\u00C5___portraits _candidphotography _candid _babygirl _babyshooting _kidsphotography _salemphotography _salemphotographer _babyshoo_2.jpg"
+  },
+  {
+    id: 13,
+    quote: "The bridal shoot captures are pure art. The lighting details and raw emotions were documented with such elegance and sophistication.",
+    author: "Shreya Sen",
+    context: "Premium Bridal Lookbook",
+    image: "/photos/BRIDAL SHOOT\u0393\u00A3\u00BF___salemwedding _salemweddingphotography _salemweddingphotographer _candid _candidphotography _candidphotographer _candidweddingphotography _1.jpg"
+  },
+  {
+    id: 14,
+    quote: "Such a beautiful composition! The team captured the happiness and glowing energy of our special moments in the most stunning way possible.",
+    author: "Nandhini & Rahul",
+    context: "Wedding Candid Session",
+    image: "/photos/Happiness is look gorgeous on you \u2261\u0192\u00C6\u00D1\u2261\u0192\u00C6\u00BB___nandies_makeover_artist _punitha_makeover_artist_salem _niralisai_boutique ____shining_starlight___0621 ___br_2.webp"
+  },
+  {
+    id: 15,
+    quote: "An absolute masterpiece. The dual cut crease makeup and intricate saree pleating were photographed with outstanding clarity and contrast.",
+    author: "Kavya Murthy",
+    context: "Traditional Muhurtham Portrait",
+    image: "/photos/Mugurtham  look \u2261\u0192\u00C6\u00BD with dual cut crease eye look \u2261\u0192\u00C6\u00BD__HMUA _ saree drape_ _aparna_makeover_artist _Doll_  _srimathilifestyle_Behind camera_ _pixelbeesph_2.jpg"
+  },
+  {
+    id: 16,
+    quote: "The high-energy dance performance was captured dynamically, freezing the intense movement and passion in a single, perfect frame.",
+    author: "JCI Salem Crew",
+    context: "Live Performance Documentary",
+    image: "/photos/A stunning dance performance from Do Own Style \u2261\u0192\u00F6\u00D1Kudos_On JCI national president meet___jci _jciindia _jcisalem __canonr5 _pixelbeesphotography _salem(JP_2.jpg"
+  },
+  {
+    id: 17,
+    quote: "Exquisite framing and emotional capture! The pictures tell the entire story of our joy and laughter. We couldn't have asked for a better documentary team.",
+    author: "Arjun & Priyanka",
+    context: "Pre-Wedding Celebration",
+    image: "/photos/You can_t buy happiness without us____Book your date with us\u0393\u00FF\u263A__For booking _ 8925101994__DM us for custom event packages___salem _candidphotography _candi(.jpg"
   }
 ];
-
-

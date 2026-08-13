@@ -8,6 +8,7 @@ import Image from "next/image";
 export const AnimatedTestimonials = ({
   testimonials,
   autoplay = false,
+  isDark = false,
 }) => {
   const [active, setActive] = useState(0);
 
@@ -113,13 +114,13 @@ export const AnimatedTestimonials = ({
               ease: "easeInOut",
             }}
           >
-            <h3 className="text-2xl font-bold text-neutral-950">
+            <h3 className={`text-2xl font-bold ${isDark ? "text-foreground" : "text-neutral-950"}`}>
               {testimonials[active].name}
             </h3>
-            <p className="text-sm text-neutral-600">
+            <p className={`text-sm ${isDark ? "text-muted-foreground" : "text-neutral-600"}`}>
               {testimonials[active].designation}
             </p>
-            <motion.p className="mt-8 text-lg text-neutral-800">
+            <motion.p className={`mt-8 text-lg ${isDark ? "text-foreground/90" : "text-neutral-800"}`}>
               {testimonials[active].quote.split(" ").map((word, index) => (
                 <motion.span
                   key={index}
@@ -138,7 +139,7 @@ export const AnimatedTestimonials = ({
                     ease: "easeInOut",
                     delay: 0.02 * index,
                   }}
-                  className="inline-block text-neutral-800"
+                  className={`inline-block ${isDark ? "text-foreground/90" : "text-neutral-800"}`}
                 >
                   {word}&nbsp;
                 </motion.span>
@@ -148,15 +149,23 @@ export const AnimatedTestimonials = ({
           <div className="flex gap-4 pt-12 md:pt-0">
             <button
               onClick={handlePrev}
-              className="group/button flex h-7 w-7 items-center justify-center rounded-full bg-gray-100 dark:bg-neutral-800"
+              className={`group/button flex h-7 w-7 items-center justify-center rounded-full transition-colors duration-300 ${
+                isDark ? "bg-muted border border-border/40 hover:bg-primary/20" : "bg-gray-100 dark:bg-neutral-800"
+              }`}
             >
-              <IconArrowLeft className="h-5 w-5 text-black transition-transform duration-300 group-hover/button:rotate-12 dark:text-neutral-400" />
+              <IconArrowLeft className={`h-5 w-5 transition-transform duration-300 group-hover/button:rotate-12 ${
+                isDark ? "text-foreground" : "text-black dark:text-neutral-400"
+              }`} />
             </button>
             <button
               onClick={handleNext}
-              className="group/button flex h-7 w-7 items-center justify-center rounded-full bg-gray-100 dark:bg-neutral-800"
+              className={`group/button flex h-7 w-7 items-center justify-center rounded-full transition-colors duration-300 ${
+                isDark ? "bg-muted border border-border/40 hover:bg-primary/20" : "bg-gray-100 dark:bg-neutral-800"
+              }`}
             >
-              <IconArrowRight className="h-5 w-5 text-black transition-transform duration-300 group-hover/button:-rotate-12 dark:text-neutral-400" />
+              <IconArrowRight className={`h-5 w-5 transition-transform duration-300 group-hover/button:-rotate-12 ${
+                isDark ? "text-foreground" : "text-black dark:text-neutral-400"
+              }`} />
             </button>
           </div>
         </div>

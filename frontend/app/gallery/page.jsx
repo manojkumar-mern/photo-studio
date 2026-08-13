@@ -246,6 +246,14 @@ export default function GalleryPage() {
     return () => ctx.revert();
   }, [activeCategory]);
 
+  const handlePrevLightbox = () => {
+    setLightboxIndex((prev) => (prev === 0 ? filteredItems.length - 1 : prev - 1));
+  };
+
+  const handleNextLightbox = () => {
+    setLightboxIndex((prev) => (prev === filteredItems.length - 1 ? 0 : prev + 1));
+  };
+
   // Keyboard navigation for Lightbox
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -273,14 +281,6 @@ export default function GalleryPage() {
       if (window.lenis) window.lenis.start();
     };
   }, [lightboxIndex]);
-
-  const handlePrevLightbox = () => {
-    setLightboxIndex((prev) => (prev === 0 ? filteredItems.length - 1 : prev - 1));
-  };
-
-  const handleNextLightbox = () => {
-    setLightboxIndex((prev) => (prev === filteredItems.length - 1 ? 0 : prev + 1));
-  };
 
   return (
     <>
@@ -397,7 +397,7 @@ export default function GalleryPage() {
               designation: t.context,
               src: t.image,
             }))
-          } autoplay={true} />
+          } autoplay={true} isDark={true} />
         </div>
       </section>
 
