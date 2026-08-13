@@ -412,6 +412,63 @@ export default function GalleryClient() {
             role="dialog"
             aria-modal="true"
           >
+            {/* Top Bar: Title & Close Button */}
+            <div className="flex items-center justify-between z-20">
+              <div className="space-y-0.5">
+                <span className="text-[9px] font-sans tracking-[0.2em] text-primary uppercase">
+                  {filteredItems[lightboxIndex].category}
+                </span>
+                <h3 className="text-base sm:text-lg font-serif text-white">
+                  {filteredItems[lightboxIndex].title}
+                </h3>
+              </div>
+              
+              <button
+                onClick={() => setLightboxIndex(null)}
+                className="group relative flex items-center justify-center w-10 h-10 rounded-full border border-white/10 hover:border-primary/45 transition-colors focus:outline-none"
+                aria-label="Close lightbox"
+              >
+                <span className="text-white group-hover:text-primary transition-colors text-lg">✕</span>
+              </button>
+            </div>
+
+            {/* Main Center Image and Navigation */}
+            <div className="relative flex-1 flex items-center justify-center my-6 z-10 w-full">
+              {/* Prev Button */}
+              <button
+                onClick={handlePrevLightbox}
+                className="absolute left-0 md:left-4 z-30 p-3 rounded-full border border-white/5 bg-black/40 hover:bg-black/80 hover:border-primary/40 text-white hover:text-primary transition-all duration-300 focus:outline-none"
+                aria-label="Previous image"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+
+              {/* Image Frame */}
+              <div className="relative w-full h-full max-w-5xl max-h-[70vh]">
+                <Image
+                  src={filteredItems[lightboxIndex].src}
+                  alt={filteredItems[lightboxIndex].title}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 80vw"
+                  className="object-contain"
+                  priority
+                />
+              </div>
+
+              {/* Next Button */}
+              <button
+                onClick={handleNextLightbox}
+                className="absolute right-0 md:right-4 z-30 p-3 rounded-full border border-white/5 bg-black/40 hover:bg-black/80 hover:border-primary/40 text-white hover:text-primary transition-all duration-300 focus:outline-none"
+                aria-label="Next image"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+
             {/* Bottom Bar: Description & Index */}
             <div className="flex flex-col sm:flex-row items-center justify-between border-t border-white/10 pt-4 z-20 text-center sm:text-left gap-4">
               <p className="text-xs font-sans text-white/60 max-w-md leading-relaxed">
