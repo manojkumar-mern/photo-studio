@@ -15,15 +15,22 @@ export default function AdminPage() {
   const handleLogout = async () => {
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+      const token = typeof window !== "undefined" ? localStorage.getItem("admin_token") : null;
+      const headers = {};
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+
       await fetch(`${apiUrl}/auth/logout`, {
         method: "POST",
+        headers,
         credentials: "include"
       });
     } catch (err) {
       console.error("Logout request failed:", err);
     }
     
-    // Clear stale token from previous implementation if present
+    // Clear token
     if (typeof window !== "undefined") {
       localStorage.removeItem("admin_token");
     }
@@ -37,8 +44,15 @@ export default function AdminPage() {
 
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+      const token = typeof window !== "undefined" ? localStorage.getItem("admin_token") : null;
+      const headers = {};
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+
       const response = await fetch(`${apiUrl}/bookings`, {
         method: "GET",
+        headers,
         credentials: "include"
       });
 
@@ -74,8 +88,15 @@ export default function AdminPage() {
 
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+      const token = typeof window !== "undefined" ? localStorage.getItem("admin_token") : null;
+      const headers = {};
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+
       const response = await fetch(`${apiUrl}/bookings/${id}`, {
         method: "DELETE",
+        headers,
         credentials: "include"
       });
 

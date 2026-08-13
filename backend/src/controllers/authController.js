@@ -33,7 +33,8 @@ export const loginAdmin = async (req, res) => {
 
     return res.status(200).json({
       status: 'success',
-      message: 'Logged in successfully'
+      message: 'Logged in successfully',
+      token
     });
   }
 

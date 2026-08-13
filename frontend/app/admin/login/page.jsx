@@ -14,21 +14,25 @@ export default function AdminLoginPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // Clear stale token from previous implementation if present
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("admin_token");
-    }
-
-    // Check if cookie session is active by making a health request
+    // Check if cookie session or localStorage token is active by making a health request
     const checkAuthStatus = async () => {
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+        const token = typeof window !== "undefined" ? localStorage.getItem("admin_token") : null;
+        const headers = {};
+        if (token) {
+          headers["Authorization"] = `Bearer ${token}`;
+        }
+
         const response = await fetch(`${apiUrl}/bookings`, {
           method: "GET",
+          headers,
           credentials: "include"
         });
         if (response.ok) {
           router.push("/admin");
+        } else {
+          localStorage.removeItem("admin_token");
         }
       } catch (err) {
         // Session not active, show login page
@@ -57,6 +61,10 @@ export default function AdminLoginPage() {
 
       if (!response.ok) {
         throw new Error(result.message || "Invalid credentials");
+      }
+
+      if (result.token) {
+        localStorage.setItem("admin_token", result.token);
       }
 
       router.push("/admin");

@@ -1,7 +1,11 @@
 import jwt from 'jsonwebtoken';
 
 const protect = async (req, res, next) => {
-  const token = req.cookies.admin_token;
+  let token = req.cookies.admin_token;
+
+  if (!token && req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    token = req.headers.authorization.split(' ')[1];
+  }
 
   if (!token) {
     return res.status(401).json({
