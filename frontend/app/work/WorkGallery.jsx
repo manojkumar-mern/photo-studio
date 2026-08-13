@@ -4,6 +4,7 @@ import { useState } from "react";
 import { portfolioItems } from "@/lib/data";
 import { motion, AnimatePresence } from "framer-motion";
 import PortfolioCard from "@/components/portfolio/PortfolioCard";
+import { LayoutGrid } from "@/components/ui/layout-grid";
 
 const FILTERS = [
   { label: "All",                  value: "ALL"                    },
@@ -96,36 +97,72 @@ export default function WorkGallery({ onSelect }) {
       </div>
 
       {/* ── Portfolio Grid ──────────────────────────────────── */}
-      <motion.div
-        key={activeFilter}           /* re-mounts stagger on filter change */
-        variants={gridVariants}
-        initial="hidden"
-        animate="show"
-        className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7"
-      >
-        <AnimatePresence mode="popLayout">
-          {filteredItems.map((item, idx) => (
-            <motion.div
-              key={item.id}
-              variants={cardVariants}
-              layout
-              exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.25 } }}
-              /*
-                Span full width for:
-                - Every 3rd card (idx % 3 === 0) — matches PortfolioCard wide height rhythm
-                - Lone card when filter leaves an odd count and it's the last remaining
-              */
-              className={
-                idx % 3 === 0
-                  ? "md:col-span-2"
-                  : ""
-              }
-            >
-              <PortfolioCard item={item} idx={idx} onClick={onSelect} />
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </motion.div>
+      <div key={activeFilter} className="w-full">
+        <LayoutGrid
+          cards={filteredItems.map((item, idx) => ({
+            id: item.id,
+            className: idx % 3 === 0 ? "md:col-span-2 col-span-1" : "col-span-1",
+            thumbnail: item.image,
+            item: item,
+            content: (
+              <div className="space-y-4 text-left">
+                <div>
+                  <span className="text-[10px] font-sans tracking-[0.25em] text-primary uppercase font-bold">
+                    {item.category}
+                  </span>
+                  <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif text-white mt-1">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs font-sans text-white/50 mt-1">
+                    {item.location} · {item.year}
+                  </p>
+                </div>
+                <p className="text-sm font-sans text-white/80 max-w-lg leading-relaxed">
+                  {item.description}
+                </p>
+                {item.highlights && item.highlights.length > 0 && (
+                  <div className="space-y-2">
+                    <span className="text-[9px] font-sans tracking-[0.2em] text-primary/70 uppercase font-semibold">
+                      Highlights
+                    </span>
+                    <div className="flex flex-wrap gap-2">
+                      {item.highlights.map((h, i) => (
+                        <span
+                          key={i}
+                          className="text-[9px] font-sans tracking-wider text-white/70 bg-white/10 px-2 py-1 rounded"
+                        >
+                          {h}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                <div className="pt-2">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onSelect(item);
+                    }}
+                    className="inline-flex items-center gap-2 text-xs font-sans tracking-[0.2em] text-primary hover:text-white uppercase font-bold transition-colors duration-200"
+                  >
+                    <span>View Case Study</span>
+                    <svg
+                      className="w-3.5 h-3.5"
+                      fill="none"
+                      viewBox="0 0 16 16"
+                      stroke="currentColor"
+                      strokeWidth={2.5}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 8h10M9 4l4 4-4 4" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            )
+          }))}
+          onSelect={onSelect}
+        />
+      </div>
 
       {/* ── Empty State ─────────────────────────────────────── */}
       {filteredItems.length === 0 && (

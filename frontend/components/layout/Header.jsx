@@ -60,7 +60,7 @@ export default function Header() {
   return (
     <>
       <header
-        className="fixed top-0 left-0 right-0 z-50 bg-background/85 backdrop-blur-md border-b border-border py-6 px-6 md:px-12 transition-all duration-300"
+        className="fixed top-0 left-0 right-0 z-[60] bg-background/85 backdrop-blur-md border-b border-border py-6 px-6 md:px-12 transition-all duration-300"
         role="banner"
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">

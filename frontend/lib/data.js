@@ -2,9 +2,9 @@
 export const portfolioItems = [
   {
     id: 1,
-    slug: "project-narrative-a",
+    slug: "concrete-avant-garde",
     category: "FASHION EDITORIAL",
-    title: "Project Narrative A",
+    title: "Concrete Avant-Garde",
     location: "Studio Space",
     year: "2026",
     date: "April 12, 2026",
@@ -13,70 +13,243 @@ export const portfolioItems = [
     description: "An editorial styling exploration framing raw garment textures against stark minimalist concrete backdrops. Every image studies the play of light and dynamic contrast.",
     images: [
       "/photos/beauty_1.webp",
-      "/photos/makeup_1.webp",
+      "/photos/beauty_jewelry_1.webp",
       "/photos/stylish_model_1.webp"
     ],
-    prevSlug: "project-narrative-d",
-    nextSlug: "project-narrative-b"
+    prevSlug: "bridal-look-shoot",
+    nextSlug: "mugurtham-traditions"
   },
   {
     id: 2,
-    slug: "project-narrative-b",
+    slug: "mugurtham-traditions",
     category: "WEDDING DOCUMENTARY",
-    title: "Project Narrative B",
+    title: "Mugurtham Traditions",
+    location: "Heritage Hall",
+    year: "2026",
+    date: "May 20, 2026",
+    highlights: ["Vibrant Silk Textures", "Candid Ritual Timing", "Traditional Saree Draping", "Sacred Fire Study"],
+    image: "/photos/mugurtham_1.webp",
+    description: "A celebration of traditional South Indian wedding customs, documenting the vibrant colors of silk, holy rituals, and candid emotional connections.",
+    images: [
+      "/photos/mugurtham_1.webp",
+      "/photos/Mugurtham  look ≡ƒÆ½ with dual cut crease eye look ≡ƒÆ½__HMUA _ saree drape_ _aparna_makeover_artist _Doll_  _srimathilifestyle_Behind camera_ _pixelbeesph_1.webp",
+      "/photos/Mugurtham  look ≡ƒÆ½ with dual cut crease eye look ≡ƒÆ½__HMUA _ saree drape_ _aparna_makeover_artist _Doll_  _srimathilifestyle_Behind camera_ _pixelbeesph_2.webp"
+    ],
+    prevSlug: "concrete-avant-garde",
+    nextSlug: "solitude-sound"
+  },
+  {
+    id: 3,
+    slug: "solitude-sound",
+    category: "FINE ART PORTRAIT",
+    title: "Solitude & Sound",
+    location: "Minimalist Set",
+    year: "2025",
+    date: "October 18, 2025",
+    highlights: ["Ambient Light Study", "Minimalist Backdrops", "High Detail Capture", "Monochrome Tonality"],
+    image: "/photos/creative_guitar_1.webp",
+    description: "An intimate conceptual study of an artist's relationship with music, using moody ambient lighting and deep shadows.",
+    images: [
+      "/photos/creative_guitar_1.webp",
+      "/photos/imagination_guitar.webp",
+      "/photos/dramatic_artist_1.webp"
+    ],
+    prevSlug: "mugurtham-traditions",
+    nextSlug: "aperture-appetite"
+  },
+  {
+    id: 4,
+    slug: "aperture-appetite",
+    category: "COMMERCIAL BRAND",
+    title: "Aperture & Appetite",
+    location: "Culinary Studio",
+    year: "2025",
+    date: "December 05, 2025",
+    highlights: ["Organic Food Styling", "Geometric Shadow play", "Close-up Texture Capture", "Warm Amber Grading"],
+    image: "/photos/food_1.webp",
+    description: "Commercial campaign detailing organic textures, food styling, and ambient shadow studies for high-end culinary houses.",
+    images: [
+      "/photos/food_1.webp",
+      "/photos/food_2.webp",
+      "/photos/_The only way to get rid of a temptation is to yield to it.___On today_s foodgraphy ___canonr5 _canonindia _foodstyling __vino_ranga(JPG).webp"
+    ],
+    prevSlug: "solitude-sound",
+    nextSlug: "shoreline-vows"
+  },
+  {
+    id: 5,
+    slug: "shoreline-vows",
+    category: "WEDDING DOCUMENTARY",
+    title: "Shoreline Vows",
     location: "Coastal Pavilion",
     year: "2026",
     date: "June 24, 2026",
-    highlights: ["Natural Sunset Lighting", "Candid Interactions", "Linen Box Proof Prints", "Cinematic Aspect Ratio"],
+    highlights: ["Sunset Silhouette Study", "Breeze Interactions", "Candid Coastal Frames", "Grain Overlay"],
     image: "/photos/wedding_candid_1.webp",
-    description: "Candid imagery documenting human connection along the oceanic shoreline. Designed to replicate natural, organic frames with warm ivory grain tones.",
+    description: "Ocean-side intimate ceremony framing the couple in warm golden hour lighting and raw emotional authenticity.",
     images: [
       "/photos/wedding_candid_1.webp",
       "/photos/wedding_candid_2.webp",
       "/photos/bridal_1.webp"
     ],
-    prevSlug: "project-narrative-a",
-    nextSlug: "project-narrative-c"
+    prevSlug: "aperture-appetite",
+    nextSlug: "hd-beauty-campaign"
   },
   {
-    id: 3,
-    slug: "project-narrative-c",
+    id: 6,
+    slug: "hd-beauty-campaign",
+    category: "FASHION EDITORIAL",
+    title: "HD Beauty Campaign",
+    location: "Studio Loft",
+    year: "2026",
+    date: "March 11, 2026",
+    highlights: ["Skin Texture Focus", "Contour Lighting", "Dual Soft Shadows", "Minimalist Concept"],
+    image: "/photos/makeup_1.webp",
+    description: "High-definition beauty lookbook highlighting meticulous skin texture work and dual-toned soft shadows.",
+    images: [
+      "/photos/makeup_1.webp",
+      "/photos/makeup_hair_1.webp",
+      "/photos/skin_finish_1.webp"
+    ],
+    prevSlug: "shoreline-vows",
+    nextSlug: "the-secret-garden"
+  },
+  {
+    id: 7,
+    slug: "the-secret-garden",
     category: "FINE ART PORTRAIT",
-    title: "Project Narrative C",
-    location: "Minimalist Set",
+    title: "The Secret Garden",
+    location: "Natural Reserve",
     year: "2025",
-    date: "October 18, 2025",
-    highlights: ["Ambient Light Study", "Minimalist Backdrops", "High Detail Capture", "Monochrome Tonality"],
-    image: "/photos/portrait_1.webp",
-    description: "A close-up studio portrait study exploring subtle facial contours, high contrast styling, and ambient lighting states.",
+    date: "September 08, 2025",
+    highlights: ["Natural Canopy Lighting", "Earthy Muted Tones", "Botanical Integration", "Ambient Lifestyle"],
+    image: "/photos/outdoor_portrait_1.webp",
+    description: "Fine art portraits showcasing human presence interwoven with nature. Soft, muted organic tones define this series.",
     images: [
-      "/photos/portrait_1.webp",
       "/photos/outdoor_portrait_1.webp",
-      "/photos/creative_guitar_1.webp"
+      "/photos/_If you look the right way_ you can see that the whole world is a garden_(JPG).webp",
+      "/photos/portrait_1.webp"
     ],
-    prevSlug: "project-narrative-b",
-    nextSlug: "project-narrative-d"
+    prevSlug: "hd-beauty-campaign",
+    nextSlug: "do-own-style-performance"
   },
   {
-    id: 4,
-    slug: "project-narrative-d",
+    id: 8,
+    slug: "do-own-style-performance",
     category: "COMMERCIAL BRAND",
-    title: "Project Narrative D",
-    location: "Urban Loft",
-    year: "2025",
-    date: "December 05, 2025",
-    highlights: ["Architectural Integration", "Geometric Styling", "Lookbook Production", "Product Textures Study"],
-    image: "/photos/food_1.webp",
-    description: "Editorial campaign photography created in collaboration with design spaces. Documenting architecture, geometry, and subtle human interaction.",
+    title: "Do Own Style Performance",
+    location: "Live Auditorium",
+    year: "2026",
+    date: "July 02, 2026",
+    highlights: ["High-Speed Shutter Study", "Dynamic Freeze Frames", "Stage Lighting Contrast", "Performance Energy"],
+    image: "/photos/stunning_dance_1.webp",
+    description: "High-speed documentation capturing pure motion, dynamic freeze-frames, and the fierce performance energy of live dancers.",
     images: [
-      "/photos/food_1.webp",
-      "/photos/food_2.webp",
-      "/photos/dance_1.webp"
+      "/photos/stunning_dance_1.webp",
+      "/photos/dance_1.webp",
+      "/photos/A stunning dance performance from Do Own Style ≡ƒöÑKudos_On JCI national president meet___jci _jciindia _jcisalem __canonr5 _pixelbeesphotography _salem(JP_1.webp"
     ],
-    prevSlug: "project-narrative-c",
-    nextSlug: "project-narrative-a"
+    prevSlug: "the-secret-garden",
+    nextSlug: "radiant-bridal-essence"
+  },
+  {
+    id: 9,
+    slug: "radiant-bridal-essence",
+    category: "WEDDING DOCUMENTARY",
+    title: "Radiant Bridal Essence",
+    location: "Heritage Fort",
+    year: "2026",
+    date: "February 18, 2026",
+    highlights: ["Ornate Jewelry Studies", "Subtle Veil Contrasts", "Soft Portrait Lighting", "Macro Detail Close-ups"],
+    image: "/photos/bridal_look_1.webp",
+    description: "A fine-art bridal portrait study highlighting delicate handcrafted jewelry, traditional makeup transitions, and glowing skin tones.",
+    images: [
+      "/photos/bridal_look_1.webp",
+      "/photos/bridal_candid_3.webp",
+      "/photos/for_booking_1.webp"
+    ],
+    prevSlug: "do-own-style-performance",
+    nextSlug: "the-yuletide-editorial"
+  },
+  {
+    id: 10,
+    slug: "the-yuletide-editorial",
+    category: "FASHION EDITORIAL",
+    title: "The Yuletide Editorial",
+    location: "Cosy Log Cabin",
+    year: "2025",
+    date: "December 20, 2025",
+    highlights: ["Chamber Firelight", "Cozy Wool Textures", "Festive Pine Accents", "Warm Lifestyle Framing"],
+    image: "/photos/festive_christmas.webp",
+    description: "Holiday editorial campaign blending warm indoor firelight with creative styling, cozy winter textures, and Christmas greens.",
+    images: [
+      "/photos/festive_christmas.webp",
+      "/photos/merry_christmas_model.webp",
+      "/photos/thats_a_wrap_1.webp"
+    ],
+    prevSlug: "radiant-bridal-essence",
+    nextSlug: "candid-childhood-narratives"
+  },
+  {
+    id: 11,
+    slug: "candid-childhood-narratives",
+    category: "FINE ART PORTRAIT",
+    title: "Candid Childhood Narratives",
+    location: "Natural Play Fields",
+    year: "2025",
+    date: "August 14, 2025",
+    highlights: ["Natural Childhood Expressions", "Soft Daylight Grading", "Candid Play Studies", "Macro Detail Framing"],
+    image: "/photos/kid_1.webp",
+    description: "Documentary-style portraits capturing pure childhood wonder, candid laughter, and the soft, natural curiosity of early years.",
+    images: [
+      "/photos/kid_1.webp",
+      "/photos/kid_girl_1.webp",
+      "/photos/kid_girl_2.webp",
+      "/photos/kids_1.webp"
+    ],
+    prevSlug: "the-yuletide-editorial",
+    nextSlug: "divine-devotion"
+  },
+  {
+    id: 12,
+    slug: "divine-devotion",
+    category: "COMMERCIAL BRAND",
+    title: "Divine Devotion",
+    location: "Mythological Set",
+    year: "2025",
+    date: "August 28, 2025",
+    highlights: ["Ornate Costume Design", "Creative Set Directing", "Mythological Lighting", "Textured Gold Grading"],
+    image: "/photos/janmashtami_1.webp",
+    description: "Fine art conceptual production focusing on traditional mythology, elaborate set design, and storytelling through rich textures.",
+    images: [
+      "/photos/janmashtami_1.webp",
+      "/photos/Happy Janmashtami Γ£¿__Fine art makeup creation and photography__Mua _neerajasampath_mua _Framed by _pixelbeesphotography _Model _shanmuga_balaji ___canonr5(.webp"
+    ],
+    prevSlug: "candid-childhood-narratives",
+    nextSlug: "bridal-look-shoot"
+  },
+  {
+    id: 13,
+    slug: "bridal-look-shoot",
+    category: "WEDDING DOCUMENTARY",
+    title: "Bridal Look Shoot",
+    location: "Royal Palace Set",
+    year: "2026",
+    date: "January 15, 2026",
+    highlights: ["Intricate Embroidery", "Gold Ornament Study", "Subtle Lighting Contrast", "Soft Focus"],
+    image: "/photos/Bridal look model shoot≡ƒÆÑ___salemwedding _salemweddingphotography _salemweddingphotographer _candid _candidphotography _candidphotographer _candidwedding_1.webp",
+    description: "Capturing traditional bridal elegance, showcasing intricate embroidery, gold ornament detailing, and subtle lighting contrast.",
+    images: [
+      "/photos/Bridal look model shoot≡ƒÆÑ___salemwedding _salemweddingphotography _salemweddingphotographer _candid _candidphotography _candidphotographer _candidwedding_1.webp",
+      "/photos/Bridal look model shoot≡ƒÆÑ___salemwedding _salemweddingphotography _salemweddingphotographer _candid _candidphotography _candidphotographer _candidwedding_2.webp",
+      "/photos/Bridal look model shoot≡ƒÆÑ___salemwedding _salemweddingphotography _salemweddingphotographer _candid _candidphotography _candidphotographer _candidwedding_3.webp"
+    ],
+    prevSlug: "divine-devotion",
+    nextSlug: "concrete-avant-garde"
   }
 ];
+
+
 
 // Mock Services Data
 export const services = [

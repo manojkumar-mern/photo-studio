@@ -34,6 +34,62 @@ export default function SelectedWork() {
   const headerRef       = useRef(null);
   const titleRef        = useRef(null);
 
+  // Show only 5 unique best suitable images on the horizontal scroll
+  const displayItems = [
+    {
+      id: "slide-1",
+      category: "TRADITIONAL WEDDING",
+      title: "Bridal Reflections",
+      location: "Heritage Fort",
+      year: "2026",
+      image: "/photos/Bridal candid Photography___salemwedding _salemweddingphotography _salemweddingphotographer _candid _candidphotography _candidphotographer _candidweddingpho(.webp",
+      slug: "radiant-bridal-essence",
+      description: "A candid moment of a bride getting ready, reflecting purity, emotion, and traditional makeup transitions."
+    },
+
+    {
+      id: "slide-2",
+      category: "FINE ART BEAUTY",
+      title: "The Golden Ratio",
+      location: "Studio Set",
+      year: "2026",
+      image: "/photos/beauty_jewelry_1.webp",
+      slug: "concrete-avant-garde",
+      description: "Meticulous detail framing traditional gold jewelry designs, soft contours, and luxury styling."
+    },
+    {
+      id: "slide-3",
+      category: "OUTDOOR PORTRAITURE",
+      title: "Sunset Whispers",
+      location: "Lake Shore",
+      year: "2025",
+      image: "/photos/cool_is_breeze_1.webp",
+      slug: "the-secret-garden",
+      description: "A gorgeous, cinematic sunset portrait captured in cool ambient lighting and soft natural tones."
+    },
+    {
+      id: "slide-4",
+      category: "EDITORIAL PORTRAIT",
+      title: "Noir Fashion",
+      location: "Urban Loft",
+      year: "2026",
+      image: "/photos/model_shoot_1.webp",
+      slug: "hd-beauty-campaign",
+      description: "High-contrast visual campaign showcasing clean garment styling, shadow play, and dynamic textures."
+    },
+    {
+      id: "slide-5",
+      category: "MATERNITY ART",
+      title: "Maternity & Grace",
+      location: "Studio Set",
+      year: "2025",
+      image: "/photos/maternity_1.webp",
+      slug: "artistic-childhood-portraits",
+      description: "An elegant studio study of motherhood, framing form, grace, and soft ambient transitions."
+    }
+  ];
+
+
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isDesktop = window.innerWidth >= 1024;
@@ -146,7 +202,7 @@ export default function SelectedWork() {
             h-[340px] sm:h-[400px] md:h-[440px] lg:h-[clamp(340px,calc(100svh-350px),500px)]
           "
         >
-          {portfolioItems.map((item, idx) => {
+          {displayItems.map((item, idx) => {
             const isWide = idx % 3 === 0;
             return (
               <Link
@@ -284,7 +340,7 @@ export default function SelectedWork() {
         <div className="flex items-center gap-4">
           <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-border to-transparent" />
           <span className="text-[9px] font-sans tracking-[0.3em] text-muted-foreground/45 uppercase">
-            {portfolioItems.length} Projects
+            {displayItems.length} Selected
           </span>
           <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-border to-transparent" />
         </div>
