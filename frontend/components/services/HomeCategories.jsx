@@ -257,6 +257,7 @@ export default function HomeCategories() {
   const router = useRouter();
   const [duration, setDuration] = useState("half"); // 'half' or 'full'
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [activeTier, setActiveTier] = useState("premium"); // Default to premium for mobile/tablet tab deck
 
   return (
     <section className="bg-[#FAF8F5] py-20 md:py-28 px-6 md:px-12 border-b border-[#E8E4DC] relative z-20">
@@ -308,8 +309,8 @@ export default function HomeCategories() {
           </div>
         </div>
 
-        {/* 3 Horizontal Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-stretch pt-6">
+        {/* 1. Desktop View (Shown only on screen sizes >= 1024px) */}
+        <div className="hidden lg:grid grid-cols-3 gap-8 items-stretch pt-6">
           {services.map((service, idx) => (
             <InteractiveCard
               key={service.id}
@@ -321,6 +322,142 @@ export default function HomeCategories() {
               router={router}
             />
           ))}
+        </div>
+
+        {/* 2. Tablet & Mobile Interactive Single-Screen Deck View (Shown on screens < 1024px) */}
+        <div className="lg:hidden space-y-6 pt-2 text-left max-w-2xl mx-auto">
+          {/* 3-Column Header Button Tabs */}
+          <div className="grid grid-cols-3 gap-2.5 sm:gap-4">
+            {services.map((service, idx) => {
+              const isSelected = activeTier === service.id;
+              const isPremium = service.id === "premium";
+              return (
+                <button
+                  key={service.id}
+                  onClick={() => setActiveTier(service.id)}
+                  className={`relative flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border text-center transition-all duration-300 focus:outline-none cursor-pointer ${
+                    isSelected
+                      ? "bg-[#1C1C1E] border-[#C5A880] text-white shadow-md scale-[1.02]"
+                      : "bg-[#FFFFFF] border-[#E8E4DC] text-[#1C1C1E] hover:border-primary/45"
+                  }`}
+                >
+                  {isPremium && (
+                    <span className="absolute -top-2 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-[#C5A880] text-white rounded-full text-[6px] tracking-wider uppercase font-black whitespace-nowrap shadow-sm">
+                      Popular
+                    </span>
+                  )}
+                  <span className="text-[8px] font-sans tracking-wider text-[#C5A880] uppercase font-bold">
+                    0{idx + 1}
+                  </span>
+                  <h4 className="text-sm font-serif font-medium mt-0.5 leading-tight">
+                    {service.categoryName}
+                  </h4>
+                  <span className={`text-[7px] sm:text-[7.5px] font-sans uppercase font-bold tracking-wider sm:tracking-widest mt-1 ${
+                    isSelected ? "text-white/60" : "text-muted-foreground/85"
+                  }`}>
+                    {service.name.split(" ")[0]}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Shared Details Panel with update animations */}
+          <AnimatePresence mode="wait">
+            {services.map((service) => {
+              if (activeTier !== service.id) return null;
+              const isPremium = service.id === "premium";
+              const cardData = CARD_DATA[service.id];
+              const currentInclusions = cardData.inclusions[duration];
+              
+              return (
+                <motion.div
+                  key={service.id}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.3 }}
+                  className={`p-5 sm:p-6 rounded-xl border relative overflow-hidden text-left ${
+                    isPremium
+                      ? "bg-[#1C1C1E] border-[#C5A880] text-white"
+                      : "bg-[#FFFFFF] border-[#E8E4DC] text-[#1C1C1E]"
+                  }`}
+                >
+                  {/* Background Image Watermark */}
+                  <div
+                    className="absolute inset-0 bg-cover bg-center pointer-events-none z-0"
+                    style={{
+                      backgroundImage: `url(${service.image})`,
+                      opacity: isPremium ? 0.12 : 0.07,
+                      filter: isPremium ? "contrast(115%) brightness(85%)" : "grayscale(20%) contrast(105%)",
+                    }}
+                  />
+                  
+                  {/* Gradient overlay */}
+                  <div
+                    className="absolute inset-0 pointer-events-none z-0"
+                    style={{
+                      background: isPremium 
+                        ? "linear-gradient(180deg, rgba(28,28,30,0.88) 0%, rgba(28,28,30,0.98) 100%)"
+                        : "linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.99) 100%)",
+                    }}
+                  />
+
+                  <div className="relative z-10 space-y-4">
+                    <div>
+                      <span className="text-[8px] font-sans tracking-widest text-[#C5A880] uppercase font-bold block">
+                        {HIGHLIGHTS[service.id]}
+                      </span>
+                      <h3 className="text-xl sm:text-2xl font-serif font-medium mt-0.5">
+                        {service.categoryName} Tier — {service.name} Focus
+                      </h3>
+                    </div>
+
+                    {/* Short Goal */}
+                    <p className={`p-3.5 rounded-lg border text-xs font-sans leading-relaxed ${
+                      isPremium 
+                        ? "bg-[#2A2A2C]/60 border-[#C5A880]/30 text-white/90" 
+                        : "bg-[#FAF8F5] border-[#E8E4DC] text-[#4A4A4C]"
+                    }`}>
+                      {GOALS[service.id]}
+                    </p>
+
+                    {/* Inclusions List */}
+                    <ul className="space-y-2">
+                      {currentInclusions.map((benefit, i) => (
+                        <li key={i} className="flex items-start text-xs font-sans leading-relaxed">
+                          <span className="text-[#C5A880] text-xs font-black mr-2.5 shrink-0 mt-0.5">✓</span>
+                          <span className={isPremium ? "text-white/85" : "text-[#4A4A4C]"}>{benefit}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Compact Easy Book Button */}
+                    <div className="pt-3 mt-4 border-t border-[#E8E4DC]/20">
+                      <Link
+                        href={`/booking?service=${encodeURIComponent(service.name)}&category=${encodeURIComponent(service.categoryName)}`}
+                        className={`group/btn flex items-center justify-center gap-2 text-center text-[10px] font-sans tracking-[0.2em] px-4 py-3.5 rounded-lg uppercase font-bold transition-all duration-300 focus:outline-none ${
+                          isPremium
+                            ? "bg-[#C5A880] text-white hover:bg-white hover:text-[#1C1C1E] shadow-sm"
+                            : "bg-[#1C1C1E] text-white hover:bg-[#C5A880] hover:text-white"
+                        }`}
+                      >
+                        <span>Book {service.categoryName}</span>
+                        <svg
+                          className="w-3 h-3 transform transition-transform duration-300 group-hover/btn:translate-x-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                      </Link>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
         </div>
 
       </div>
