@@ -2,6 +2,7 @@ import { Cormorant_Garamond, DM_Sans, Playfair_Display, Pinyon_Script } from "ne
 import "./globals.css";
 import ScrollProvider from "@/components/layout/ScrollProvider";
 import Preloader from "@/components/ui/Preloader";
+import WhatsAppBubble from "@/components/ui/WhatsAppBubble";
 
 const serifFont = Cormorant_Garamond({
   variable: "--font-serif",
@@ -177,6 +178,7 @@ export default function RootLayout({ children }) {
         <ScrollProvider>
           {children}
         </ScrollProvider>
+        <WhatsAppBubble />
       </body>
     </html>
   );
