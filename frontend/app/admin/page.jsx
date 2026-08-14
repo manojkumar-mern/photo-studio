@@ -206,10 +206,10 @@ export default function AdminPage() {
             </div>
           ) : (
             <>
-              {/* Responsive Layout: Table on Desktop, Cards on Mobile */}
+              {/* Responsive Layout: Table on Desktop, Grid Cards on Tablet/Mobile */}
               
               {/* Desktop Table View */}
-              <div className="hidden md:block w-full overflow-x-auto rounded-xl border border-border bg-card scrollbar-none">
+              <div className="hidden lg:block w-full overflow-x-auto rounded-xl border border-border bg-card scrollbar-none">
                 <table className="w-full text-left border-collapse">
                   <thead>
                     <tr className="border-b border-border bg-background/50">
@@ -266,8 +266,8 @@ export default function AdminPage() {
                 </table>
               </div>
 
-              {/* Mobile Card List View */}
-              <div className="md:hidden space-y-4">
+              {/* Tablet & Mobile Card Grid View */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:hidden gap-4">
                 {bookings.map((booking) => (
                   <div
                     key={booking._id}
