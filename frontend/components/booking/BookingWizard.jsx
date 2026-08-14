@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import CursorGrid from "@/components/ui/CursorGrid";
 
@@ -46,6 +46,7 @@ export default function BookingWizard() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     service: "",
+    category: "Standard",
     date: "",
     name: "",
     email: "",
@@ -55,9 +56,29 @@ export default function BookingWizard() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const serviceParam = params.get("service");
+      const categoryParam = params.get("category");
+      if (serviceParam) {
+        setFormData((prev) => ({
+          ...prev,
+          service: serviceParam,
+          category: categoryParam ? categoryParam.charAt(0).toUpperCase() + categoryParam.slice(1).toLowerCase() : "Standard",
+          scope: categoryParam ? `Category Tier: ${categoryParam.toUpperCase()}` : prev.scope,
+        }));
+        setStep(2);
+      }
+    }
+  }, []);
+
   const handleSelectService = (service) => {
     setFormData((prev) => ({ ...prev, service }));
-    setStep(2);
+  };
+
+  const handleSelectCategory = (category) => {
+    setFormData((prev) => ({ ...prev, category }));
   };
 
   const handleInputChange = (e) => {
@@ -99,12 +120,17 @@ export default function BookingWizard() {
     setIsSubmitting(true);
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+      const submissionData = {
+        ...formData,
+        service: `${formData.service} (${formData.category} Tier)`,
+      };
+      
       const response = await fetch(`${apiUrl}/bookings`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(submissionData),
       });
 
       const result = await response.json();
@@ -165,7 +191,7 @@ export default function BookingWizard() {
         <form onSubmit={handleSubmit} noValidate>
           <AnimatePresence mode="wait">
 
-            {/* Step 1 — Service selection */}
+            {/* Step 1 — Service & Category selection */}
             {step === 1 && (
               <motion.div
                 key="step1"
@@ -173,10 +199,11 @@ export default function BookingWizard() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.25 }}
+                className="space-y-6"
               >
                 <fieldset>
-                  <legend className="text-xs font-sans tracking-widest text-muted-foreground uppercase mb-4 block">
-                    Choose your photography format
+                  <legend className="text-xs font-sans tracking-widest text-muted-foreground uppercase mb-3.5 block font-bold">
+                    Choose photography format
                   </legend>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {SERVICES.map((srv) => (
@@ -184,7 +211,7 @@ export default function BookingWizard() {
                         key={srv}
                         type="button"
                         onClick={() => handleSelectService(srv)}
-                        className={`p-5 border rounded-md text-left font-serif text-base sm:text-lg tracking-wide transition-colors duration-300 min-h-[72px] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary
+                        className={`p-4 border rounded-md text-left font-serif text-base tracking-wide transition-colors duration-300 min-h-[64px] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary
                           ${formData.service === srv
                             ? "border-primary bg-primary/8 text-foreground"
                             : "border-border bg-background text-foreground hover:border-primary/60"
@@ -196,6 +223,36 @@ export default function BookingWizard() {
                     ))}
                   </div>
                 </fieldset>
+
+                {formData.service && (
+                  <fieldset className="pt-2">
+                    <legend className="text-xs font-sans tracking-widest text-muted-foreground uppercase mb-3.5 block font-bold">
+                      Choose Package Tier
+                    </legend>
+                    <div className="grid grid-cols-3 gap-2.5">
+                      {["Standard", "Premium", "Elite"].map((cat) => (
+                        <button
+                          key={cat}
+                          type="button"
+                          onClick={() => handleSelectCategory(cat)}
+                          className={`py-3.5 border rounded-md text-center font-sans text-xs tracking-wider font-bold transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary
+                            ${formData.category.toLowerCase() === cat.toLowerCase()
+                              ? "border-[#C5A880] bg-[#C5A880]/10 text-foreground"
+                              : "border-border bg-background text-[#5C5C5E] hover:border-primary/60"
+                            }`}
+                          aria-pressed={formData.category.toLowerCase() === cat.toLowerCase()}
+                        >
+                          {cat.toUpperCase()}
+                        </button>
+                      ))}
+                    </div>
+                  </fieldset>
+                )}
+
+                <NavRow
+                  onNext={nextStep}
+                  disabled={!formData.service || !formData.category}
+                />
               </motion.div>
             )}
 
@@ -331,7 +388,7 @@ export default function BookingWizard() {
                 <button
                   type="button"
                   onClick={() => {
-                    setFormData({ service: "", date: "", name: "", email: "", phone: "", scope: "" });
+                    setFormData({ service: "", category: "Standard", date: "", name: "", email: "", phone: "", scope: "" });
                     setErrors({});
                     setStep(1);
                   }}

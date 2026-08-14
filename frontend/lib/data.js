@@ -254,28 +254,58 @@ export const portfolioItems = [
 // Mock Services Data
 export const services = [
   {
-    id: "fashion",
+    id: "standard",
+    number: "01",
     name: "Fashion & Editorial",
-    description: "High-contrast visual storytelling tailored for brands, designers, and creative lookbooks. Focused on styling, unique compositions, and cinematic lighting setups.",
+    categoryName: "Standard",
+    tagline: "Essential Photography Experience",
+    description: "A professional, high-concept session focusing on core brand aesthetics, clean studio setups, and high-impact styling direction.",
     image: "/photos/stylish_model_1.webp",
-    includes: ["Style curation & concept direction", "Full studio production & ambient lighting team", "15+ High-resolution editorial proofed images", "Digital & print output delivery formats"],
-    useCase: "Best suited for clothing collections, design campaigns, model portfolios, and lookbooks."
+    detailImage: "/photos/makeup_1.webp",
+    includes: [
+      "1 Principal Fashion Photographer & director",
+      "Creative concept mapping & basic style briefing",
+      "Studio flash & high-contrast setup design",
+      "15 High-resolution retouched master files",
+      "Digital delivery with standard commercial license"
+    ],
+    useCase: "Ideal for fresh model test shoots, designers starting lookbooks, and clean minimalist product campaigns."
   },
   {
-    id: "weddings",
+    id: "premium",
+    number: "02",
     name: "Wedding Documentary",
-    description: "Candid, non-intrusive documentation of your celebration. Capturing raw emotional narratives, architectural beauty of the venue, and intimate editorial moments.",
+    categoryName: "Premium",
+    tagline: "Enhanced Photography Experience",
+    description: "A comprehensive documentary collection integrating high-end traditional coverage with dedicated artistic candid storytelling and a premium keepsake album.",
     image: "/photos/mugurtham_1.webp",
-    includes: ["Full-day coverage by chief visual artist", "Ambient lifestyle documentation (non-intrusive)", "300+ Color-graded digital negatives", "Handcrafted premium linen box print collection"],
-    useCase: "Best suited for intimate or large celebrations that appreciate raw, non-posed artistic storytelling."
+    detailImage: "/photos/wedding_candid_2.webp",
+    includes: [
+      "Dual Photographer Team (1 Candid specialist & 1 Traditional)",
+      "Dedicated Candid Video & cinematic highlight teaser",
+      "1 Custom Handcrafted Premium Linen Album (30 Pages)",
+      "300+ Expertly color-graded digital negatives",
+      "Digital Master delivery with custom print release"
+    ],
+    useCase: "Perfect for couples wanting a premium balance of raw emotional candids, traditional ritual archiving, and a physical heirloom."
   },
   {
-    id: "portraiture",
+    id: "elite",
+    number: "03",
     name: "Fine Art Portraiture",
-    description: "Timeless solo or group portraits utilizing natural lighting, deep shadows, and architectural elements. Designed to reveal character and mood in a minimalist setup.",
+    categoryName: "Elite",
+    tagline: "Complete Photography Experience",
+    description: "The ultimate signature package offering multi-crew production, pre-wedding destination sessions, luxury album sets, and live venue broadcasting displays.",
     image: "/photos/dramatic_artist_1.webp",
-    includes: ["2-hour studio or outdoor architecture session", "Natural light manipulation & shadow study", "5 Premium retouched gallery print files", "Personal design consultation call"],
-    useCase: "Best suited for artists, musicians, corporate profiles, and fine-art personal records."
+    detailImage: "/photos/portrait_1.webp",
+    includes: [
+      "Full Multi-Crew Team (Traditional, Candid, & Cinema Directors)",
+      "Exclusive Outdoor / Pre-wedding creative destination shoot",
+      "1 Luxury Signature Album set with custom display box",
+      "2 LED Screens (8x10 ft) for live venue broadcasting",
+      "Full-length cinematic documentary film & 4K highlight reel"
+    ],
+    useCase: "Designed for grand celebrations, high-end fine art gallery collections, and milestone events demanding the absolute highest level of production."
   }
 ];
 

@@ -10,9 +10,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const SIZE_CLASSES = [
-  "md:col-span-6",  // Fashion
-  "md:col-span-6",  // Weddings
-  "md:col-span-12", // Portraiture
+  "md:col-span-6",  // Fashion (Standard)
+  "md:col-span-6",  // Weddings (Premium)
+  "md:col-span-12", // Portraiture (Elite)
 ];
 
 const ASPECT_CLASSES = [
@@ -117,7 +117,7 @@ export default function ServicesList() {
                 {/* Card Top: Number */}
                 <div className="absolute top-6 right-6 z-20">
                   <span className="font-sans text-xs tracking-widest text-primary font-bold">
-                    0{idx + 1}
+                    0{idx + 1} / {service.categoryName.toUpperCase()}
                   </span>
                 </div>
 
@@ -147,7 +147,7 @@ export default function ServicesList() {
 
                     {/* Link */}
                     <Link
-                      href="#book"
+                      href={`/booking?service=${encodeURIComponent(service.name)}&category=${encodeURIComponent(service.categoryName)}`}
                       className="inline-flex text-[10px] font-sans tracking-[0.25em] text-primary font-bold uppercase hover:text-white transition-colors gap-1.5 mt-2"
                     >
                       BOOK SESSION <span className="text-xs">→</span>

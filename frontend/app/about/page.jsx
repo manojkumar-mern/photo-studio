@@ -68,14 +68,25 @@ export default function AboutPage() {
 
           {/* ── Philosophy ─────────────────────────────────── */}
           <section aria-labelledby="philosophy-heading">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16 items-start">
-              <div className="lg:col-span-5">
-                <span className="text-[10px] font-sans tracking-[0.3em] text-primary uppercase block mb-3">
-                  Studio Core
-                </span>
-                <h1 id="philosophy-heading" className="text-3xl sm:text-5xl md:text-6xl font-serif text-foreground leading-tight">
-                  Artistic Philosophy
-                </h1>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16 items-center">
+              <div className="lg:col-span-5 space-y-8">
+                <div>
+                  <span className="text-[10px] font-sans tracking-[0.3em] text-primary uppercase block mb-3">
+                    Studio Core
+                  </span>
+                  <h1 id="philosophy-heading" className="text-3xl sm:text-5xl md:text-6xl font-serif text-foreground leading-tight">
+                    Artistic Philosophy
+                  </h1>
+                </div>
+                <div className="relative h-[40vh] sm:h-[45vh] bg-card rounded-xl border border-border overflow-hidden">
+                  <Image
+                    src="/images/about_studio.webp"
+                    alt="Pixel Bees Photos team member in a natural-light setting"
+                    fill
+                    className="object-cover grayscale hover:grayscale-0 transition-all duration-1000 ease-out"
+                    sizes="(max-width: 1024px) 92vw, 40vw"
+                  />
+                </div>
               </div>
               <div className="lg:col-span-7 space-y-6 text-sm font-sans text-muted-foreground leading-relaxed">
                 <p className="text-lg font-serif text-foreground italic leading-relaxed">
