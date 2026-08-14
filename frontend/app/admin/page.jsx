@@ -160,23 +160,23 @@ export default function AdminPage() {
                 Admin Dashboard
               </h1>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2.5">
               <button
                 onClick={() => router.push("/")}
-                className="text-xs font-sans tracking-widest text-muted-foreground hover:text-foreground border border-border hover:border-primary/50 px-4 py-2 rounded-md transition-colors"
+                className="text-[10px] sm:text-xs font-sans tracking-widest text-muted-foreground hover:text-foreground border border-border hover:border-primary/50 px-3 py-2 rounded-md transition-colors"
               >
                 Back to Site
               </button>
               <button
                 onClick={fetchBookings}
                 disabled={isLoading}
-                className="text-xs font-sans tracking-widest text-foreground border border-border hover:border-primary/50 px-4 py-2 rounded-md transition-colors disabled:opacity-40"
+                className="text-[10px] sm:text-xs font-sans tracking-widest text-foreground border border-border hover:border-primary/50 px-3 py-2 rounded-md transition-colors disabled:opacity-40"
               >
                 Refresh
               </button>
               <button
                 onClick={handleLogout}
-                className="text-xs font-sans tracking-widest text-muted-foreground hover:text-foreground border border-border hover:border-primary/50 px-4 py-2 rounded-md transition-colors"
+                className="text-[10px] sm:text-xs font-sans tracking-widest text-muted-foreground hover:text-foreground border border-border hover:border-primary/50 px-3 py-2 rounded-md transition-colors"
               >
                 Sign Out
               </button>
@@ -198,65 +198,110 @@ export default function AdminPage() {
               </span>
             </div>
           ) : bookings.length === 0 ? (
-            <div className="border border-border bg-card rounded-xl p-12 text-center max-w-md mx-auto">
+            <div className="border border-border bg-card rounded-xl p-8 sm:p-12 text-center max-w-md mx-auto">
               <h3 className="font-serif text-xl text-foreground mb-2">No bookings found</h3>
               <p className="text-xs font-sans text-muted-foreground leading-relaxed">
                 When prospective clients fill out the enquiry form, their details will display here.
               </p>
             </div>
           ) : (
-            <div className="w-full overflow-x-auto rounded-xl border border-border bg-card scrollbar-none">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="border-b border-border bg-background/50">
-                    <th className="p-4 text-[10px] font-sans tracking-widest text-muted-foreground uppercase">Client Details</th>
-                    <th className="p-4 text-[10px] font-sans tracking-widest text-muted-foreground uppercase">Service</th>
-                    <th className="p-4 text-[10px] font-sans tracking-widest text-muted-foreground uppercase">Preferred Date</th>
-                    <th className="p-4 text-[10px] font-sans tracking-widest text-muted-foreground uppercase">Concept / Notes</th>
-                    <th className="p-4 text-[10px] font-sans tracking-widest text-muted-foreground uppercase">Submitted</th>
-                    <th className="p-4 text-[10px] font-sans tracking-widest text-muted-foreground uppercase text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border/50">
-                  {bookings.map((booking) => (
-                    <tr
-                      key={booking._id}
-                      onClick={() => setSelectedBooking(booking)}
-                      className="hover:bg-background/20 transition-colors cursor-pointer"
-                      title="Click to view details"
-                    >
-                      <td className="p-4">
-                        <div className="font-medium text-foreground text-sm">{booking.name}</div>
-                        <div className="text-xs text-muted-foreground mt-0.5">{booking.email}</div>
-                        <div className="text-[11px] text-muted-foreground/80 mt-0.5">{booking.phone}</div>
-                      </td>
-                      <td className="p-4">
-                        <span className="inline-block px-2.5 py-1 text-[11px] font-sans tracking-wider border border-primary/20 bg-primary/5 text-primary rounded-full">
-                          {booking.service}
-                        </span>
-                      </td>
-                      <td className="p-4 text-sm text-foreground">
-                        {formatDate(booking.date)}
-                      </td>
-                      <td className="p-4 text-xs text-muted-foreground max-w-xs truncate leading-relaxed">
-                        {booking.message || <span className="italic text-muted-foreground/30">No notes provided</span>}
-                      </td>
-                      <td className="p-4 text-xs text-muted-foreground">
-                        {formatDateTime(booking.createdAt)}
-                      </td>
-                      <td className="p-4 text-right">
-                        <button
-                          onClick={(e) => handleDelete(e, booking._id)}
-                          className="text-[10px] font-sans tracking-widest text-red-400 hover:text-red-300 uppercase transition-colors duration-200 cursor-pointer"
-                        >
-                          Delete
-                        </button>
-                      </td>
+            <>
+              {/* Responsive Layout: Table on Desktop, Cards on Mobile */}
+              
+              {/* Desktop Table View */}
+              <div className="hidden md:block w-full overflow-x-auto rounded-xl border border-border bg-card scrollbar-none">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="border-b border-border bg-background/50">
+                      <th className="p-4 text-[10px] font-sans tracking-widest text-muted-foreground uppercase">Client Details</th>
+                      <th className="p-4 text-[10px] font-sans tracking-widest text-muted-foreground uppercase">Service</th>
+                      <th className="p-4 text-[10px] font-sans tracking-widest text-muted-foreground uppercase">Preferred Date</th>
+                      <th className="p-4 text-[10px] font-sans tracking-widest text-muted-foreground uppercase">Concept / Notes</th>
+                      <th className="p-4 text-[10px] font-sans tracking-widest text-muted-foreground uppercase">Submitted</th>
+                      <th className="p-4 text-[10px] font-sans tracking-widest text-muted-foreground uppercase text-right">Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody className="divide-y divide-border/50">
+                    {bookings.map((booking) => (
+                      <tr
+                        key={booking._id}
+                        onClick={() => setSelectedBooking(booking)}
+                        className="hover:bg-background/20 transition-colors cursor-pointer"
+                        title="Click to view details"
+                      >
+                        <td className="p-4">
+                          <div className="font-medium text-foreground text-sm">{booking.name}</div>
+                          {booking.email ? (
+                            <div className="text-xs text-muted-foreground mt-0.5">{booking.email}</div>
+                          ) : (
+                            <div className="text-xs italic text-muted-foreground/45 mt-0.5">No email address</div>
+                          )}
+                          <div className="text-[11px] text-muted-foreground/80 mt-0.5">{booking.phone}</div>
+                        </td>
+                        <td className="p-4">
+                          <span className="inline-block px-2.5 py-1 text-[11px] font-sans tracking-wider border border-primary/20 bg-primary/5 text-primary rounded-full">
+                            {booking.service}
+                          </span>
+                        </td>
+                        <td className="p-4 text-sm text-foreground">
+                          {formatDate(booking.date)}
+                        </td>
+                        <td className="p-4 text-xs text-muted-foreground max-w-xs truncate leading-relaxed">
+                          {booking.message || <span className="italic text-muted-foreground/30">No notes provided</span>}
+                        </td>
+                        <td className="p-4 text-xs text-muted-foreground">
+                          {formatDateTime(booking.createdAt)}
+                        </td>
+                        <td className="p-4 text-right">
+                          <button
+                            onClick={(e) => handleDelete(e, booking._id)}
+                            className="text-[10px] font-sans tracking-widest text-red-400 hover:text-red-300 uppercase transition-colors duration-200 cursor-pointer"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Mobile Card List View */}
+              <div className="md:hidden space-y-4">
+                {bookings.map((booking) => (
+                  <div
+                    key={booking._id}
+                    onClick={() => setSelectedBooking(booking)}
+                    className="bg-card border border-border hover:border-primary/45 rounded-xl p-5 space-y-4 active:scale-[0.99] transition-all duration-200 text-left"
+                  >
+                    <div className="flex justify-between items-start gap-2">
+                      <div className="space-y-0.5">
+                        <h3 className="font-serif text-lg text-foreground leading-tight">{booking.name}</h3>
+                        {booking.email ? (
+                          <p className="text-xs text-muted-foreground break-all">{booking.email}</p>
+                        ) : (
+                          <p className="text-xs italic text-muted-foreground/45">No email address</p>
+                        )}
+                        <p className="text-[11px] text-muted-foreground/80">{booking.phone}</p>
+                      </div>
+                      <span className="shrink-0 inline-block px-2 py-0.5 text-[9px] font-sans tracking-wider border border-primary/20 bg-primary/5 text-primary rounded-full">
+                        {booking.service.split(' ')[0]}
+                      </span>
+                    </div>
+
+                    <div className="flex justify-between items-center text-xs border-t border-border/30 pt-3 text-muted-foreground">
+                      <span>Date: <strong className="text-foreground font-medium">{formatDate(booking.date)}</strong></span>
+                      <button
+                        onClick={(e) => handleDelete(e, booking._id)}
+                        className="text-[10px] font-sans tracking-widest text-red-400 hover:text-red-300 uppercase cursor-pointer py-1 px-2 border border-red-500/10 hover:border-red-500/30 rounded"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
           )}
         </div>
       </main>
@@ -264,11 +309,11 @@ export default function AdminPage() {
       {/* Luxury Details Modal Overlay */}
       {selectedBooking && (
         <div
-          className="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto"
           onClick={() => setSelectedBooking(null)}
         >
           <div
-            className="bg-card border border-border rounded-xl p-8 max-w-xl w-full relative card-glow shimmer-top text-left space-y-6"
+            className="bg-card border border-border rounded-xl p-5 sm:p-8 max-w-xl w-full my-8 relative card-glow shimmer-top text-left space-y-5 sm:space-y-6 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
@@ -277,30 +322,34 @@ export default function AdminPage() {
                 <span className="text-[10px] font-sans tracking-[0.2em] text-primary uppercase block mb-1">
                   Enquiry Details
                 </span>
-                <h3 className="text-2xl font-serif text-foreground">
+                <h3 className="text-xl sm:text-2xl font-serif text-foreground break-words pr-2">
                   {selectedBooking.name}
                 </h3>
               </div>
               <button
                 onClick={() => setSelectedBooking(null)}
-                className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer p-1"
+                className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer p-1 shrink-0"
               >
                 <X size={20} />
               </button>
             </div>
 
             {/* Modal Details Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 text-sm">
               <div className="space-y-1">
                 <span className="text-[10px] font-sans tracking-wider text-muted-foreground uppercase block">
                   Email Address
                 </span>
-                <a
-                  href={`mailto:${selectedBooking.email}`}
-                  className="text-foreground hover:text-primary transition-colors block"
-                >
-                  {selectedBooking.email}
-                </a>
+                {selectedBooking.email ? (
+                  <a
+                    href={`mailto:${selectedBooking.email}`}
+                    className="text-foreground hover:text-primary transition-colors block break-all font-medium"
+                  >
+                    {selectedBooking.email}
+                  </a>
+                ) : (
+                  <span className="text-muted-foreground/45 italic block">No email address</span>
+                )}
               </div>
               <div className="space-y-1">
                 <span className="text-[10px] font-sans tracking-wider text-muted-foreground uppercase block">
@@ -308,7 +357,7 @@ export default function AdminPage() {
                 </span>
                 <a
                   href={`tel:${selectedBooking.phone}`}
-                  className="text-foreground hover:text-primary transition-colors block"
+                  className="text-foreground hover:text-primary transition-colors block break-all font-medium"
                 >
                   {selectedBooking.phone}
                 </a>
@@ -317,7 +366,7 @@ export default function AdminPage() {
                 <span className="text-[10px] font-sans tracking-wider text-muted-foreground uppercase block">
                   Photography Service
                 </span>
-                <span className="text-primary font-medium block">
+                <span className="text-primary font-semibold block break-words">
                   {selectedBooking.service}
                 </span>
               </div>
@@ -325,7 +374,7 @@ export default function AdminPage() {
                 <span className="text-[10px] font-sans tracking-wider text-muted-foreground uppercase block">
                   Preferred Date
                 </span>
-                <span className="text-foreground block">
+                <span className="text-foreground block font-medium">
                   {formatDate(selectedBooking.date)}
                 </span>
               </div>
@@ -344,7 +393,7 @@ export default function AdminPage() {
               <span className="text-[10px] font-sans tracking-wider text-muted-foreground uppercase block">
                 Visual Concept / Creative Notes
               </span>
-              <div className="bg-background/40 border border-border/50 rounded-lg p-4 text-sm text-foreground/90 whitespace-pre-wrap leading-relaxed max-h-48 overflow-y-auto">
+              <div className="bg-background/40 border border-border/50 rounded-lg p-3 sm:p-4 text-sm text-foreground/90 whitespace-pre-wrap leading-relaxed max-h-40 sm:max-h-48 overflow-y-auto">
                 {selectedBooking.message || (
                   <span className="italic text-muted-foreground/45">No notes provided for this session concept.</span>
                 )}
@@ -352,16 +401,16 @@ export default function AdminPage() {
             </div>
 
             {/* Modal Actions */}
-            <div className="flex justify-end gap-3 pt-2">
+            <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-2">
               <button
                 onClick={(e) => handleDelete(e, selectedBooking._id)}
-                className="text-xs font-sans tracking-widest text-red-400 hover:text-red-300 border border-red-500/20 hover:border-red-500/40 px-4 py-2 rounded-md transition-colors uppercase"
+                className="w-full sm:w-auto text-xs font-sans tracking-widest text-red-400 hover:text-red-300 border border-red-500/20 hover:border-red-500/40 px-4 py-2.5 sm:py-2 rounded-md transition-colors uppercase text-center cursor-pointer"
               >
                 Delete Enquiry
               </button>
               <button
                 onClick={() => setSelectedBooking(null)}
-                className="text-xs font-sans tracking-widest text-muted-foreground hover:text-foreground border border-border hover:border-primary/50 px-4 py-2 rounded-md transition-colors uppercase"
+                className="w-full sm:w-auto text-xs font-sans tracking-widest text-muted-foreground hover:text-foreground border border-border hover:border-primary/50 px-4 py-2.5 sm:py-2 rounded-md transition-colors uppercase text-center cursor-pointer"
               >
                 Close
               </button>
