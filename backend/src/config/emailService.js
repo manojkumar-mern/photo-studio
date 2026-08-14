@@ -162,29 +162,33 @@ export const sendBookingEmails = async (booking) => {
   `;
 
   // Perform independent email deliveries
-  // 1. Send to Customer
-  try {
-    const isProd = process.env.NODE_ENV === 'production';
-    const recipientEmail = (!isProd && process.env.RESEND_TEST_RECIPIENT) || booking.email;
-    if (!isProd && process.env.RESEND_TEST_RECIPIENT) {
-      console.log(`[Email Service] Sandbox Mode: Redirecting customer confirmation email from ${booking.email} to verified recipient: ${recipientEmail}`);
-    } else {
-      console.log(`[Email Service] Attempting to send customer confirmation email to: ${booking.email} from: ${fromEmail}`);
+  // 1. Send to Customer (if email is provided)
+  if (booking.email) {
+    try {
+      const isProd = process.env.NODE_ENV === 'production';
+      const recipientEmail = (!isProd && process.env.RESEND_TEST_RECIPIENT) || booking.email;
+      if (!isProd && process.env.RESEND_TEST_RECIPIENT) {
+        console.log(`[Email Service] Sandbox Mode: Redirecting customer confirmation email from ${booking.email} to verified recipient: ${recipientEmail}`);
+      } else {
+        console.log(`[Email Service] Attempting to send customer confirmation email to: ${booking.email} from: ${fromEmail}`);
+      }
+      const res = await resend.emails.send({
+        from: fromEmail,
+        to: recipientEmail,
+        subject: 'Booking Request Received - Pixelbees Photography',
+        html: customerHtml,
+      });
+      
+      if (res.error) {
+        console.error(`[Email Service] Resend API returned error for customer confirmation:`, res.error);
+      } else {
+        console.log(`[Email Service] Confirmation sent to customer successfully. Message ID: ${res.data?.id}`);
+      }
+    } catch (error) {
+      console.error(`[Email Service] Exception thrown while sending customer email:`, error.message);
     }
-    const res = await resend.emails.send({
-      from: fromEmail,
-      to: recipientEmail,
-      subject: 'Booking Request Received - Pixelbees Photography',
-      html: customerHtml,
-    });
-    
-    if (res.error) {
-      console.error(`[Email Service] Resend API returned error for customer confirmation:`, res.error);
-    } else {
-      console.log(`[Email Service] Confirmation sent to customer successfully. Message ID: ${res.data?.id}`);
-    }
-  } catch (error) {
-    console.error(`[Email Service] Exception thrown while sending customer email:`, error.message);
+  } else {
+    console.log('[Email Service] Booking has no email address. Skipping customer confirmation email.');
   }
 
   // 2. Send to Admin if email is configured

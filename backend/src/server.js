@@ -7,6 +7,7 @@ import rateLimit from 'express-rate-limit';
 import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import bookingRoutes from './routes/bookingRoutes.js';
+import whatsappRoutes from './routes/whatsappRoutes.js';
 
 // Load environment variables
 dotenv.config();
@@ -52,6 +53,7 @@ app.get('/api/health', (req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/bookings', bookingRoutes);
+app.use('/api/whatsapp', whatsappRoutes);
 
 // Global Error Handler
 app.use((err, req, res, next) => {
