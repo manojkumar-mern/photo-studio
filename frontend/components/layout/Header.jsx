@@ -78,7 +78,8 @@ export default function Header() {
               alt="Pixel Bees Photography logo"
               width={64}
               height={52}
-              className="h-[52px] w-auto object-contain flex-shrink-0"
+              style={{ height: "52px", width: "64px" }}
+              className="object-contain flex-shrink-0"
               priority
             />
 

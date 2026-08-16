@@ -214,3 +214,101 @@ export const sendBookingEmails = async (booking) => {
     console.warn('[Email Service] ADMIN_EMAIL is not configured. Skipping admin notification.');
   }
 };
+
+export const sendContactEmail = async (contact) => {
+  const apiKey = process.env.RESEND_API_KEY;
+  const fromEmail = process.env.EMAIL_FROM || 'onboarding@resend.dev';
+  const adminEmail = process.env.ADMIN_EMAIL;
+
+  if (!apiKey || apiKey === 're_123456789') {
+    console.warn('[Email Service] Resend API Key is not configured. Skipping email delivery.');
+    throw new Error('Resend API key not configured');
+  }
+
+  const resend = new Resend(apiKey);
+  const dateStr = new Date().toLocaleString('en-US');
+
+  const adminHtml = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <style>
+          body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #0C0C0D; color: #F4F1EA; margin: 0; padding: 0; }
+          .container { max-width: 600px; margin: 0 auto; background-color: #161618; border: 1px solid rgba(244, 241, 234, 0.1); border-radius: 8px; overflow: hidden; margin-top: 40px; margin-bottom: 40px; }
+          .header { padding: 40px 30px; text-align: center; border-bottom: 1px solid rgba(244, 241, 234, 0.1); }
+          .logo-text { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #C5A880; font-weight: 300; display: block; margin-bottom: 8px; }
+          .title { font-family: Georgia, serif; font-size: 26px; color: #F4F1EA; font-weight: 300; margin: 0; }
+          .content { padding: 40px 30px; line-height: 1.6; font-size: 14px; color: #8E8E93; }
+          .highlight { color: #F4F1EA; }
+          .details-box { background-color: #0C0C0D; border: 1px solid rgba(244, 241, 234, 0.05); border-radius: 6px; padding: 24px; margin: 20px 0; }
+          .footer { background-color: #0C0C0D; padding: 20px 30px; text-align: center; border-top: 1px solid rgba(244, 241, 234, 0.05); font-size: 11px; color: #8E8E93; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <span class="logo-text">Pixelbees Admin Console</span>
+            <h1 class="title">New Contact Enquiry</h1>
+          </div>
+          <div class="content">
+            <p>You have received a new contact form message. Here are the submission details:</p>
+            
+            <div class="details-box">
+              <table style="width: 100%; border-collapse: collapse;">
+                <tr style="border-bottom: 1px solid rgba(244, 241, 234, 0.05);">
+                  <td style="padding: 10px 0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #C5A880; font-weight: bold; width: 35%;">Client Name</td>
+                  <td style="padding: 10px 0; color: #F4F1EA; text-align: right;">${contact.name}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(244, 241, 234, 0.05);">
+                  <td style="padding: 10px 0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #C5A880; font-weight: bold;">Client Email</td>
+                  <td style="padding: 10px 0; color: #F4F1EA; text-align: right;"><a href="mailto:${contact.email}" style="color: #C5A880; text-decoration: none;">${contact.email}</a></td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(244, 241, 234, 0.05);">
+                  <td style="padding: 10px 0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #C5A880; font-weight: bold;">Submission Time</td>
+                  <td style="padding: 10px 0; color: #F4F1EA; text-align: right;">${dateStr}</td>
+                </tr>
+                <tr>
+                  <td colspan="2" style="padding-top: 15px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #C5A880; font-weight: bold; padding-bottom: 5px;">Message</td>
+                </tr>
+                <tr>
+                  <td colspan="2" style="color: #F4F1EA; font-style: italic; background-color: #0C0C0D; padding: 12px; border-radius: 4px; font-size: 13px; line-height: 1.5;">${contact.message}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="footer">
+            Pixelbees Photography Console.
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
+
+  if (adminEmail) {
+    try {
+      console.log(`[Email Service] Attempting to send admin contact notification email to: ${adminEmail} from: ${fromEmail}`);
+      const res = await resend.emails.send({
+        from: fromEmail,
+        to: adminEmail,
+        replyTo: contact.email,
+        subject: `New Contact Enquiry — ${contact.name}`,
+        html: adminHtml,
+      });
+
+      if (res.error) {
+        console.error(`[Email Service] Resend API returned error for admin contact notification:`, res.error);
+        throw new Error(res.error.message || 'Resend API returned error');
+      } else {
+        console.log(`[Email Service] Contact notification sent to admin successfully. Message ID: ${res.data?.id}`);
+        return res.data;
+      }
+    } catch (error) {
+      console.error(`[Email Service] Exception thrown while sending admin contact email:`, error.message);
+      throw error;
+    }
+  } else {
+    console.warn('[Email Service] ADMIN_EMAIL is not configured. Skipping admin notification.');
+    throw new Error('ADMIN_EMAIL is not configured');
+  }
+};

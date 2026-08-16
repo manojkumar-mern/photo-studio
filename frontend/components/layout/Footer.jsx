@@ -163,7 +163,8 @@ export default function Footer() {
               alt="Pixel Bees Photography logo"
               width={80}
               height={64}
-              className="h-16 w-auto object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+              style={{ height: "64px", width: "80px" }}
+              className="object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-300"
             />
             <div className="flex flex-col text-left">
               <span className="text-2xl font-serif font-medium tracking-[0.05em] text-[#F5EFE6] group-hover:text-primary transition-colors duration-300 leading-none">

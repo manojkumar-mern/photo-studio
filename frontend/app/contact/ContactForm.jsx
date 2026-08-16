@@ -32,11 +32,13 @@ export default function ContactForm() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [errors,   setErrors]   = useState({});
   const [status,   setStatus]   = useState(""); // "" | "submitting" | "success"
+  const [submitError, setSubmitError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
+    if (submitError) setSubmitError("");
   };
 
   const validate = () => {
@@ -53,14 +55,34 @@ export default function ContactForm() {
     return Object.keys(next).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
     setStatus("submitting");
-    setTimeout(() => {
+    setSubmitError("");
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+      const response = await fetch(`${apiUrl}/contact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to send message. Please try again later.");
+      }
+
       setStatus("success");
       setFormData({ name: "", email: "", message: "" });
-    }, 1200);
+    } catch (err) {
+      console.error("Contact submission error:", err);
+      setSubmitError(err.message || "An unexpected error occurred. Please try again.");
+      setStatus("");
+    }
   };
 
   if (status === "success") {
@@ -138,6 +160,12 @@ export default function ContactForm() {
             className={`${inputBase} resize-none ${errors.message ? "border-red-400 focus:border-red-400" : "border-[#E8E4DC] focus:border-primary"}`}
           />
         </Field>
+
+        {submitError && (
+          <div role="alert" className="p-3.5 bg-red-50 border border-red-200 text-red-600 text-xs rounded-md font-sans leading-relaxed">
+            {submitError}
+          </div>
+        )}
 
         <button
           type="submit"
