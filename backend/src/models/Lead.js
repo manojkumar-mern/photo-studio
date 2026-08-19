@@ -76,6 +76,56 @@ const leadSchema = new mongoose.Schema({
   qualification: {
     type: String,
     default: null
+  },
+  n8n: {
+    status: {
+      type: String,
+      enum: ['pending', 'sent', 'failed'],
+      default: 'pending'
+    },
+    sentAt: {
+      type: Date,
+      default: null
+    },
+    lastAttemptAt: {
+      type: Date,
+      default: null
+    },
+    attempts: {
+      type: Number,
+      default: 0
+    },
+  },
+  crm: {
+    provider: {
+      type: String,
+      default: 'zoho'
+    },
+    status: {
+      type: String,
+      enum: ['pending', 'synced', 'failed', 'updated'],
+      default: 'pending'
+    },
+    zohoLeadId: {
+      type: String,
+      default: null
+    },
+    lastAttemptAt: {
+      type: Date,
+      default: null
+    },
+    attempts: {
+      type: Number,
+      default: 0
+    },
+    lastError: {
+      type: String,
+      default: null
+    },
+    syncedAt: {
+      type: Date,
+      default: null
+    }
   }
 }, {
   timestamps: true

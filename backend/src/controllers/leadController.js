@@ -1,4 +1,6 @@
 import Lead from '../models/Lead.js';
+import { sendLeadToN8n } from '../services/n8n/lead.service.js';
+import { syncLeadToZoho } from '../services/zoho/zoho.service.js';
 
 // Create a new wedding lead
 export const createLead = async (req, res) => {
@@ -78,7 +80,17 @@ export const createLead = async (req, res) => {
 
     await newLead.save();
 
-    // 5. Clean success response without exposing internal database fields
+    // 5. Trigger n8n delivery in the background (non-blocking)
+    sendLeadToN8n(newLead).catch((err) => {
+      console.error('[n8n Service] Asynchronous delivery trigger failed:', err);
+    });
+
+    // 6. Trigger direct Zoho CRM synchronization in the background (non-blocking)
+    syncLeadToZoho(newLead._id).catch((err) => {
+      console.error('[Zoho Service] Asynchronous Zoho CRM sync failed:', err);
+    });
+
+    // 6. Clean success response without exposing internal database fields
     return res.status(201).json({
       success: true,
       message: 'Your enquiry has been received successfully.'
@@ -96,6 +108,68 @@ export const createLead = async (req, res) => {
     return res.status(500).json({
       status: 'error',
       message: 'Something went wrong while sending your enquiry. Please try again.'
+    });
+  }
+};
+
+// Update lead CRM status (Callback from n8n)
+export const updateLeadCrmStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status, zohoLeadId, lastError, attempts } = req.body;
+
+    if (!status || !['pending', 'synced', 'failed'].includes(status)) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Invalid CRM status. Must be pending, synced, or failed'
+      });
+    }
+
+    const updateFields = {
+      'crm.status': status,
+      'crm.lastAttemptAt': new Date(),
+      'crm.lastError': lastError || null
+    };
+
+    if (attempts !== undefined) {
+      updateFields['crm.attempts'] = Number(attempts);
+    } else {
+      updateFields['crm.attempts'] = 1;
+    }
+
+    if (status === 'synced') {
+      updateFields['crm.zohoLeadId'] = zohoLeadId || null;
+      updateFields['crm.syncedAt'] = new Date();
+      updateFields['crm.lastError'] = null;
+    }
+
+    const updatedLead = await Lead.findByIdAndUpdate(
+      id,
+      { $set: updateFields },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedLead) {
+      return res.status(404).json({
+        status: 'error',
+        message: 'Lead not found'
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'CRM integration status updated successfully',
+      data: {
+        id: updatedLead._id,
+        crm: updatedLead.crm
+      }
+    });
+
+  } catch (error) {
+    console.error('Error updating lead CRM status:', error);
+    return res.status(500).json({
+      status: 'error',
+      message: 'Internal server error while updating CRM status'
     });
   }
 };
