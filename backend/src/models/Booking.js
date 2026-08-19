@@ -36,6 +36,37 @@ const bookingSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
+  crm: {
+    provider: {
+      type: String,
+      default: 'zoho'
+    },
+    status: {
+      type: String,
+      enum: ['pending', 'synced', 'failed', 'updated'],
+      default: 'pending'
+    },
+    zohoLeadId: {
+      type: String,
+      default: null
+    },
+    lastAttemptAt: {
+      type: Date,
+      default: null
+    },
+    attempts: {
+      type: Number,
+      default: 0
+    },
+    lastError: {
+      type: String,
+      default: null
+    },
+    syncedAt: {
+      type: Date,
+      default: null
+    }
+  },
   createdAt: {
     type: Date,
     default: Date.now

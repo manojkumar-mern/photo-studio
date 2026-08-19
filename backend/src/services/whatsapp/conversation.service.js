@@ -1,6 +1,7 @@
 import WhatsAppConversation from '../../models/WhatsAppConversation.js';
 import Booking from '../../models/Booking.js';
 import { sendBookingEmails } from '../../config/emailService.js';
+import { syncBookingToZoho } from '../zoho/zoho.service.js';
 import * as msgService from './message.service.js';
 
 /**
@@ -267,14 +268,19 @@ export const handleIncomingMessage = async (incomingEvent) => {
 
           const savedBooking = await newBooking.save();
 
-          // 2. Trigger asynchronous Resend email notification
+          // 2. Trigger direct Zoho CRM synchronization in the background (non-blocking)
+          syncBookingToZoho(savedBooking._id).catch((err) => {
+            console.error('[Zoho Service] Asynchronous WhatsApp booking Zoho CRM sync failed:', err);
+          });
+
+          // 3. Trigger asynchronous Resend email notification
           try {
             await sendBookingEmails(savedBooking);
           } catch (emailErr) {
             console.error('[Conversation Service] Error triggering emails for WhatsApp booking:', emailErr);
           }
 
-          // 3. Send booking confirmation message
+          // 4. Send booking confirmation message
           await msgService.sendBookingConfirmation(from);
 
         } else if (buttonPayload === 'confirm_booking_change') {
