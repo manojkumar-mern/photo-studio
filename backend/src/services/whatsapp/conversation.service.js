@@ -83,7 +83,24 @@ export const handleIncomingMessage = async (incomingEvent) => {
           await conversation.save();
           await msgService.sendServiceSelection(from);
         } else if (buttonPayload === 'menu_gallery') {
-          await msgService.sendGalleryMessage(from);
+          // Find latest Booking or Lead for this phone number to associate with the portfolio event
+          let entity = await Booking.findOne({ phone: from }).sort({ createdAt: -1 });
+          if (!entity) {
+            entity = await Lead.findOne({ phone: from }).sort({ createdAt: -1 });
+          }
+          if (!entity) {
+            entity = new Booking({
+              name: conversation.customerName || 'WhatsApp Customer',
+              phone: from,
+              service: conversation.service ? `${conversation.service} (${conversation.package || 'Standard'})` : 'Wedding Documentary (Standard)',
+              date: conversation.eventDate || new Date(),
+              message: 'WhatsApp Portfolio Request'
+            });
+            await entity.save();
+          }
+          sendAutomationEvent('portfolio.requested', entity).catch((err) => {
+            console.error('[n8n Service] Failed to dispatch portfolio.requested event:', err);
+          });
         } else if (buttonPayload === 'menu_talk_to_us') {
           conversation.status = 'human_support';
           conversation.currentStep = 'HUMAN_SUPPORT';

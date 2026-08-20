@@ -90,6 +90,80 @@ const bookingSchema = new mongoose.Schema({
       default: null
     }
   },
+  portfolio: {
+    status: {
+      type: String,
+      enum: ['pending', 'sent', 'failed'],
+      default: 'pending'
+    },
+    sentAt: {
+      type: Date,
+      default: null
+    },
+    lastAttemptAt: {
+      type: Date,
+      default: null
+    },
+    attempts: {
+      type: Number,
+      default: 0
+    },
+    lastError: {
+      type: String,
+      default: null
+    }
+  },
+  quotation: {
+    status: {
+      type: String,
+      enum: ['pending', 'sent', 'failed'],
+      default: 'pending'
+    },
+    sentAt: {
+      type: Date,
+      default: null
+    },
+    lastAttemptAt: {
+      type: Date,
+      default: null
+    },
+    attempts: {
+      type: Number,
+      default: 0
+    },
+    lastError: {
+      type: String,
+      default: null
+    }
+  },
+  status: {
+    type: String,
+    enum: ['pending', 'booked', 'not_booked'],
+    default: 'pending'
+  },
+  followup: {
+    status: {
+      type: String,
+      enum: ['pending', 'sent', 'failed'],
+      default: 'pending'
+    },
+    sentAt: {
+      type: Date,
+      default: null
+    },
+    lastAttemptAt: {
+      type: Date,
+      default: null
+    },
+    attempts: {
+      type: Number,
+      default: 0
+    },
+    lastError: {
+      type: String,
+      default: null
+    }
+  },
   createdAt: {
     type: Date,
     default: Date.now

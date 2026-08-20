@@ -119,10 +119,26 @@ export const updateBooking = async (req, res) => {
       });
     }
 
-    // Trigger booking.updated event in the background (non-blocking)
-    sendAutomationEvent('booking.updated', updatedBooking).catch((err) => {
-      console.error('[n8n Service] Asynchronous booking.updated event failed:', err);
-    });
+    // Trigger status transition events or generic update event
+    if (req.body.status !== undefined) {
+      sendAutomationEvent('booking.status.updated', updatedBooking).catch((err) => {
+        console.error('[n8n Service] Asynchronous booking.status.updated event failed:', err);
+      });
+
+      if (req.body.status === 'booked') {
+        sendAutomationEvent('booking.booked', updatedBooking).catch((err) => {
+          console.error('[n8n Service] Asynchronous booking.booked event failed:', err);
+        });
+      } else if (req.body.status === 'not_booked') {
+        sendAutomationEvent('booking.not_booked', updatedBooking).catch((err) => {
+          console.error('[n8n Service] Asynchronous booking.not_booked event failed:', err);
+        });
+      }
+    } else {
+      sendAutomationEvent('booking.updated', updatedBooking).catch((err) => {
+        console.error('[n8n Service] Asynchronous booking.updated event failed:', err);
+      });
+    }
 
     return res.status(200).json({
       status: 'success',

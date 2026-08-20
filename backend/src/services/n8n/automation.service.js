@@ -1,11 +1,12 @@
 import Lead from '../../models/Lead.js';
 import Booking from '../../models/Booking.js';
+import { getPortfolioUrl, getQuotationUrl } from '../../config/resources.config.js';
 
 /**
  * Sends a structured business automation event to n8n Webhook asynchronously.
  * Envelops the payload, manages timeout (5s), and updates the DB entity with the outcome.
  *
- * @param {string} eventType - The classification of event (e.g. 'lead.created', 'booking.completed')
+ * @param {string} eventType - The classification of event (e.g. 'lead.created', 'booking.completed', 'booking.updated', 'booking.status.updated', 'booking.booked', 'booking.not_booked', 'portfolio.requested', 'quotation.requested', 'followup.requested')
  * @param {Object} entity - The Mongoose document instance (Lead or Booking)
  * @returns {Promise<Object>} Status object { success: boolean, error?: string }
  */
@@ -22,49 +23,28 @@ export const sendAutomationEvent = async (eventType, entity) => {
   const eventId = `${entity._id}_${Date.now()}`;
   const timestamp = new Date().toISOString();
 
-  // Structure the consistent event envelope
-  const envelope = {
-    eventType,
-    eventId,
-    timestamp,
-    source: 'photo-studio'
-  };
+  // Determine model type
+  const isLead = entity.constructor && entity.constructor.modelName === 'Lead';
 
-  if (eventType === 'lead.created') {
-    envelope.customer = {
-      name: entity.name,
-      phone: entity.phone,
-      email: entity.email || ''
-    };
-    envelope.lead = {
-      leadId: entity._id.toString(),
-      weddingDate: entity.weddingDate ? entity.weddingDate.toISOString() : '',
-      weddingLocation: entity.weddingLocation || '',
-      guestCount: entity.guestCount !== undefined ? entity.guestCount : null,
-      packageInterest: entity.packageInterest || 'Not Sure',
-      requirements: entity.requirements || ''
-    };
-    envelope.crm = {
-      provider: entity.crm?.provider || 'zoho',
-      recordId: entity.crm?.zohoLeadId || null
-    };
-  } else if (eventType.startsWith('booking.')) {
-    envelope.customer = {
-      name: entity.name,
-      phone: entity.phone,
-      email: entity.email || ''
-    };
+  // Extract category and package tier
+  let serviceCategory = 'Wedding Documentary'; // default for Leads
+  let packageTier = 'Standard';
 
-    let serviceCategory = entity.service || '';
-    let packageTier = 'Not Sure';
+  let location = '';
+  let requirements = entity.requirements || entity.message || '';
+
+  if (isLead) {
+    packageTier = entity.packageInterest || 'Standard';
+    location = entity.weddingLocation || '';
+  } else {
+    // It's a Booking
+    serviceCategory = entity.service || 'Other Studio Shoot';
     const match = serviceCategory.match(/^(.*?)\s*\((Standard|Premium|Elite)\)$/i);
     if (match) {
       serviceCategory = match[1].trim();
       packageTier = match[2];
     }
-
-    let location = '';
-    let requirements = entity.message || '';
+    
     if (entity.message && entity.message.startsWith('WhatsApp Booking')) {
       const lines = entity.message.split('\n');
       for (const line of lines) {
@@ -75,9 +55,43 @@ export const sendAutomationEvent = async (eventType, entity) => {
         }
       }
     }
+  }
 
+  // Structure the consistent event envelope
+  const envelope = {
+    eventType,
+    eventId,
+    timestamp,
+    source: isLead ? 'website' : 'whatsapp',
+    customer: {
+      name: entity.name || '',
+      phone: entity.phone || '',
+      email: entity.email || ''
+    },
+    meta: {
+      entityId: entity._id.toString(),
+      entityType: isLead ? 'Lead' : 'Booking'
+    }
+  };
+
+  // Populate specific payload details
+  if (eventType === 'lead.created') {
+    envelope.lead = {
+      leadId: entity._id.toString(),
+      weddingDate: entity.weddingDate ? entity.weddingDate.toISOString() : '',
+      weddingLocation: location,
+      guestCount: entity.guestCount !== undefined ? entity.guestCount : null,
+      packageInterest: packageTier,
+      requirements: requirements
+    };
+    envelope.crm = {
+      provider: entity.crm?.provider || 'zoho',
+      recordId: entity.crm?.zohoLeadId || null
+    };
+  } else if (eventType.startsWith('booking.')) {
     envelope.booking = {
       bookingId: entity._id.toString(),
+      status: entity.status || 'pending',
       service: serviceCategory,
       package: packageTier,
       date: entity.date ? entity.date.toISOString() : '',
@@ -88,13 +102,72 @@ export const sendAutomationEvent = async (eventType, entity) => {
       provider: entity.crm?.provider || 'zoho',
       recordId: entity.crm?.zohoLeadId || null
     };
+  } else if (eventType === 'portfolio.requested') {
+    const portfolioUrl = getPortfolioUrl(serviceCategory, packageTier);
+    envelope.portfolio = {
+      category: serviceCategory,
+      package: packageTier,
+      resource: portfolioUrl
+    };
+    if (!isLead) {
+      envelope.bookingId = entity._id.toString();
+    } else {
+      envelope.leadId = entity._id.toString();
+    }
+    envelope.crm = {
+      provider: entity.crm?.provider || 'zoho',
+      recordId: entity.crm?.zohoLeadId || null
+    };
+  } else if (eventType === 'quotation.requested') {
+    const quotationUrl = getQuotationUrl(serviceCategory, packageTier);
+    envelope.quotation = {
+      category: serviceCategory,
+      package: packageTier,
+      resource: quotationUrl
+    };
+    if (!isLead) {
+      envelope.bookingId = entity._id.toString();
+    } else {
+      envelope.leadId = entity._id.toString();
+    }
+    envelope.crm = {
+      provider: entity.crm?.provider || 'zoho',
+      recordId: entity.crm?.zohoLeadId || null
+    };
+  } else if (eventType === 'followup.requested') {
+    envelope.followup = {
+      category: serviceCategory,
+      package: packageTier,
+      date: isLead ? (entity.weddingDate ? entity.weddingDate.toISOString() : '') : (entity.date ? entity.date.toISOString() : ''),
+      location: location,
+      requirements: requirements
+    };
+    if (!isLead) {
+      envelope.bookingId = entity._id.toString();
+    } else {
+      envelope.leadId = entity._id.toString();
+    }
+    envelope.crm = {
+      provider: entity.crm?.provider || 'zoho',
+      recordId: entity.crm?.zohoLeadId || null
+    };
+  }
+
+  // Determine delivery field prefix (n8n vs portfolio vs quotation vs followup)
+  let fieldPrefix = 'n8n';
+  if (eventType === 'portfolio.requested') {
+    fieldPrefix = 'portfolio';
+  } else if (eventType === 'quotation.requested') {
+    fieldPrefix = 'quotation';
+  } else if (eventType === 'followup.requested') {
+    fieldPrefix = 'followup';
   }
 
   // Timeout controller (5s)
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 5000);
 
-  const nextAttempts = (entity.n8n?.attempts || 0) + 1;
+  const nextAttempts = (entity[fieldPrefix]?.attempts || 0) + 1;
   const lastAttemptAt = new Date();
 
   try {
@@ -121,14 +194,14 @@ export const sendAutomationEvent = async (eventType, entity) => {
     }
 
     const updatePayload = {
-      'n8n.status': 'sent',
-      'n8n.sentAt': new Date(),
-      'n8n.lastAttemptAt': lastAttemptAt,
-      'n8n.attempts': nextAttempts,
-      'n8n.lastError': null
+      [`${fieldPrefix}.status`]: 'sent',
+      [`${fieldPrefix}.sentAt`]: new Date(),
+      [`${fieldPrefix}.lastAttemptAt`]: lastAttemptAt,
+      [`${fieldPrefix}.attempts`]: nextAttempts,
+      [`${fieldPrefix}.lastError`]: null
     };
 
-    if (eventType === 'lead.created') {
+    if (isLead) {
       await Lead.findByIdAndUpdate(entity._id, { $set: updatePayload });
     } else {
       await Booking.findByIdAndUpdate(entity._id, { $set: updatePayload });
@@ -144,13 +217,13 @@ export const sendAutomationEvent = async (eventType, entity) => {
     console.error(`[n8n Automation] Failed to deliver event ${eventType}:`, errorMessage);
 
     const updatePayload = {
-      'n8n.status': 'failed',
-      'n8n.lastAttemptAt': lastAttemptAt,
-      'n8n.attempts': nextAttempts,
-      'n8n.lastError': errorMessage
+      [`${fieldPrefix}.status`]: 'failed',
+      [`${fieldPrefix}.lastAttemptAt`]: lastAttemptAt,
+      [`${fieldPrefix}.attempts`]: nextAttempts,
+      [`${fieldPrefix}.lastError`]: errorMessage
     };
 
-    if (eventType === 'lead.created') {
+    if (isLead) {
       await Lead.findByIdAndUpdate(entity._id, { $set: updatePayload });
     } else {
       await Booking.findByIdAndUpdate(entity._id, { $set: updatePayload });

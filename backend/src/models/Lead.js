@@ -96,6 +96,75 @@ const leadSchema = new mongoose.Schema({
       default: 0
     },
   },
+  portfolio: {
+    status: {
+      type: String,
+      enum: ['pending', 'sent', 'failed'],
+      default: 'pending'
+    },
+    sentAt: {
+      type: Date,
+      default: null
+    },
+    lastAttemptAt: {
+      type: Date,
+      default: null
+    },
+    attempts: {
+      type: Number,
+      default: 0
+    },
+    lastError: {
+      type: String,
+      default: null
+    }
+  },
+  quotation: {
+    status: {
+      type: String,
+      enum: ['pending', 'sent', 'failed'],
+      default: 'pending'
+    },
+    sentAt: {
+      type: Date,
+      default: null
+    },
+    lastAttemptAt: {
+      type: Date,
+      default: null
+    },
+    attempts: {
+      type: Number,
+      default: 0
+    },
+    lastError: {
+      type: String,
+      default: null
+    }
+  },
+  followup: {
+    status: {
+      type: String,
+      enum: ['pending', 'sent', 'failed'],
+      default: 'pending'
+    },
+    sentAt: {
+      type: Date,
+      default: null
+    },
+    lastAttemptAt: {
+      type: Date,
+      default: null
+    },
+    attempts: {
+      type: Number,
+      default: 0
+    },
+    lastError: {
+      type: String,
+      default: null
+    }
+  },
   crm: {
     provider: {
       type: String,
