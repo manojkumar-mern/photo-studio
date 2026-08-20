@@ -106,6 +106,12 @@ export const deleteBooking = async (req, res) => {
 export const updateBooking = async (req, res) => {
   try {
     const { id } = req.params;
+
+    if (req.body.status === 'booked') {
+      req.body['payment.status'] = 'requested';
+      req.body['payment.requestedAt'] = new Date();
+    }
+
     const updatedBooking = await Booking.findByIdAndUpdate(
       id,
       { $set: req.body },
@@ -128,6 +134,9 @@ export const updateBooking = async (req, res) => {
       if (req.body.status === 'booked') {
         sendAutomationEvent('booking.booked', updatedBooking).catch((err) => {
           console.error('[n8n Service] Asynchronous booking.booked event failed:', err);
+        });
+        sendAutomationEvent('payment.requested', updatedBooking).catch((err) => {
+          console.error('[n8n Service] Asynchronous payment.requested event failed:', err);
         });
       } else if (req.body.status === 'not_booked') {
         sendAutomationEvent('booking.not_booked', updatedBooking).catch((err) => {

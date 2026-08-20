@@ -11,6 +11,7 @@ import whatsappRoutes from './routes/whatsappRoutes.js';
 import contactRoutes from './routes/contactRoutes.js';
 import leadRoutes from './routes/leadRoutes.js';
 import automationRoutes from './routes/automationRoutes.js';
+import paymentRoutes from './routes/paymentRoutes.js';
 
 // Load environment variables
 dotenv.config();
@@ -60,6 +61,7 @@ app.use('/api/whatsapp', whatsappRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/leads', leadRoutes);
 app.use('/api/automation', automationRoutes);
+app.use('/api/payments', paymentRoutes);
 
 // Global Error Handler
 app.use((err, req, res, next) => {

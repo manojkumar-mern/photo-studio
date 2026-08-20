@@ -419,7 +419,8 @@ const mapBookingToZohoFields = (booking) => {
     Package_Interest: packageInterest,
     Description: requirements,
     Lead_Source: isWhatsApp ? 'WhatsApp' : 'Website',
-    Internal_Lead_Id: booking._id.toString()
+    Internal_Lead_Id: booking._id.toString(),
+    Lead_Status: booking.status === 'confirmed' ? 'Confirmed' : (booking.status === 'booked' ? 'Booked' : 'New')
   };
 };
 
@@ -430,7 +431,7 @@ const handleMockBookingFlow = async (booking) => {
   const phone = normalizePhone(booking.phone);
   const email = booking.email ? booking.email.toLowerCase().trim() : '';
 
-  console.log(`[Zoho CRM Booking Mock] Simulating sync for Booking ID: ${booking._id} (Name: ${booking.name}, Phone: ${phone})`);
+  console.log(`[Zoho CRM Booking Mock] Simulating sync for Booking ID: ${booking._id} (Name: ${booking.name}, Phone: ${phone}, Status: ${booking.status}, Payment Status: ${booking.payment?.status})`);
 
   // Simulate 500ms API latency
   await new Promise(resolve => setTimeout(resolve, 500));

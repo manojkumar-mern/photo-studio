@@ -102,6 +102,33 @@ export const sendAutomationEvent = async (eventType, entity) => {
       provider: entity.crm?.provider || 'zoho',
       recordId: entity.crm?.zohoLeadId || null
     };
+  } else if (eventType.startsWith('payment.')) {
+    envelope.bookingId = entity._id.toString();
+    envelope.payment = {
+      amount: entity.payment?.amount || 1000,
+      currency: entity.payment?.currency || 'INR',
+      status: entity.payment?.status || 'pending',
+      provider: entity.payment?.provider || 'mock',
+      transactionId: entity.payment?.transactionId || null,
+      requestedAt: entity.payment?.requestedAt ? entity.payment.requestedAt.toISOString() : null,
+      paidAt: entity.payment?.paidAt ? entity.payment.paidAt.toISOString() : null,
+      failedAt: entity.payment?.failedAt ? entity.payment.failedAt.toISOString() : null,
+      lastError: entity.payment?.lastError || null,
+      attempts: entity.payment?.attempts || 0
+    };
+    envelope.booking = {
+      bookingId: entity._id.toString(),
+      status: entity.status || 'pending',
+      service: serviceCategory,
+      package: packageTier,
+      date: entity.date ? entity.date.toISOString() : '',
+      location: location,
+      requirements: requirements
+    };
+    envelope.crm = {
+      provider: entity.crm?.provider || 'zoho',
+      recordId: entity.crm?.zohoLeadId || null
+    };
   } else if (eventType === 'portfolio.requested') {
     const portfolioUrl = getPortfolioUrl(serviceCategory, packageTier);
     envelope.portfolio = {
@@ -155,7 +182,10 @@ export const sendAutomationEvent = async (eventType, entity) => {
 
   // Determine delivery field prefix (n8n vs portfolio vs quotation vs followup)
   let fieldPrefix = 'n8n';
-  if (eventType === 'portfolio.requested') {
+  const isPaymentEvent = eventType.startsWith('payment.');
+  if (isPaymentEvent) {
+    fieldPrefix = null;
+  } else if (eventType === 'portfolio.requested') {
     fieldPrefix = 'portfolio';
   } else if (eventType === 'quotation.requested') {
     fieldPrefix = 'quotation';
@@ -167,7 +197,7 @@ export const sendAutomationEvent = async (eventType, entity) => {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 5000);
 
-  const nextAttempts = (entity[fieldPrefix]?.attempts || 0) + 1;
+  const nextAttempts = fieldPrefix ? ((entity[fieldPrefix]?.attempts || 0) + 1) : 0;
   const lastAttemptAt = new Date();
 
   try {
@@ -193,18 +223,20 @@ export const sendAutomationEvent = async (eventType, entity) => {
       throw new Error(`n8n webhook responded with status ${response.status} ${response.statusText}`);
     }
 
-    const updatePayload = {
-      [`${fieldPrefix}.status`]: 'sent',
-      [`${fieldPrefix}.sentAt`]: new Date(),
-      [`${fieldPrefix}.lastAttemptAt`]: lastAttemptAt,
-      [`${fieldPrefix}.attempts`]: nextAttempts,
-      [`${fieldPrefix}.lastError`]: null
-    };
+    if (fieldPrefix) {
+      const updatePayload = {
+        [`${fieldPrefix}.status`]: 'sent',
+        [`${fieldPrefix}.sentAt`]: new Date(),
+        [`${fieldPrefix}.lastAttemptAt`]: lastAttemptAt,
+        [`${fieldPrefix}.attempts`]: nextAttempts,
+        [`${fieldPrefix}.lastError`]: null
+      };
 
-    if (isLead) {
-      await Lead.findByIdAndUpdate(entity._id, { $set: updatePayload });
-    } else {
-      await Booking.findByIdAndUpdate(entity._id, { $set: updatePayload });
+      if (isLead) {
+        await Lead.findByIdAndUpdate(entity._id, { $set: updatePayload });
+      } else {
+        await Booking.findByIdAndUpdate(entity._id, { $set: updatePayload });
+      }
     }
 
     console.log(`[n8n Automation] Event ${eventType} delivered successfully.`);
@@ -216,17 +248,19 @@ export const sendAutomationEvent = async (eventType, entity) => {
 
     console.error(`[n8n Automation] Failed to deliver event ${eventType}:`, errorMessage);
 
-    const updatePayload = {
-      [`${fieldPrefix}.status`]: 'failed',
-      [`${fieldPrefix}.lastAttemptAt`]: lastAttemptAt,
-      [`${fieldPrefix}.attempts`]: nextAttempts,
-      [`${fieldPrefix}.lastError`]: errorMessage
-    };
+    if (fieldPrefix) {
+      const updatePayload = {
+        [`${fieldPrefix}.status`]: 'failed',
+        [`${fieldPrefix}.lastAttemptAt`]: lastAttemptAt,
+        [`${fieldPrefix}.attempts`]: nextAttempts,
+        [`${fieldPrefix}.lastError`]: errorMessage
+      };
 
-    if (isLead) {
-      await Lead.findByIdAndUpdate(entity._id, { $set: updatePayload });
-    } else {
-      await Booking.findByIdAndUpdate(entity._id, { $set: updatePayload });
+      if (isLead) {
+        await Lead.findByIdAndUpdate(entity._id, { $set: updatePayload });
+      } else {
+        await Booking.findByIdAndUpdate(entity._id, { $set: updatePayload });
+      }
     }
 
     return { success: false, error: errorMessage };
