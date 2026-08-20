@@ -1,5 +1,6 @@
 import Booking from '../models/Booking.js';
 import { sendBookingEmails } from '../config/emailService.js';
+import { sendAutomationEvent } from '../services/n8n/automation.service.js';
 
 // Create a new booking
 export const createBooking = async (req, res) => {
@@ -83,6 +84,11 @@ export const deleteBooking = async (req, res) => {
       });
     }
 
+    // Trigger booking.cancelled event in the background (non-blocking)
+    sendAutomationEvent('booking.cancelled', deletedBooking).catch((err) => {
+      console.error('[n8n Service] Asynchronous booking.cancelled event failed:', err);
+    });
+
     return res.status(200).json({
       status: 'success',
       message: 'Booking deleted successfully'
@@ -92,6 +98,42 @@ export const deleteBooking = async (req, res) => {
     return res.status(500).json({
       status: 'error',
       message: 'Internal server error while deleting booking'
+    });
+  }
+};
+
+// Update a booking (For Phase 5 testing & future extension)
+export const updateBooking = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedBooking = await Booking.findByIdAndUpdate(
+      id,
+      { $set: req.body },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedBooking) {
+      return res.status(404).json({
+        status: 'error',
+        message: 'Booking not found'
+      });
+    }
+
+    // Trigger booking.updated event in the background (non-blocking)
+    sendAutomationEvent('booking.updated', updatedBooking).catch((err) => {
+      console.error('[n8n Service] Asynchronous booking.updated event failed:', err);
+    });
+
+    return res.status(200).json({
+      status: 'success',
+      message: 'Booking updated successfully',
+      data: updatedBooking
+    });
+  } catch (error) {
+    console.error('Error updating booking:', error);
+    return res.status(500).json({
+      status: 'error',
+      message: 'Internal server error while updating booking'
     });
   }
 };

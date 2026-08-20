@@ -2,6 +2,7 @@ import WhatsAppConversation from '../../models/WhatsAppConversation.js';
 import Booking from '../../models/Booking.js';
 import { sendBookingEmails } from '../../config/emailService.js';
 import { syncBookingToZoho } from '../zoho/zoho.service.js';
+import { sendAutomationEvent } from '../n8n/automation.service.js';
 import * as msgService from './message.service.js';
 
 /**
@@ -273,14 +274,19 @@ export const handleIncomingMessage = async (incomingEvent) => {
             console.error('[Zoho Service] Asynchronous WhatsApp booking Zoho CRM sync failed:', err);
           });
 
-          // 3. Trigger asynchronous Resend email notification
+          // 3. Trigger n8n business automation event in the background (non-blocking)
+          sendAutomationEvent('booking.completed', savedBooking).catch((err) => {
+            console.error('[n8n Service] Asynchronous WhatsApp booking automation event failed:', err);
+          });
+
+          // 4. Trigger asynchronous Resend email notification
           try {
             await sendBookingEmails(savedBooking);
           } catch (emailErr) {
             console.error('[Conversation Service] Error triggering emails for WhatsApp booking:', emailErr);
           }
 
-          // 4. Send booking confirmation message
+          // 5. Send booking confirmation message
           await msgService.sendBookingConfirmation(from);
 
         } else if (buttonPayload === 'confirm_booking_change') {
