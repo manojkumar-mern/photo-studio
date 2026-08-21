@@ -4,7 +4,13 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import connectDB from './config/db.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 import authRoutes from './routes/authRoutes.js';
 import bookingRoutes from './routes/bookingRoutes.js';
 import whatsappRoutes from './routes/whatsappRoutes.js';
@@ -45,6 +51,9 @@ app.use(cors({
 }));
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
+
+// Serve static assets from 'public' folder
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Routes
 app.get('/api/health', (req, res) => {

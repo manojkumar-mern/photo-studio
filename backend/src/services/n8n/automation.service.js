@@ -57,10 +57,44 @@ export const sendAutomationEvent = async (eventType, entity) => {
     }
   }
 
+  // Generate logical idempotency key
+  let idempotencyKey = '';
+  const entityId = entity._id.toString();
+
+  if (eventType === 'lead.created') {
+    idempotencyKey = `${entityId}_lead.created`;
+  } else if (eventType.startsWith('booking.')) {
+    if (['booking.booked', 'booking.not_booked', 'booking.status.updated', 'booking.completed', 'booking.cancelled'].includes(eventType)) {
+      idempotencyKey = `${entityId}_${eventType}_${entity.status || 'pending'}`;
+    } else {
+      const version = entity.updatedAt ? new Date(entity.updatedAt).getTime() : '1';
+      idempotencyKey = `${entityId}_${eventType}_${version}`;
+    }
+  } else if (eventType.startsWith('payment.')) {
+    const txnId = entity.payment?.transactionId || 'no-txn';
+    const attempts = entity.payment?.attempts || 0;
+    const paymentStatus = entity.payment?.status || 'pending';
+    idempotencyKey = `${entityId}_${txnId}_${eventType}_${paymentStatus}_${attempts}`;
+  } else {
+    // Delivery-specific events
+    let fieldPrefix = null;
+    if (eventType === 'portfolio.requested') fieldPrefix = 'portfolio';
+    else if (eventType === 'quotation.requested') fieldPrefix = 'quotation';
+    else if (eventType === 'followup.requested') fieldPrefix = 'followup';
+
+    if (fieldPrefix) {
+      const attempts = entity[fieldPrefix]?.attempts || 0;
+      idempotencyKey = `${entityId}_${eventType}_${attempts}`;
+    } else {
+      idempotencyKey = `${entityId}_${eventType}`;
+    }
+  }
+
   // Structure the consistent event envelope
   const envelope = {
     eventType,
     eventId,
+    idempotencyKey,
     timestamp,
     source: isLead ? 'website' : 'whatsapp',
     customer: {
